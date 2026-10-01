@@ -1,0 +1,22 @@
+# qrels theo định dạng TREC: <qid> 0 <docid=url> <rel>
+#   rel: 0 = không phù hợp, 1 = phù hợp, 2 = rất phù hợp (hỗ trợ nDCG có mức độ).
+#   docid dùng URL để dễ đọc; EvalRunner so khớp theo URL của kết quả.
+#
+# ĐÂY LÀ QRELS MẪU (ít dòng) để minh họa định dạng + chạy thử pipeline. Qrels đầy đủ
+# phải tạo ở LOCAL bằng pooling top-k của 3 ranker trên corpus thật rồi gán nhãn thủ công
+# (xem eval/README.md). Thay các URL dưới bằng URL thật xuất hiện trong index của bạn.
+q01 0 https://hust.edu.vn/vi/tuyen-sinh/ 2
+q01 0 https://hust.edu.vn/vi/tin-tuc/thong-bao-tuyen-sinh-dai-hoc.html 2
+q01 0 https://ts.hust.edu.vn/ 1
+q02 0 https://hust.edu.vn/vi/dao-tao/hoc-phi.html 2
+q02 0 https://hust.edu.vn/vi/tin-tuc/muc-hoc-phi-ky-su.html 1
+q03 0 https://hust.edu.vn/vi/sinh-vien/hoc-bong.html 2
+q03 0 https://ctsv.hust.edu.vn/hoc-bong-khuyen-khich 1
+q04 0 https://hust.edu.vn/vi/sinh-vien/ky-tuc-xa.html 2
+q05 0 https://soict.hust.edu.vn/chuong-trinh-dao-tao 2
+q05 0 https://hust.edu.vn/vi/dao-tao/cong-nghe-thong-tin.html 1
+q07 0 https://sdh.hust.edu.vn/tuyen-sinh-thac-si 2
+q07 0 https://hust.edu.vn/vi/tin-tuc/tuyen-sinh-thac-si.html 1
+q08 0 https://sdh.hust.edu.vn/dao-tao-tien-si 2
+q10 0 https://ctt.hust.edu.vn/lich-thi 2
+q11 0 https://ctt.hust.edu.vn/dang-ky-hoc-phan 2

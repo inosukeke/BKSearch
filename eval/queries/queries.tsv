@@ -1,0 +1,37 @@
+# Test collection truy vấn (S1.7) — định dạng: <qid>\t<câu truy vấn>
+# ~35 truy vấn tiêu biểu cho corpus HUST. Bổ sung/chỉnh ở local tùy corpus thực tế.
+q01	tuyển sinh đại học
+q02	học phí kỹ sư
+q03	học bổng khuyến khích học tập
+q04	ký túc xá sinh viên
+q05	chương trình đào tạo công nghệ thông tin
+q06	điểm chuẩn các năm
+q07	tuyển sinh thạc sĩ
+q08	đào tạo tiến sĩ
+q09	nghiên cứu khoa học sinh viên
+q10	lịch thi cuối kỳ
+q11	đăng ký học phần
+q12	chuẩn đầu ra ngoại ngữ
+q13	trao đổi sinh viên quốc tế
+q14	thực tập doanh nghiệp
+q15	việc làm sau tốt nghiệp
+q16	hệ thống tín chỉ
+q17	phòng đào tạo liên hệ
+q18	quy chế đào tạo đại học chính quy
+q19	chương trình tiên tiến
+q20	học bổng du học
+q21	tuyển dụng giảng viên
+q22	hội nghị khoa học
+q23	cơ sở vật chất phòng thí nghiệm
+q24	đoàn thanh niên hoạt động
+q25	câu lạc bộ sinh viên
+q26	lịch nghỉ tết
+q27	đăng ký xét tuyển trực tuyến
+q28	ngành khoa học máy tính
+q29	chương trình đào tạo chất lượng cao
+q30	hướng dẫn nhập học tân sinh viên
+q31	miễn giảm học phí đối tượng chính sách
+q32	bảng điểm sinh viên
+q33	thông báo tuyển sinh sau đại học
+q34	hợp tác quốc tế trường đại học
+q35	chuyển đổi số trong giáo dục

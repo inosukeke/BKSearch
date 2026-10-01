@@ -39,6 +39,7 @@ public class App {
             case "serve-api"-> serveApi(args);
             case "schedule" -> schedule(args);
             case "migrate"  -> migrate(args);
+            case "eval-run" -> evalRun(args);
             default         -> usage();
         }
     }
@@ -100,6 +101,17 @@ public class App {
         try { Thread.currentThread().join(); } catch (InterruptedException ignored) {}
     }
 
+    /** eval-run [osUrl] [index] [k] — chạy bộ đánh giá 3 ranker (S1.7). */
+    private static void evalRun(String[] a) throws Exception {
+        String osUrl = (a.length > 1 && !a[1].startsWith("--")) ? a[1]
+                : System.getenv().getOrDefault("OPENSEARCH_URL", "http://localhost:9200");
+        String index = (a.length > 2) ? a[2] : "documents";
+        int k = arg(a, 3, 10);
+        new vn.hust.ir.eval.EvalRunner(osUrl, index, k).run(
+                Path.of("..", "eval", "queries", "queries.tsv"),
+                Path.of("..", "eval", "qrels", "qrels.txt"));
+    }
+
     private static void schedule(String[] a) {
         int minutes = arg(a, 1, 60);
         int maxPages = arg(a, 2, 100);
@@ -132,6 +144,7 @@ public class App {
               serve-api [port] [osUrl] [index]  Query Service Javalin (S1.1, mặc định 7070)
               schedule [phút] [maxPages]   chạy định kỳ (mặc định 60 phút)
               migrate [osUrl] [batch]      di trú SQLite → OpenSearch (+Postgres); --no-pg để bỏ Postgres
+              eval-run [osUrl] [index] [k] chạy bộ đánh giá 3 ranker BM25/VSM/LM (S1.7)
             """);
     }
 }
