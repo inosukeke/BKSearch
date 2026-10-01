@@ -29,10 +29,26 @@ Kết quả in ra bảng so sánh và ghi `eval/results/eval-report.txt`.
 > (xem `vn.hust.ir.query.Ranker`). Nếu chưa tạo 2 index song song, chỉ dòng BM25 có số liệu,
 > VSM/LM sẽ bị bỏ qua (cảnh báo) — vẫn không lỗi.
 
-## Tạo qrels đầy đủ (pooling)
-`qrels/qrels.txt` hiện là **mẫu** để minh họa định dạng + chạy thử. Qrels thật nên tạo bằng
-**pooling**: với mỗi truy vấn, gộp top-k kết quả của cả 3 ranker, loại trùng, rồi gán nhãn
-thủ công theo mức 0/1/2. `docid` dùng **URL** để khớp với kết quả trả về của engine.
+## Tạo qrels đầy đủ (pooling) — quy trình gán nhãn thủ công
+`qrels/qrels.txt` ban đầu là **mẫu**. Qrels thật tạo bằng **pooling** (3 bước):
+
+```bash
+# 0) Cần serve-api chạy + đủ 3 index (documents, documents_vsm, documents_lm)
+(cd java-lucene && java -jar target/hust-search.jar serve-api 7070 &)
+bash deploy/opensearch/create-ranker-indices.sh
+
+# 1) Sinh file pool để gán nhãn (gộp top-10 của bm25+vsm+lm, loại trùng theo URL)
+PYTHONUTF8=1 python eval/build_pool.py http://localhost:7070 10
+#   -> eval/qrels/pool-to-label.tsv  (cột rel để trống)
+
+# 2) MỞ pool-to-label.tsv, ĐIỀN cột `rel` cho từng dòng: 0=không phù hợp, 1=phù hợp, 2=rất phù hợp
+
+# 3) Chuyển file đã gán nhãn -> qrels TREC
+PYTHONUTF8=1 python eval/pool_to_qrels.py
+#   -> eval/qrels/qrels.txt  (ghi đè bản mẫu)
+```
+`docid` dùng **URL** để khớp kết quả engine. Gán xong, chạy lại `run-eval.sh` để có bảng
+so sánh BM25/VSM/LM theo nDCG@10 & MAP (điều kiện PASS S1.8).
 
 ## Phần đã kiểm thử tự động (không cần OpenSearch)
 Các hàm độ đo (`vn.hust.ir.eval.Metrics`) được test bằng dữ liệu giả trong

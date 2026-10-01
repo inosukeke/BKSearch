@@ -1,0 +1,7 @@
+
+=== Bảng so sánh ranker (trung bình trên tập truy vấn) ===
+ranker       P@10     R@10    F1@10      MAP      MRR    nDCG@10
+bm25       0.0111   0.0370   0.0171   0.0123   0.0370     0.0309
+vsm        0.0000   0.0000   0.0000   0.0000   0.0000     0.0000
+lm         0.0000   0.0000   0.0000   0.0000   0.0000     0.0000
+(n = số truy vấn đánh giá mỗi ranker: bm25=9 vsm=0 lm=9 )
