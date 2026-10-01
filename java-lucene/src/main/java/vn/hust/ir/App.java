@@ -37,6 +37,7 @@ public class App {
             case "search"   -> search(args);
             case "serve"    -> serve(args);
             case "schedule" -> schedule(args);
+            case "migrate"  -> migrate(args);
             default         -> usage();
         }
     }
@@ -95,6 +96,15 @@ public class App {
         new PeriodicRunner(DB_PATH, INDEX_DIR, maxPages, 2).start(minutes);
     }
 
+    /** migrate [osUrl] [batchSize] [--no-pg] — di trú SQLite → OpenSearch (+Postgres). */
+    private static void migrate(String[] a) throws Exception {
+        String osUrl = (a.length > 1 && !a[1].startsWith("--")) ? a[1] : "http://localhost:9200";
+        int batch = arg(a, 2, 500);
+        boolean writePg = true;
+        for (String s : a) if (s.equals("--no-pg")) writePg = false;
+        new vn.hust.ir.migrate.Migrator(DB_PATH, osUrl, "documents", batch, writePg).run();
+    }
+
     private static int arg(String[] a, int i, int def) {
         try { return i < a.length ? Integer.parseInt(a[i]) : def; }
         catch (NumberFormatException e) { return def; }
@@ -110,6 +120,7 @@ public class App {
               search <từ khóa...>          tìm kiếm ở dòng lệnh
               serve  [port]                mở web UI (mặc định 8080)
               schedule [phút] [maxPages]   chạy định kỳ (mặc định 60 phút)
+              migrate [osUrl] [batch]      di trú SQLite → OpenSearch (+Postgres); --no-pg để bỏ Postgres
             """);
     }
 }

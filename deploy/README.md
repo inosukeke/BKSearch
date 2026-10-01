@@ -29,6 +29,18 @@ docker exec -i bksearch-postgres psql -U bksearch -d bksearch < postgres/schema.
 > Dims vector = **768** (khớp model bi-encoder `vietnamese-bi-encoder` dự kiến ở S2.1).
 > Field `embedding` khai báo trước; vector sẽ được ghi khi ingest ở Phase 2.
 
+## Di trú dữ liệu cũ (S0.5)
+Đưa corpus SQLite (`java-lucene/data/hust.db`) vào OpenSearch + PostgreSQL (idempotent,
+upsert theo `url`, tách từ tiếng Việt khi ingest):
+```bash
+cd ../java-lucene
+mvn -q -DskipTests package
+java -jar target/hust-search.jar migrate            # +Postgres
+java -jar target/hust-search.jar migrate --no-pg    # chỉ OpenSearch
+```
+> Chạy lại không nhân đôi (`_id = SHA-256(url)`). Kiểm chứng: `curl localhost:9200/documents/_count`
+> cho số không đổi giữa các lần chạy.
+
 | Dịch vụ | Cổng |
 |---|---|
 | OpenSearch | 9200 |
