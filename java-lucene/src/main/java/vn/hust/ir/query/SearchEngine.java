@@ -4,19 +4,23 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import vn.hust.ir.embed.EmbeddingClient;
 import vn.hust.ir.migrate.OpenSearchClient;
 import vn.hust.ir.nlp.VietnameseAnalyzer;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
  * Lõi truy xuất: nối OpenSearch, chạy BM25/VSM/LM (S1.2, S1.3), xử lý truy vấn
- * phrase/Boolean (S1.4) và did-you-mean (S1.5).
+ * phrase/Boolean (S1.4), did-you-mean (S1.5); và Phase 2: vector k-NN (S2.3),
+ * hybrid RRF (S2.4), cross-encoder rerank (S2.5).
  *
- * <p>Tách từ truy vấn qua {@link VietnameseAnalyzer} giống lúc ingest (ràng buộc G3)
- * — việc này nằm trong {@link QueryParser}.
+ * <p>Tách từ truy vấn qua {@link VietnameseAnalyzer} giống lúc ingest (ràng buộc G3) — cho cả
+ * nhánh từ khóa (trong {@link QueryParser}) lẫn văn bản đưa đi embed (vector/hybrid).
  */
 public class SearchEngine {
 
@@ -26,27 +30,57 @@ public class SearchEngine {
     private final SpellChecker spell;
     private final ObjectMapper mapper = new ObjectMapper();
 
+    /** Client embedding/rerank (null nếu chưa cấu hình → chỉ phục vụ ranker từ khóa). */
+    private final EmbeddingClient embed;
+    /** Tham số RRF k (S2.4). */
+    private final int rrfK;
+    /** Số ứng viên lấy từ mỗi nguồn trước khi hợp nhất/rerank (S2.3/S2.4). */
+    private final int candidatePool;
+    /** Chỉ rerank top-K ứng viên (S2.5, ràng buộc G7). */
+    private final int rerankTopK;
+
+    public static final String EMBEDDING_FIELD = "embedding";
+
     private static final List<String> SOURCE_FIELDS =
             List.of("url", "title", "content", "doc_type", "subdomain");
 
     public SearchEngine(String osUrl, String baseIndex, SpellChecker spell) {
+        this(osUrl, baseIndex, spell, null, RrfFusion.DEFAULT_K, 100, 50);
+    }
+
+    public SearchEngine(String osUrl, String baseIndex, SpellChecker spell,
+                        EmbeddingClient embed, int rrfK, int candidatePool, int rerankTopK) {
         this.os = new OpenSearchClient(osUrl);
         this.baseIndex = baseIndex;
         this.parser = new QueryParser(VietnameseAnalyzer.get(), mapper);
         this.spell = spell;
+        this.embed = embed;
+        this.rrfK = rrfK > 0 ? rrfK : RrfFusion.DEFAULT_K;
+        this.candidatePool = Math.max(10, candidatePool);
+        this.rerankTopK = Math.max(1, rerankTopK);
     }
 
     /** Dùng cho test: cho phép tiêm client/parser (không bắt buộc OpenSearch sống). */
     SearchEngine(OpenSearchClient os, String baseIndex, QueryParser parser, SpellChecker spell) {
+        this(os, baseIndex, parser, spell, null);
+    }
+
+    /** Dùng cho test: tiêm thêm EmbeddingClient (vector/hybrid/rerank). */
+    SearchEngine(OpenSearchClient os, String baseIndex, QueryParser parser, SpellChecker spell,
+                 EmbeddingClient embed) {
         this.os = os;
         this.baseIndex = baseIndex;
         this.parser = parser;
         this.spell = spell;
+        this.embed = embed;
+        this.rrfK = RrfFusion.DEFAULT_K;
+        this.candidatePool = 100;
+        this.rerankTopK = 50;
     }
 
     /**
-     * Dựng thân request OpenSearch (query + highlight + phân trang). Tách riêng để test
-     * mà không cần engine sống.
+     * Dựng thân request OpenSearch cho nhánh TỪ KHÓA (query + highlight + phân trang).
+     * Tách riêng để test mà không cần engine sống.
      */
     ObjectNode buildRequest(String rawQuery, int from, int size) {
         ObjectNode body = mapper.createObjectNode();
@@ -68,27 +102,62 @@ public class SearchEngine {
     }
 
     /**
-     * Tìm kiếm với phân trang 1-based.
-     * @throws QueryParseException nếu cú pháp sai (tầng REST → 400).
+     * Dựng thân request k-NN (S2.3): truy vấn {@code knn} trên field {@code embedding}.
+     * Tách riêng để test việc dựng body mà không cần engine sống.
      */
+    ObjectNode buildKnnRequest(float[] vector, int k) {
+        ObjectNode body = mapper.createObjectNode();
+        body.put("size", Math.max(1, k));
+        ObjectNode query = body.putObject("query");
+        ObjectNode knn = query.putObject("knn");
+        ObjectNode field = knn.putObject(EMBEDDING_FIELD);
+        ArrayNode vec = field.putArray("vector");
+        for (float v : vector) vec.add(v);
+        field.put("k", Math.max(1, k));
+        ArrayNode src = body.putArray("_source");
+        SOURCE_FIELDS.forEach(src::add);
+        return body;
+    }
+
+    // ---- API tìm kiếm --------------------------------------------------------
+
+    /** Tương thích Phase 1: không rerank. */
     public SearchResponse search(String rawQuery, int page, int pageSize, Ranker ranker) throws Exception {
+        return search(rawQuery, page, pageSize, ranker, false);
+    }
+
+    /**
+     * Tìm kiếm với phân trang 1-based, tùy chọn rerank (S2.5).
+     *
+     * <p>Nhánh TỪ KHÓA (bm25/vsm/lm) KHÔNG rerank → giữ nguyên đường đi hiệu quả Phase 1
+     * (from/size ở OpenSearch). Các nhánh vector/hybrid, hoặc bất kỳ ranker nào BẬT rerank →
+     * đi qua "pool ứng viên" rồi (rerank &) phân trang ở client.
+     *
+     * @throws QueryParseException nếu cú pháp sai (tầng REST → 400).
+     * @throws EmbeddingClient.EmbeddingException nếu embedding/rerank service lỗi (REST → 502).
+     */
+    public SearchResponse search(String rawQuery, int page, int pageSize, Ranker ranker, boolean rerank)
+            throws Exception {
         int p = Math.max(1, page);
         int size = Math.max(1, pageSize);
+
+        if (!ranker.usesEmbedding() && !rerank) {
+            return keywordSearch(rawQuery, p, size, ranker);
+        }
+        return candidateSearch(rawQuery, p, size, ranker, rerank);
+    }
+
+    /** Đường đi Phase 1: OpenSearch lo phân trang từ khóa. */
+    private SearchResponse keywordSearch(String rawQuery, int p, int size, Ranker ranker) throws Exception {
         int from = (p - 1) * size;
         String index = ranker.indexName(baseIndex);
-
         ObjectNode body = buildRequest(rawQuery, from, size);
 
         long t0 = System.nanoTime();
         JsonNode res = os.search(index, body);
         long tookMs = (System.nanoTime() - t0) / 1_000_000;
 
-        SearchResponse out = new SearchResponse();
-        out.query = rawQuery;
-        out.ranker = ranker.param();
-        out.segmented_query = VietnameseAnalyzer.get().segment(rawQuery);
-        out.page = p;
-        out.page_size = size;
+        SearchResponse out = baseResponse(rawQuery, ranker, p, size, false);
         out.took_ms = tookMs;
         out.total = res.path("hits").path("total").path("value").asLong(0);
         out.total_pages = SearchResponse.totalPages(out.total, size);
@@ -97,8 +166,139 @@ public class SearchEngine {
         return out;
     }
 
+    /**
+     * Đường đi Phase 2: lấy pool ứng viên (vector / hybrid / từ khóa), tùy chọn rerank top-K,
+     * rồi phân trang trên pool. {@code total} = số ứng viên pool (không phải tổng corpus).
+     */
+    private SearchResponse candidateSearch(String rawQuery, int p, int size, Ranker ranker, boolean rerank)
+            throws Exception {
+        if (rawQuery == null || rawQuery.isBlank()) {
+            throw new QueryParseException("Truy vấn rỗng.");
+        }
+        long t0 = System.nanoTime();
+        List<Cand> pool = switch (ranker) {
+            case VECTOR -> vectorCandidates(rawQuery, candidatePool);
+            case HYBRID -> hybridCandidates(rawQuery, candidatePool);
+            default     -> keywordCandidates(rawQuery, ranker, candidatePool); // bm25/vsm/lm + rerank
+        };
+        if (rerank) rerankInPlace(rawQuery, pool);
+        long tookMs = (System.nanoTime() - t0) / 1_000_000;
+
+        SearchResponse out = baseResponse(rawQuery, ranker, p, size, rerank);
+        out.took_ms = tookMs;
+        out.total = pool.size();
+        out.total_pages = SearchResponse.totalPages(out.total, size);
+        int from = (p - 1) * size;
+        List<SearchHit> hits = new ArrayList<>();
+        for (int i = from; i < Math.min(from + size, pool.size()); i++) hits.add(pool.get(i).hit);
+        out.results = hits;
+        out.suggestion = spell.suggestQuery(rawQuery).orElse(null);
+        return out;
+    }
+
+    // ---- Lấy ứng viên --------------------------------------------------------
+
+    private List<Cand> keywordCandidates(String rawQuery, Ranker ranker, int pool) throws Exception {
+        ObjectNode body = buildRequest(rawQuery, 0, pool);
+        JsonNode res = os.search(ranker.indexName(baseIndex), body);
+        return mapCands(res.path("hits").path("hits"));
+    }
+
+    private List<Cand> vectorCandidates(String rawQuery, int pool) throws Exception {
+        float[] vec = embedQuery(rawQuery);
+        ObjectNode body = buildKnnRequest(vec, pool);
+        JsonNode res = os.search(baseIndex, body);
+        return mapCands(res.path("hits").path("hits"));
+    }
+
+    /** Hybrid: hợp nhất danh sách BM25 + vector bằng RRF (S2.4). */
+    private List<Cand> hybridCandidates(String rawQuery, int pool) throws Exception {
+        // BM25 trên index gốc.
+        JsonNode bmRes = os.search(baseIndex, buildRequest(rawQuery, 0, pool));
+        List<Cand> bm = mapCands(bmRes.path("hits").path("hits"));
+        // Vector trên index gốc.
+        List<Cand> vec = vectorCandidates(rawQuery, pool);
+
+        // Gộp nguồn theo url để lấy lại _source.
+        Map<String, Cand> byUrl = new LinkedHashMap<>();
+        for (Cand c : bm) byUrl.putIfAbsent(c.url, c);
+        for (Cand c : vec) byUrl.putIfAbsent(c.url, c);
+
+        List<List<String>> rankedLists = List.of(urls(bm), urls(vec));
+        LinkedHashMap<String, Double> fused = RrfFusion.fuse(rankedLists, rrfK);
+
+        List<Cand> out = new ArrayList<>(fused.size());
+        for (var e : fused.entrySet()) {
+            Cand base = byUrl.get(e.getKey());
+            if (base == null) continue;
+            base.hit.score = e.getValue();   // điểm RRF
+            out.add(base);
+        }
+        return out;
+    }
+
+    private static List<String> urls(List<Cand> cs) {
+        List<String> out = new ArrayList<>(cs.size());
+        for (Cand c : cs) out.add(c.url);
+        return out;
+    }
+
+    /** Embedding truy vấn: tách từ (G3) giống ingest rồi gọi service. */
+    private float[] embedQuery(String rawQuery) {
+        requireEmbed();
+        String seg = VietnameseAnalyzer.get().segment(rawQuery);
+        if (seg.isBlank()) seg = VietnameseAnalyzer.get().normalize(rawQuery);
+        return embed.embedOne(seg);
+    }
+
+    private void requireEmbed() {
+        if (embed == null) {
+            throw new EmbeddingClient.EmbeddingException(
+                    "Embedding service chưa cấu hình (đặt EMBED_URL / bật service) — không chạy được vector/hybrid/rerank.");
+        }
+    }
+
+    // ---- Rerank (S2.5) -------------------------------------------------------
+
+    /** Chấm lại top-K của pool bằng cross-encoder rồi SẮP XẾP LẠI phần đầu đó. */
+    private void rerankInPlace(String rawQuery, List<Cand> pool) {
+        requireEmbed();
+        int n = Math.min(rerankTopK, pool.size());
+        if (n <= 1) return;
+        List<Cand> head = new ArrayList<>(pool.subList(0, n));
+        List<String> docs = new ArrayList<>(n);
+        for (Cand c : head) docs.add(c.rerankText);
+
+        double[] scores = embed.rerank(rawQuery, docs);
+        int[] order = Reranker.order(scores);
+        for (int rankPos = 0; rankPos < n; rankPos++) {
+            int origIdx = order[rankPos];
+            Cand c = head.get(origIdx);
+            c.hit.score = scores[origIdx];   // điểm cross-encoder
+            pool.set(rankPos, c);
+        }
+    }
+
+    // ---- Ánh xạ kết quả ------------------------------------------------------
+
+    private SearchResponse baseResponse(String rawQuery, Ranker ranker, int p, int size, boolean rerank) {
+        SearchResponse out = new SearchResponse();
+        out.query = rawQuery;
+        out.ranker = ranker.param() + (rerank ? "+rerank" : "");
+        out.segmented_query = VietnameseAnalyzer.get().segment(rawQuery);
+        out.page = p;
+        out.page_size = size;
+        return out;
+    }
+
     private List<SearchHit> mapHits(JsonNode hits) {
         List<SearchHit> list = new ArrayList<>();
+        for (Cand c : mapCands(hits)) list.add(c.hit);
+        return list;
+    }
+
+    private List<Cand> mapCands(JsonNode hits) {
+        List<Cand> list = new ArrayList<>();
         if (!hits.isArray()) return list;
         for (JsonNode h : hits) {
             JsonNode src = h.path("_source");
@@ -108,20 +308,28 @@ public class SearchEngine {
             hit.doc_type = src.path("doc_type").asText("");
             hit.subdomain = src.path("subdomain").asText("");
             hit.score = h.path("_score").asDouble(0);
-            hit.snippet = extractSnippet(h, src);
-            list.add(hit);
+            String content = src.path("content").asText("");
+            hit.snippet = extractSnippet(h, content);
+            list.add(new Cand(hit.url, hit, rerankText(hit.title, content)));
         }
         return list;
     }
 
+    /** Văn bản đưa cross-encoder: title + content THÔ (không tách từ), cắt ngắn để an toàn. */
+    private static String rerankText(String title, String content) {
+        String t = (title == null ? "" : title).trim();
+        String c = (content == null ? "" : content).trim();
+        String joined = t.isEmpty() ? c : (c.isEmpty() ? t : t + ". " + c);
+        return joined.length() > 2000 ? joined.substring(0, 2000) : joined;
+    }
+
     /** Ưu tiên fragment highlight (thay '_'→' '); nếu không có thì cắt đầu content. */
-    private String extractSnippet(JsonNode hit, JsonNode src) {
+    private String extractSnippet(JsonNode hit, String content) {
         JsonNode hl = hit.path("highlight").path(QueryParser.CONTENT_FIELD);
         if (hl.isArray() && !hl.isEmpty()) {
             return deSegment(hl.get(0).asText(""));
         }
-        String content = src.path("content").asText("");
-        if (content.length() > 180) content = content.substring(0, 180) + "…";
+        if (content.length() > 180) return content.substring(0, 180) + "…";
         return content;
     }
 
@@ -136,4 +344,14 @@ public class SearchEngine {
     }
 
     public String baseIndex() { return baseIndex; }
+
+    /** Ứng viên nội bộ: giữ kèm văn bản rerank (thô) ngoài SearchHit trả cho client. */
+    private static final class Cand {
+        final String url;
+        final SearchHit hit;
+        final String rerankText;
+        Cand(String url, SearchHit hit, String rerankText) {
+            this.url = url; this.hit = hit; this.rerankText = rerankText;
+        }
+    }
 }

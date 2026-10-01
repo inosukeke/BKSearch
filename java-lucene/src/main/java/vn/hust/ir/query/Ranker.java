@@ -21,24 +21,33 @@ package vn.hust.ir.query;
 public enum Ranker {
 
     /** Okapi BM25 — mặc định. */
-    BM25("bm25", "", "BM25"),
+    BM25("bm25", "", "BM25", false),
     /** Vector Space Model (tf-idf cosine) — Lucene {@code ClassicSimilarity}. */
-    VSM("vsm", "_vsm", "ClassicSimilarity(tf-idf)"),
+    VSM("vsm", "_vsm", "ClassicSimilarity(tf-idf)", false),
     /** Language Model với làm mượt Dirichlet — Lucene {@code LMDirichletSimilarity}. */
-    LM("lm", "_lm", "LMDirichlet");
+    LM("lm", "_lm", "LMDirichlet", false),
+    /** Tìm theo vector ngữ nghĩa (k-NN HNSW) trên field {@code embedding} (S2.3). */
+    VECTOR("vector", "", "kNN(cosine)", true),
+    /** Hợp nhất BM25 + vector bằng RRF (S2.4). Dùng index gốc (có cả text & embedding). */
+    HYBRID("hybrid", "", "Hybrid(BM25+vector, RRF)", true);
 
     private final String param;
     private final String indexSuffix;
     private final String similarity;
+    private final boolean usesEmbedding;
 
-    Ranker(String param, String indexSuffix, String similarity) {
+    Ranker(String param, String indexSuffix, String similarity, boolean usesEmbedding) {
         this.param = param;
         this.indexSuffix = indexSuffix;
         this.similarity = similarity;
+        this.usesEmbedding = usesEmbedding;
     }
 
     public String param()      { return param; }
     public String similarity() { return similarity; }
+
+    /** Ranker cần gọi Embedding Service (VECTOR, HYBRID). */
+    public boolean usesEmbedding() { return usesEmbedding; }
 
     /**
      * Ánh xạ tham số người dùng → Ranker. Rỗng/null → BM25 (mặc định).
@@ -49,7 +58,7 @@ public enum Ranker {
         String v = p.trim().toLowerCase();
         for (Ranker r : values()) if (r.param.equals(v)) return r;
         throw new IllegalArgumentException("ranker không hợp lệ: '" + p
-                + "' (hợp lệ: bm25 | vsm | lm)");
+                + "' (hợp lệ: bm25 | vsm | lm | vector | hybrid)");
     }
 
     /**

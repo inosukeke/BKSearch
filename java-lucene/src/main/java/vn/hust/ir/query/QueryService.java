@@ -2,6 +2,7 @@ package vn.hust.ir.query;
 
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import vn.hust.ir.embed.EmbeddingClient;
 import vn.hust.ir.migrate.OpenSearchClient;
 
 import java.io.BufferedReader;
@@ -37,7 +38,19 @@ public class QueryService {
     public QueryService(String osUrl, String baseIndex) {
         this.osUrl = osUrl;
         this.baseIndex = baseIndex;
-        this.engine = new SearchEngine(osUrl, baseIndex, new SpellChecker(loadDefaultVocab()));
+        // Embedding Service: cấu hình qua env (bật vector/hybrid/rerank khi có). null nếu không đặt.
+        String embedUrl = System.getenv().getOrDefault("EMBED_URL", "http://localhost:8000");
+        EmbeddingClient embed = (embedUrl == null || embedUrl.isBlank()) ? null : new EmbeddingClient(embedUrl);
+        int rrfK = envInt("RRF_K", RrfFusion.DEFAULT_K);
+        int pool = envInt("CANDIDATE_POOL", 100);
+        int rerankTopK = envInt("RERANK_TOP_K", 50);
+        this.engine = new SearchEngine(osUrl, baseIndex, new SpellChecker(loadDefaultVocab()),
+                embed, rrfK, pool, rerankTopK);
+    }
+
+    private static int envInt(String name, int def) {
+        try { String v = System.getenv(name); return v == null ? def : Integer.parseInt(v.trim()); }
+        catch (Exception e) { return def; }
     }
 
     public Javalin build() {
@@ -74,16 +87,21 @@ public class QueryService {
             return;
         }
 
+        boolean rerank = parseBool(ctx.queryParam("rerank"));
+
         if (q == null || q.isBlank()) {
             ctx.json(emptyResponse(q, ranker));
             return;
         }
 
         try {
-            SearchResponse res = engine.search(q, page, size, ranker);
+            SearchResponse res = engine.search(q, page, size, ranker, rerank);
             ctx.json(res);
         } catch (QueryParseException e) {
             ctx.status(400).json(error("Cú pháp truy vấn sai: " + e.getMessage()));
+        } catch (EmbeddingClient.EmbeddingException e) {
+            // Embedding/rerank service chết → 502 (không 500), theo phân tầng lỗi HANDOFF.
+            ctx.status(502).json(error("Embedding service không phục vụ được: " + e.getMessage()));
         } catch (OpenSearchClient.OpenSearchException e) {
             // CHỈ lỗi cú pháp DSL → 400. Index thiếu (404)/5xx/… là lỗi hệ thống → 502.
             if (e.isQuerySyntaxError()) {
@@ -130,6 +148,12 @@ public class QueryService {
 
     private static int parseInt(String s, int def) {
         try { return s == null ? def : Integer.parseInt(s.trim()); } catch (Exception e) { return def; }
+    }
+
+    private static boolean parseBool(String s) {
+        if (s == null) return false;
+        String v = s.trim().toLowerCase();
+        return v.equals("1") || v.equals("true") || v.equals("yes") || v.equals("on");
     }
 
     /** Nạp từ vựng did-you-mean từ từ điển tách từ (/vi-words.txt). */
@@ -205,7 +229,12 @@ public class QueryService {
               <option value="bm25">BM25</option>
               <option value="vsm">VSM (tf-idf)</option>
               <option value="lm">LM (Dirichlet)</option>
+              <option value="vector">Vector (k-NN)</option>
+              <option value="hybrid">Hybrid (RRF)</option>
             </select>
+            <label style="display:flex;align-items:center;gap:5px;font-size:14px;white-space:nowrap">
+              <input type="checkbox" id="rerank"> rerank
+            </label>
             <button type="submit">Tìm</button>
           </form>
           <div class="layout">
@@ -223,16 +252,19 @@ public class QueryService {
         </div>
         <script>
         const f=document.getElementById('f'),q=document.getElementById('q'),
-              rk=document.getElementById('ranker'),meta=document.getElementById('meta'),
+              rk=document.getElementById('ranker'),rr=document.getElementById('rerank'),
+              meta=document.getElementById('meta'),
               box=document.getElementById('results'),pager=document.getElementById('pager'),
               dym=document.getElementById('dym');
         let curTerm='';
         f.addEventListener('submit',e=>{e.preventDefault();const t=q.value.trim();if(t){curTerm=t;go(1);}});
         rk.addEventListener('change',()=>{if(curTerm)go(1);});
+        rr.addEventListener('change',()=>{if(curTerm)go(1);});
         async function go(page){
           meta.textContent='Đang tìm...';box.innerHTML='';pager.innerHTML='';dym.style.display='none';
           let r;
-          try{ r=await fetch('/api/search?q='+encodeURIComponent(curTerm)+'&page='+page+'&ranker='+rk.value); }
+          try{ r=await fetch('/api/search?q='+encodeURIComponent(curTerm)+'&page='+page
+                 +'&ranker='+rk.value+'&rerank='+(rr.checked?'1':'0')); }
           catch(err){ meta.textContent='Lỗi mạng: '+err; return; }
           const d=await r.json();
           if(d.error){meta.textContent='Lỗi: '+d.error;return;}
