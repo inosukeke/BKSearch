@@ -22,7 +22,7 @@ import java.util.Set;
  * Kết quả trả về là chuỗi token cách nhau bằng dấu cách, dùng chung cho cả lúc
  * đánh chỉ mục và lúc truy vấn (bảo đảm nhất quán — nguyên tắc cốt lõi của IR).
  */
-public class VietnameseSegmenter {
+public class VietnameseSegmenter implements Segmenter {
 
     private final Set<String> dictionary = new HashSet<>();
     private final Set<String> stopwords = new HashSet<>();
@@ -68,6 +68,7 @@ public class VietnameseSegmenter {
     }
 
     /** Chuẩn hóa: NFC + thường + gộp khoảng trắng. */
+    @Override
     public String normalize(String text) {
         if (text == null) return "";
         String s = Normalizer.normalize(text, Normalizer.Form.NFC).toLowerCase();
@@ -78,6 +79,7 @@ public class VietnameseSegmenter {
      * Tách từ + bỏ stopwords, trả chuỗi token (âm tiết ghép nối bằng '_').
      * Ví dụ: "Trường Đại học Bách khoa" -> "trường đại_học bách_khoa".
      */
+    @Override
     public String segment(String text) {
         String norm = normalize(text);
         if (norm.isEmpty()) return "";
@@ -111,4 +113,7 @@ public class VietnameseSegmenter {
 
     public int dictionarySize() { return dictionary.size(); }
     public int stopwordSize()   { return stopwords.size(); }
+
+    /** Một âm tiết (đã chuẩn hóa) có phải stopword không — dùng chung cho backend khác. */
+    public boolean isStopword(String syllable) { return stopwords.contains(syllable); }
 }

@@ -3,6 +3,10 @@ target/
 dependency-reduced-pom.xml
 *.class
 
+# Thư viện ngoài Maven (VnCoreNLP) — dung lượng lớn, giữ libs/README.md
+java-lucene/libs/*.jar
+java-lucene/libs/models/
+
 # Dữ liệu sinh ra khi chạy (crawl/index) — không đưa lên repo
 **/data/
 **/downloads/
