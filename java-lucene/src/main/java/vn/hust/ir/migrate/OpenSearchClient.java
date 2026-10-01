@@ -48,6 +48,38 @@ public class OpenSearchClient {
 
     public ObjectMapper mapper() { return mapper; }
 
+    /**
+     * Thực thi truy vấn tìm kiếm trên một index (POST {index}/_search).
+     * Giữ phong cách tối giản: nhận body JSON đã dựng sẵn, trả nguyên cây JSON kết quả.
+     *
+     * @param index tên index (vd "documents", "documents_vsm")
+     * @param body  thân truy vấn OpenSearch (query/from/size/highlight...)
+     * @return cây JSON phản hồi (hits.total.value, hits.hits[], ...)
+     * @throws RuntimeException nếu HTTP ≥ 300 (vd cú pháp DSL sai) để tầng trên ánh xạ lỗi.
+     */
+    public JsonNode search(String index, JsonNode body) throws Exception {
+        HttpRequest req = HttpRequest.newBuilder(URI.create(base + "/" + index + "/_search"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(body), StandardCharsets.UTF_8))
+                .build();
+        HttpResponse<String> res = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        JsonNode root = mapper.readTree(res.body());
+        if (res.statusCode() >= 300) {
+            String reason = root.path("error").path("reason").asText(root.path("error").toString());
+            throw new OpenSearchException(res.statusCode(), reason, truncate(res.body()));
+        }
+        return root;
+    }
+
+    /** Ngoại lệ mang mã HTTP của OpenSearch để tầng REST phân biệt lỗi truy vấn (4xx) với lỗi hệ thống. */
+    public static class OpenSearchException extends RuntimeException {
+        public final int status;
+        public OpenSearchException(int status, String reason, String body) {
+            super("OpenSearch HTTP " + status + ": " + reason);
+            this.status = status;
+        }
+    }
+
     /** Kết quả một lô bulk. */
     public record BulkResult(int ok, int failed, String firstError) {}
 

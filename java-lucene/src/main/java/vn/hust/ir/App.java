@@ -36,6 +36,7 @@ public class App {
             case "index"    -> index(args);
             case "search"   -> search(args);
             case "serve"    -> serve(args);
+            case "serve-api"-> serveApi(args);
             case "schedule" -> schedule(args);
             case "migrate"  -> migrate(args);
             default         -> usage();
@@ -90,6 +91,15 @@ public class App {
         Thread.currentThread().join();
     }
 
+    /** serve-api [port] [osUrl] [index] — Query Service Javalin (S1.1). */
+    private static void serveApi(String[] a) {
+        int port = arg(a, 1, 7070);
+        String osUrl = (a.length > 2) ? a[2] : System.getenv().getOrDefault("OPENSEARCH_URL", "http://localhost:9200");
+        String index = (a.length > 3) ? a[3] : "documents";
+        new vn.hust.ir.query.QueryService(osUrl, index).start(port);
+        try { Thread.currentThread().join(); } catch (InterruptedException ignored) {}
+    }
+
     private static void schedule(String[] a) {
         int minutes = arg(a, 1, 60);
         int maxPages = arg(a, 2, 100);
@@ -118,7 +128,8 @@ public class App {
               crawl  [maxPages] [maxDepth] thu thập dữ liệu (mặc định 200, 2)
               index  [maxFiles]            đánh chỉ mục Lucene (0=chỉ HTML)
               search <từ khóa...>          tìm kiếm ở dòng lệnh
-              serve  [port]                mở web UI (mặc định 8080)
+              serve  [port]                mở web UI Lucene cũ (mặc định 8080)
+              serve-api [port] [osUrl] [index]  Query Service Javalin (S1.1, mặc định 7070)
               schedule [phút] [maxPages]   chạy định kỳ (mặc định 60 phút)
               migrate [osUrl] [batch]      di trú SQLite → OpenSearch (+Postgres); --no-pg để bỏ Postgres
             """);
