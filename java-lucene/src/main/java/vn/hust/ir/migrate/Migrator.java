@@ -85,6 +85,7 @@ public class Migrator {
                         batch.size(), r.ok(), r.failed(),
                         r.firstError() != null ? (" | lỗi đầu: " + r.firstError()) : "");
                 batch.clear();
+                if (pg != null) pg.commit(); // commit theo lô (giảm round-trip, F7)
             }
         }
 
@@ -112,6 +113,7 @@ public class Migrator {
         if (crawled != null) s.put("crawled_at", crawled.toEpochMilli());
         Instant pub = parseInstant(d.publishedAt);
         if (pub != null) s.put("published_at", pub.toEpochMilli());
+        s.put("indexed_at", Instant.now().toEpochMilli());
         return s;
     }
 

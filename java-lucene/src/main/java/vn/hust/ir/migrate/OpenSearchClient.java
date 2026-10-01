@@ -71,9 +71,19 @@ public class OpenSearchClient {
                 .build();
         HttpResponse<String> res = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
         JsonNode root = mapper.readTree(res.body());
+        // Cả request _bulk có thể hỏng (HTTP 4xx/5xx, ndjson sai, mapping từ chối) → body có "error",
+        // KHÔNG có "items". Phải ném lỗi thay vì báo "ok=0 failed=0" giả thành công.
+        if (res.statusCode() >= 300) {
+            throw new RuntimeException("Bulk HTTP " + res.statusCode() + ": " + truncate(res.body()));
+        }
+        JsonNode itemsNode = root.path("items");
+        if (!itemsNode.isArray() || itemsNode.isEmpty()) {
+            String err = root.path("error").toString();
+            throw new RuntimeException("Bulk không trả 'items'" + (err.isBlank() || err.equals("null") ? "" : ": " + err));
+        }
         int ok = 0, failed = 0;
         String firstError = null;
-        for (JsonNode it : root.path("items")) {
+        for (JsonNode it : itemsNode) {
             JsonNode r = it.path("index");
             int status = r.path("status").asInt();
             if (status >= 200 && status < 300) {
@@ -87,4 +97,9 @@ public class OpenSearchClient {
     }
 
     public record Item(String id, ObjectNode source) {}
+
+    private static String truncate(String s) {
+        if (s == null) return "";
+        return s.length() <= 500 ? s : s.substring(0, 500) + "...";
+    }
 }

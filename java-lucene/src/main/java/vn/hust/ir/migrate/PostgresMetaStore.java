@@ -24,14 +24,18 @@ public class PostgresMetaStore implements AutoCloseable {
         String user = env("PG_USER", "bksearch");
         String pass = env("PG_PASSWORD", "bksearch_dev");
         this.conn = DriverManager.getConnection(url, user, pass);
+        this.conn.setAutoCommit(false); // commit theo lô để giảm round-trip (F7)
     }
+
+    /** Commit các upsert đã gom từ lần commit trước. */
+    public void commit() throws Exception { conn.commit(); }
 
     private static String env(String k, String def) {
         String v = System.getenv(k);
         return (v == null || v.isBlank()) ? def : v;
     }
 
-    /** Upsert 1 document; trả true nếu ghi thành công. */
+    /** Upsert 1 document theo url (idempotent). Cần gọi {@link #commit()} để lưu. */
     public void upsert(Document d, Instant crawledAt) throws Exception {
         String sql = """
             INSERT INTO documents (url, title, subdomain, doc_type, lang, content_hash, crawled_at, indexed_at)
