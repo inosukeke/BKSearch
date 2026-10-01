@@ -17,6 +17,18 @@ curl http://localhost:9200/_cluster/health   # OpenSearch
 # Dashboards: mở http://localhost:5601
 ```
 
+## Khởi tạo lưu trữ (S0.3)
+```bash
+# Index OpenSearch `documents` (BM25 + *_seg tách từ + embedding knn_vector 768, idempotent)
+bash opensearch/apply-mapping.sh
+
+# Schema PostgreSQL (documents/files/crawl_log). Tự chạy khi volume còn trống;
+# volume đã có dữ liệu thì áp thủ công:
+docker exec -i bksearch-postgres psql -U bksearch -d bksearch < postgres/schema.sql
+```
+> Dims vector = **768** (khớp model bi-encoder `vietnamese-bi-encoder` dự kiến ở S2.1).
+> Field `embedding` khai báo trước; vector sẽ được ghi khi ingest ở Phase 2.
+
 | Dịch vụ | Cổng |
 |---|---|
 | OpenSearch | 9200 |
