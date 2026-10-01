@@ -101,13 +101,23 @@ public class App {
         try { Thread.currentThread().join(); } catch (InterruptedException ignored) {}
     }
 
-    /** eval-run [osUrl] [index] [k] — chạy bộ đánh giá 3 ranker (S1.7). */
+    /**
+     * eval-run [osUrl] [index] [k] [--embed] — bộ đánh giá ranker (S1.7 + S2.6).
+     * Khi có {@code --embed} hoặc env {@code EMBED_URL} → thêm vector/hybrid/hybrid+rerank.
+     */
     private static void evalRun(String[] a) throws Exception {
         String osUrl = (a.length > 1 && !a[1].startsWith("--")) ? a[1]
                 : System.getenv().getOrDefault("OPENSEARCH_URL", "http://localhost:9200");
-        String index = (a.length > 2) ? a[2] : "documents";
+        String index = (a.length > 2 && !a[2].startsWith("--")) ? a[2] : "documents";
         int k = arg(a, 3, 10);
-        new vn.hust.ir.eval.EvalRunner(osUrl, index, k).run(
+        boolean embed = false;
+        for (String s : a) if (s.equals("--embed")) embed = true;
+        String embedUrl = embed ? System.getenv().getOrDefault("EMBED_URL", "http://localhost:8000")
+                                : System.getenv("EMBED_URL");  // env đặt sẵn cũng bật
+        int rrfK = parseEnvInt("RRF_K", vn.hust.ir.query.RrfFusion.DEFAULT_K);
+        int pool = parseEnvInt("CANDIDATE_POOL", 100);
+        int rerankTopK = parseEnvInt("RERANK_TOP_K", 50);
+        new vn.hust.ir.eval.EvalRunner(osUrl, index, k, embedUrl, rrfK, pool, rerankTopK).run(
                 Path.of("..", "eval", "queries", "queries.tsv"),
                 Path.of("..", "eval", "qrels", "qrels.txt"));
     }
@@ -118,13 +128,25 @@ public class App {
         new PeriodicRunner(DB_PATH, INDEX_DIR, maxPages, 2).start(minutes);
     }
 
-    /** migrate [osUrl] [batchSize] [--no-pg] — di trú SQLite → OpenSearch (+Postgres). */
+    /** migrate [osUrl] [batchSize] [--no-pg] [--embed] — di trú SQLite → OpenSearch (+Postgres, +vector). */
     private static void migrate(String[] a) throws Exception {
         String osUrl = (a.length > 1 && !a[1].startsWith("--")) ? a[1] : "http://localhost:9200";
         int batch = arg(a, 2, 500);
         boolean writePg = true;
-        for (String s : a) if (s.equals("--no-pg")) writePg = false;
-        new vn.hust.ir.migrate.Migrator(DB_PATH, osUrl, "documents", batch, writePg).run();
+        boolean embed = false;
+        for (String s : a) {
+            if (s.equals("--no-pg")) writePg = false;
+            if (s.equals("--embed")) embed = true;
+        }
+        String embedUrl = System.getenv().getOrDefault("EMBED_URL", "http://localhost:8000");
+        int embedBatch = parseEnvInt("EMBED_BATCH", 32);
+        new vn.hust.ir.migrate.Migrator(DB_PATH, osUrl, "documents", batch, writePg,
+                embed, embedUrl, embedBatch).run();
+    }
+
+    private static int parseEnvInt(String name, int def) {
+        try { String v = System.getenv(name); return v == null ? def : Integer.parseInt(v.trim()); }
+        catch (Exception e) { return def; }
     }
 
     private static int arg(String[] a, int i, int def) {
@@ -143,7 +165,7 @@ public class App {
               serve  [port]                mở web UI Lucene cũ (mặc định 8080)
               serve-api [port] [osUrl] [index]  Query Service Javalin (S1.1, mặc định 7070)
               schedule [phút] [maxPages]   chạy định kỳ (mặc định 60 phút)
-              migrate [osUrl] [batch]      di trú SQLite → OpenSearch (+Postgres); --no-pg để bỏ Postgres
+              migrate [osUrl] [batch]      di trú SQLite → OpenSearch (+Postgres); --no-pg bỏ Postgres; --embed sinh vector (EMBED_URL)
               eval-run [osUrl] [index] [k] chạy bộ đánh giá 3 ranker BM25/VSM/LM (S1.7)
             """);
     }
