@@ -146,7 +146,7 @@ public class QueryService {
         return out;
     }
 
-    // ---- Web UI (S1.1 bản cơ sở — sẽ nâng cấp ở S1.6) ----
+    // ---- Web UI (S1.6) — nền sáng, chọn ranker, did-you-mean, highlight, phân trang, facet ----
     static final String UI_PAGE = """
         <!doctype html><html lang="vi"><head><meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -158,39 +158,112 @@ public class QueryService {
                font:15px/1.55 system-ui,Segoe UI,Roboto,Arial,sans-serif}
           header{background:var(--brand);color:#fff;padding:16px 20px}
           header h1{margin:0;font-size:19px;font-weight:600}
-          .wrap{max-width:820px;margin:0 auto;padding:22px 16px}
-          form{display:flex;gap:8px;margin-bottom:16px}
-          input[type=text]{flex:1;padding:11px 13px;border:1px solid var(--line);
+          .wrap{max-width:900px;margin:0 auto;padding:20px 16px}
+          form{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+          input[type=text]{flex:1;min-width:220px;padding:11px 13px;border:1px solid var(--line);
                border-radius:8px;font-size:15px;background:var(--card)}
-          button{padding:11px 18px;border:0;border-radius:8px;background:var(--brand);color:#fff;font-size:15px;cursor:pointer}
+          input[type=text]:focus{outline:2px solid var(--brand);border-color:var(--brand)}
+          select{padding:11px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);font-size:14px}
+          button{padding:11px 18px;border:0;border-radius:8px;background:var(--brand);
+               color:#fff;font-size:15px;cursor:pointer}
+          button:hover{opacity:.92}
+          .layout{display:flex;gap:16px;align-items:flex-start}
+          .facets{width:200px;flex:0 0 200px;background:var(--card);border:1px solid var(--line);
+               border-radius:10px;padding:12px 14px}
+          .facets h3{margin:2px 0 8px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+          .facets .ph{color:var(--muted);font-size:13px}
+          .main{flex:1;min-width:0}
           .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
-          .item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+          .dym{background:#fff8e1;border:1px solid #f0e0a0;border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:14px}
+          .dym a{color:var(--brand);font-weight:600;cursor:pointer;text-decoration:none}
+          .dym a:hover{text-decoration:underline}
+          .item{background:var(--card);border:1px solid var(--line);border-radius:10px;
+               padding:14px 16px;margin-bottom:12px}
           .item a.t{color:#0b57d0;text-decoration:none;font-size:16px;font-weight:600}
+          .item a.t:hover{text-decoration:underline}
           .url{color:#137333;font-size:12.5px;margin:3px 0;word-break:break-all}
           .snip{color:#3c4043;font-size:14px}
+          .snip em{background:#fff1a8;font-style:normal;padding:0 1px;border-radius:2px}
+          .tags{margin-top:7px}
+          .tag{display:inline-block;background:#eef1f5;color:#3c4043;border-radius:6px;
+               padding:2px 8px;font-size:12px;margin-right:6px}
           .empty{color:var(--muted);text-align:center;padding:30px}
+          .pager{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:18px 0}
+          .pager button{background:var(--card);color:var(--text);border:1px solid var(--line);padding:7px 12px;font-size:14px}
+          .pager button.cur{background:var(--brand);color:#fff;border-color:var(--brand)}
+          .pager button:disabled{opacity:.45;cursor:default}
+          @media(max-width:680px){.layout{flex-direction:column}.facets{width:100%;flex:none}}
         </style></head><body>
         <header><h1>🔎 BKSearch — Tìm kiếm tài liệu HUST</h1></header>
         <div class="wrap">
-          <form id="f"><input type="text" id="q" placeholder="Nhập từ khóa..." autofocus>
-          <button type="submit">Tìm</button></form>
-          <div class="meta" id="meta"></div>
-          <div id="results"></div>
+          <form id="f">
+            <input type="text" id="q" placeholder='Nhập từ khóa... (hỗ trợ "cụm", AND/OR/NOT)' autofocus>
+            <select id="ranker" title="Mô hình xếp hạng">
+              <option value="bm25">BM25</option>
+              <option value="vsm">VSM (tf-idf)</option>
+              <option value="lm">LM (Dirichlet)</option>
+            </select>
+            <button type="submit">Tìm</button>
+          </form>
+          <div class="layout">
+            <aside class="facets">
+              <h3>Bộ lọc</h3>
+              <div class="ph">Facet (loại tài liệu, subdomain) — sẽ bổ sung ở Phase 3.</div>
+            </aside>
+            <div class="main">
+              <div class="dym" id="dym" style="display:none"></div>
+              <div class="meta" id="meta"></div>
+              <div id="results"></div>
+              <div class="pager" id="pager"></div>
+            </div>
+          </div>
         </div>
         <script>
         const f=document.getElementById('f'),q=document.getElementById('q'),
-              meta=document.getElementById('meta'),box=document.getElementById('results');
-        f.addEventListener('submit',async e=>{
-          e.preventDefault();const t=q.value.trim();if(!t)return;
-          meta.textContent='Đang tìm...';box.innerHTML='';
-          const d=await (await fetch('/api/search?q='+encodeURIComponent(t))).json();
+              rk=document.getElementById('ranker'),meta=document.getElementById('meta'),
+              box=document.getElementById('results'),pager=document.getElementById('pager'),
+              dym=document.getElementById('dym');
+        let curTerm='';
+        f.addEventListener('submit',e=>{e.preventDefault();const t=q.value.trim();if(t){curTerm=t;go(1);}});
+        rk.addEventListener('change',()=>{if(curTerm)go(1);});
+        async function go(page){
+          meta.textContent='Đang tìm...';box.innerHTML='';pager.innerHTML='';dym.style.display='none';
+          let r;
+          try{ r=await fetch('/api/search?q='+encodeURIComponent(curTerm)+'&page='+page+'&ranker='+rk.value); }
+          catch(err){ meta.textContent='Lỗi mạng: '+err; return; }
+          const d=await r.json();
           if(d.error){meta.textContent='Lỗi: '+d.error;return;}
-          meta.textContent='Tìm thấy '+d.total+' kết quả — '+d.took_ms+' ms';
-          if(!d.results.length){box.innerHTML='<div class="empty">Không có kết quả.</div>';return;}
-          box.innerHTML=d.results.map(x=>`<div class="item">
-            <a class="t" href="${x.url}" target="_blank" rel="noopener">${esc(x.title)||'(không tiêu đề)'}</a>
-            <div class="url">${esc(x.url)}</div><div class="snip">${x.snippet||''}</div></div>`).join('');
-        });
+          meta.textContent='Tìm thấy '+d.total+' kết quả cho "'+d.query+'" — ranker '+d.ranker.toUpperCase()+
+             ' — '+d.took_ms+' ms — trang '+d.page+'/'+(d.total_pages||1);
+          if(d.suggestion){
+            dym.style.display='block';
+            dym.innerHTML='Có phải bạn muốn tìm: <a id="dyml">'+esc(d.suggestion)+'</a>?';
+            document.getElementById('dyml').onclick=()=>{q.value=d.suggestion;curTerm=d.suggestion;go(1);};
+          }
+          if(!d.results.length){box.innerHTML='<div class="empty">Không có kết quả phù hợp.</div>';return;}
+          box.innerHTML=d.results.map(x=>`
+            <div class="item">
+              <a class="t" href="${x.url}" target="_blank" rel="noopener">${esc(x.title)||'(không tiêu đề)'}</a>
+              <div class="url">${esc(x.url)}</div>
+              <div class="snip">${x.snippet||''}</div>
+              <div class="tags"><span class="tag">${esc(x.doc_type||'')}</span>
+                <span class="tag">${esc(x.subdomain||'')}</span>
+                <span class="tag">score ${(x.score||0).toFixed(3)}</span></div>
+            </div>`).join('');
+          renderPager(d.page,d.total_pages||1);
+          window.scrollTo(0,0);
+        }
+        function renderPager(page,total){
+          if(total<=1){pager.innerHTML='';return;}
+          let h='<button '+(page<=1?'disabled':'')+' data-p="'+(page-1)+'">‹ Trước</button>';
+          const from=Math.max(1,page-2),to=Math.min(total,page+2);
+          if(from>1)h+='<button data-p="1">1</button>'+(from>2?'<span>…</span>':'');
+          for(let i=from;i<=to;i++)h+='<button class="'+(i===page?'cur':'')+'" data-p="'+i+'">'+i+'</button>';
+          if(to<total)h+=(to<total-1?'<span>…</span>':'')+'<button data-p="'+total+'">'+total+'</button>';
+          h+='<button '+(page>=total?'disabled':'')+' data-p="'+(page+1)+'">Sau ›</button>';
+          pager.innerHTML=h;
+          pager.querySelectorAll('button[data-p]').forEach(b=>b.onclick=()=>go(parseInt(b.dataset.p)));
+        }
         function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
         </script></body></html>
         """;
