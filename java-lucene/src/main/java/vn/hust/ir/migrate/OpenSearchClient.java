@@ -65,18 +65,37 @@ public class OpenSearchClient {
         HttpResponse<String> res = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
         JsonNode root = mapper.readTree(res.body());
         if (res.statusCode() >= 300) {
-            String reason = root.path("error").path("reason").asText(root.path("error").toString());
-            throw new OpenSearchException(res.statusCode(), reason, truncate(res.body()));
+            JsonNode err = root.path("error");
+            String type = err.path("type").asText("");
+            // root_cause[0].type chính xác hơn khi có nhiều tầng lỗi
+            JsonNode rootCause = err.path("root_cause");
+            if (rootCause.isArray() && !rootCause.isEmpty()) {
+                type = rootCause.get(0).path("type").asText(type);
+            }
+            String reason = err.path("reason").asText(err.toString());
+            throw new OpenSearchException(res.statusCode(), type, reason);
         }
         return root;
     }
 
-    /** Ngoại lệ mang mã HTTP của OpenSearch để tầng REST phân biệt lỗi truy vấn (4xx) với lỗi hệ thống. */
+    /** Ngoại lệ mang mã HTTP + loại lỗi OpenSearch để tầng REST phân biệt lỗi cú pháp với lỗi hệ thống. */
     public static class OpenSearchException extends RuntimeException {
         public final int status;
-        public OpenSearchException(int status, String reason, String body) {
-            super("OpenSearch HTTP " + status + ": " + reason);
+        public final String type;   // vd "parsing_exception", "index_not_found_exception"
+        public OpenSearchException(int status, String type, String reason) {
+            super("OpenSearch HTTP " + status + " [" + type + "]: " + reason);
             this.status = status;
+            this.type = type == null ? "" : type;
+        }
+
+        /** Lỗi do CÚ PHÁP truy vấn (người dùng) → REST 400; còn lại là lỗi hệ thống. */
+        public boolean isQuerySyntaxError() {
+            return status == 400 && (
+                    type.equals("parsing_exception")
+                 || type.equals("query_shard_exception")
+                 || type.equals("search_phase_execution_exception")
+                 || type.equals("illegal_argument_exception")
+                 || type.equals("x_content_parse_exception"));
         }
     }
 

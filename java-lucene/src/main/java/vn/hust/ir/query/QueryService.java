@@ -85,9 +85,12 @@ public class QueryService {
         } catch (QueryParseException e) {
             ctx.status(400).json(error("Cú pháp truy vấn sai: " + e.getMessage()));
         } catch (OpenSearchClient.OpenSearchException e) {
-            // Lỗi DSL do truy vấn (4xx) → 400; lỗi khác của engine → 502.
-            if (e.status >= 400 && e.status < 500) ctx.status(400).json(error(e.getMessage()));
-            else ctx.status(502).json(error("OpenSearch lỗi: " + e.getMessage()));
+            // CHỈ lỗi cú pháp DSL → 400. Index thiếu (404)/5xx/… là lỗi hệ thống → 502.
+            if (e.isQuerySyntaxError()) {
+                ctx.status(400).json(error("Cú pháp truy vấn sai: " + e.getMessage()));
+            } else {
+                ctx.status(502).json(error("OpenSearch không phục vụ được truy vấn: " + e.getMessage()));
+            }
         } catch (Exception e) {
             ctx.status(502).json(error("Không gọi được OpenSearch: " + e.getMessage()));
         }
@@ -245,7 +248,7 @@ public class QueryService {
             <div class="item">
               <a class="t" href="${x.url}" target="_blank" rel="noopener">${esc(x.title)||'(không tiêu đề)'}</a>
               <div class="url">${esc(x.url)}</div>
-              <div class="snip">${x.snippet||''}</div>
+              <div class="snip">${hl(x.snippet)}</div>
               <div class="tags"><span class="tag">${esc(x.doc_type||'')}</span>
                 <span class="tag">${esc(x.subdomain||'')}</span>
                 <span class="tag">score ${(x.score||0).toFixed(3)}</span></div>
@@ -265,6 +268,8 @@ public class QueryService {
           pager.querySelectorAll('button[data-p]').forEach(b=>b.onclick=()=>go(parseInt(b.dataset.p)));
         }
         function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+        // Snippet: escape toàn bộ (chống XSS lưu trữ từ nội dung crawl) rồi KHÔI PHỤC thẻ <em> highlight.
+        function hl(s){return esc(s||'').replace(/&lt;em&gt;/g,'<em>').replace(/&lt;\\/em&gt;/g,'</em>');}
         </script></body></html>
         """;
 }
