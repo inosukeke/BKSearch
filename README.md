@@ -45,6 +45,9 @@ BKSearch/
 │       ├── search/           # tìm kiếm BM25 + web UI
 │       ├── store/            # lưu trữ (SQLite)
 │       └── schedule/         # cập nhật định kỳ
+├── deploy/                   # Docker Compose: OpenSearch, Postgres, Redis (bản nâng cấp)
+├── embedding-service/        # dịch vụ embedding tiếng Việt (bản nâng cấp)
+├── eval/                     # bộ đánh giá chất lượng tìm kiếm
 └── docs/                     # tài liệu thiết kế & lộ trình phát triển
 ```
 

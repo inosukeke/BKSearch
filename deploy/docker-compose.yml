@@ -1,0 +1,81 @@
+# Hạ tầng nền cho BKSearch (S0.2): OpenSearch + Dashboards + PostgreSQL + Redis.
+# Chạy:  cd deploy && cp .env.example .env && docker compose up -d
+# Dùng cho DEV: đã TẮT security của OpenSearch (không TLS/auth) cho tiện.
+
+services:
+  opensearch:
+    image: opensearchproject/opensearch:2.17.1
+    container_name: bksearch-opensearch
+    environment:
+      - discovery.type=single-node
+      - DISABLE_SECURITY_PLUGIN=true
+      - DISABLE_INSTALL_DEMO_CONFIG=true
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=${OPENSEARCH_JAVA_OPTS:--Xms1g -Xmx1g}"
+    ulimits:
+      memlock: { soft: -1, hard: -1 }
+      nofile: { soft: 65536, hard: 65536 }
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9200/_cluster/health || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 12
+      start_period: 60s
+
+  dashboards:
+    image: opensearchproject/opensearch-dashboards:2.17.1
+    container_name: bksearch-dashboards
+    environment:
+      - 'OPENSEARCH_HOSTS=["http://opensearch:9200"]'
+      - DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+    ports:
+      - "5601:5601"
+    depends_on:
+      opensearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:5601/api/status || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 12
+      start_period: 90s
+
+  postgres:
+    image: postgres:16
+    container_name: bksearch-postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-bksearch}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-bksearch_dev}
+      - POSTGRES_DB=${POSTGRES_DB:-bksearch}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bksearch}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: bksearch-redis
+    command: ["redis-server", "--save", "60", "1"]
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  opensearch-data:
+  postgres-data:
+  redis-data:

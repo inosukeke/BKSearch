@@ -12,7 +12,9 @@
 - **G2 — Mã nguồn mở:** chỉ dùng thành phần OSS (OpenSearch, Postgres, Redis...), không license SSPL bắt buộc.
 - **G3 — Nhất quán tách từ:** văn bản và truy vấn PHẢI qua **cùng một** bộ tách từ/chuẩn hóa tiếng Việt. Vi phạm là lỗi chặn.
 - **G4 — Crawl có đạo đức:** tuân thủ robots.txt, có delay, User-Agent rõ ràng.
-- **G5 — Git:** mỗi step là 1 nhánh tính năng; merge khi PASS + review chéo; không commit thẳng `main`.
+- **G5 — Git:** commit mỗi step với thông điệp rõ ràng, có thể lần ngược được.
+  - *Giai đoạn 1 người (hiện tại):* commit/push thẳng `main` cho gọn.
+  - *Khi vào nhóm nhiều người:* chuyển sang mỗi step 1 nhánh tính năng, merge khi PASS + review chéo, không commit thẳng `main`.
 - **G6 — Kiểm thử:** mỗi step có ít nhất 1 test tự động hoặc script kiểm chứng tái lập được điều kiện PASS.
 - **G7 — Hiệu năng:** tôn trọng ngân sách độ trễ p95 (<200ms từ khóa, <800ms hybrid+rerank) khi đo ở Phase cuối.
 

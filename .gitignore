@@ -19,6 +19,10 @@ __pycache__/
 .venv/
 venv/
 
+# Secrets / env cục bộ (giữ .env.example, bỏ .env thật)
+.env
+**/.env
+
 # IDE / OS
 .idea/
 *.iml
