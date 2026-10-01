@@ -49,8 +49,34 @@ class QueryParserTest {
         JsonNode q = p.buildQuery("\"tuyển sinh\" AND thạc sĩ");
         JsonNode must = q.path("bool").path("must");
         assertTrue(must.isArray());
-        assertEquals(3, must.size(), "phrase + thạc + sĩ (AND ngầm) = 3 mệnh đề must");
+        // phrase + chuỗi term "thạc sĩ" (gom 1 lần) = 2 mệnh đề must
+        assertEquals(2, must.size(), "phrase + term-run = 2 mệnh đề must");
         assertTrue(must.get(0).path("bool").has("should"), "mệnh đề đầu là phrase");
+    }
+
+    @Test
+    void booleanAnd_segmentsVietnameseCompounds_once_G3() {
+        // Lỗi N2: trước sửa, mỗi term lẻ bị tách riêng → "thạc","sĩ" không ghép → total=0.
+        JsonNode q = p.buildQuery("\"tuyển sinh\" AND thạc sĩ");
+        JsonNode must = q.path("bool").path("must");
+        // phrase phải chứa token ghép "tuyển_sinh"
+        String phraseQ = must.get(0).path("bool").path("should").get(1)
+                .path("match_phrase").path("content_seg").path("query").asText();
+        assertEquals("tuyển_sinh", phraseQ);
+        // term-run "thạc sĩ" phải tách MỘT LẦN → "thạc_sĩ" (operator and)
+        JsonNode mm = must.get(1).path("multi_match");
+        assertEquals("thạc_sĩ", mm.path("query").asText());
+        assertEquals("and", mm.path("operator").asText());
+    }
+
+    @Test
+    void booleanAnd_bareCompoundTerms_segmentGrouped_G3() {
+        // "đại học AND học phí": mỗi vế là chuỗi 2 âm tiết của 1 từ ghép, phải ghép đúng.
+        JsonNode q = p.buildQuery("đại học AND học phí");
+        JsonNode must = q.path("bool").path("must");
+        assertEquals(2, must.size());
+        assertEquals("đại_học", must.get(0).path("multi_match").path("query").asText());
+        assertEquals("học_phí", must.get(1).path("multi_match").path("query").asText());
     }
 
     @Test

@@ -75,13 +75,18 @@ public class QueryParser {
 
     // ---- Bộ dựng mệnh đề cơ sở (dùng chung) ----------------------------------
 
-    /** multi_match best_fields trên title_seg^2 + content_seg (BM25 S1.2). */
+    /** multi_match best_fields trên title_seg^2 + content_seg (BM25 S1.2), operator "or". */
     ObjectNode multiMatch(String segmented) {
+        return multiMatch(segmented, "or");
+    }
+
+    /** Như trên nhưng chỉ định operator ("or" cho truy vấn đơn, "and" cho chuỗi term bắt buộc). */
+    ObjectNode multiMatch(String segmented, String operator) {
         ObjectNode mm = mapper.createObjectNode();
         ObjectNode body = mm.putObject("multi_match");
         body.put("query", segmented);
         body.put("type", "best_fields");
-        body.put("operator", "or");
+        body.put("operator", operator);
         ArrayNode fields = body.putArray("fields");
         fields.add(TITLE_FIELD + "^" + (int) TITLE_BOOST);
         fields.add(CONTENT_FIELD);
@@ -121,6 +126,15 @@ public class QueryParser {
 
     record Term(String text) implements Node {
         public ObjectNode toQuery(QueryParser qp) { return qp.multiMatch(qp.segment(text)); }
+    }
+
+    /**
+     * Chuỗi các term kề nhau (không bị toán tử/ngoặc/nháy ngăn): nối text GỐC rồi tách từ
+     * MỘT LẦN (G3 — để từ ghép tiếng Việt như "đại học"→"đại_học" khớp field *_seg), dựng
+     * một multi_match operator "and" (mọi token bắt buộc xuất hiện).
+     */
+    record TermRun(String rawJoined) implements Node {
+        public ObjectNode toQuery(QueryParser qp) { return qp.multiMatch(qp.segment(rawJoined), "and"); }
     }
 
     record Phrase(String text, int slop) implements Node {
@@ -225,16 +239,38 @@ public class QueryParser {
             return kids.size() == 1 ? kids.get(0) : new Or(kids);
         }
 
-        /** andExpr := unary ((AND | kề-nhau) unary)* */
+        /**
+         * andExpr := (TERM+ | unary) ((AND | kề-nhau) (TERM+ | unary))*
+         * Các TERM kề nhau được GOM thành một {@link TermRun} và tách từ một lần (G3).
+         */
         Node parseAnd() {
             List<Node> kids = new ArrayList<>();
-            kids.add(parseUnary());
+            List<String> run = new ArrayList<>();          // các term gốc liên tiếp
+            boolean started = false;
             while (true) {
-                if (is(Type.AND)) { next(); kids.add(parseUnary()); }
-                else if (startsAtom()) { kids.add(parseUnary()); } // AND ngầm
-                else break;
+                if (is(Type.TERM)) {
+                    run.add(peek().text); next(); started = true;
+                } else if (is(Type.AND)) {
+                    if (!started) throw new QueryParseException("Toán tử 'AND' đặt sai vị trí.");
+                    flushRun(run, kids); next();
+                    if (!startsAtom()) throw new QueryParseException("Toán tử 'AND' thiếu từ khóa theo sau.");
+                } else if (is(Type.NOT) || is(Type.PHRASE) || is(Type.LPAREN)) {
+                    flushRun(run, kids); kids.add(parseUnary()); started = true;   // AND ngầm
+                } else {
+                    break;  // OR, RPAREN, hết
+                }
             }
+            flushRun(run, kids);
+            if (kids.isEmpty()) throw new QueryParseException("Thiếu từ khóa.");
             return kids.size() == 1 ? kids.get(0) : new And(kids);
+        }
+
+        /** Gom chuỗi term gốc thành 1 TermRun (tách từ một lần ở toQuery). */
+        private void flushRun(List<String> run, List<Node> kids) {
+            if (!run.isEmpty()) {
+                kids.add(new TermRun(String.join(" ", run)));
+                run.clear();
+            }
         }
 
         private boolean startsAtom() {
