@@ -27,6 +27,12 @@ venv/
 .env
 **/.env
 
+# Claude Code (worktree agent, session tạm)
+.claude/
+
+# Kết quả eval sinh ra khi chạy (giữ queries/qrels, bỏ results)
+eval/results/
+
 # IDE / OS
 .idea/
 *.iml
