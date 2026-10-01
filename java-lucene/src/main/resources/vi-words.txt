@@ -1,0 +1,141 @@
+# Từ điển từ ghép tiếng Việt cho tách từ (Maximum Matching).
+# Mỗi dòng: một từ ghép, các âm tiết cách nhau bằng dấu cách, viết thường.
+# Dòng bắt đầu bằng # là chú thích. Có thể mở rộng tùy ý.
+đại học
+sinh viên
+học sinh
+giảng viên
+cán bộ
+viên chức
+nghiên cứu
+khoa học
+công nghệ
+thông tin
+kỹ thuật
+bách khoa
+hà nội
+việt nam
+trường đại học
+đại học bách khoa
+đại học bách khoa hà nội
+tuyển sinh
+đào tạo
+sau đại học
+đại học chính quy
+chương trình
+học phần
+tín chỉ
+học kỳ
+năm học
+học bổng
+tốt nghiệp
+luận văn
+đồ án
+thực tập
+phòng thí nghiệm
+thí nghiệm
+giáo dục
+giáo trình
+bài giảng
+bài viết
+tài liệu
+thư viện
+hội nghị
+hội thảo
+sự kiện
+thông báo
+quyết định
+kế hoạch
+báo cáo
+kết quả
+danh sách
+biểu mẫu
+văn bản
+hồ sơ
+đăng ký
+đăng nhập
+tài khoản
+người dùng
+hệ thống
+dữ liệu
+cơ sở dữ liệu
+phần mềm
+phần cứng
+máy tính
+trí tuệ nhân tạo
+học máy
+mạng nơ ron
+xử lý
+ngôn ngữ
+tự nhiên
+tìm kiếm
+truy vấn
+chỉ mục
+xếp hạng
+văn phòng
+quản lý
+quản trị
+điều hành
+lãnh đạo
+hợp tác
+quốc tế
+doanh nghiệp
+tuyển dụng
+việc làm
+đối tác
+chuyển đổi số
+đổi mới
+sáng tạo
+khởi nghiệp
+phát triển
+bền vững
+môi trường
+năng lượng
+điện tử
+viễn thông
+cơ khí
+tự động hóa
+điều khiển
+vật liệu
+hóa học
+sinh học
+vật lý
+toán học
+kinh tế
+tài chính
+kế toán
+ngoại ngữ
+tiếng anh
+tiếng việt
+thể thao
+văn hóa
+nghệ thuật
+y tế
+sức khỏe
+an toàn
+chất lượng
+tiêu chuẩn
+đánh giá
+kiểm định
+học liệu
+trực tuyến
+từ xa
+liên thông
+chính sách
+quy chế
+quy định
+quy trình
+biểu phí
+lệ phí
+mức thu
+thời gian
+địa điểm
+nội dung
+hình thức
+đối tượng
+điều kiện
+yêu cầu
+mục tiêu
+nhiệm vụ
+giải pháp
+công việc

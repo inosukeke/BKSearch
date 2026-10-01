@@ -1,0 +1,27 @@
+# Build
+target/
+dependency-reduced-pom.xml
+*.class
+
+# Dữ liệu sinh ra khi chạy (crawl/index) — không đưa lên repo
+**/data/
+**/downloads/
+**/crawls/
+**/logs/
+*.db
+lucene_index_dir/
+crawl_history.log
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE / OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
