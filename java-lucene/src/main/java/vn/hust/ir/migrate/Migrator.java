@@ -1,6 +1,8 @@
 package vn.hust.ir.migrate;
 
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import vn.hust.ir.embed.EmbeddingClient;
 import vn.hust.ir.nlp.VietnameseAnalyzer;
 import vn.hust.ir.store.Db;
 import vn.hust.ir.store.Document;
@@ -30,14 +32,29 @@ public class Migrator {
     private final int batchSize;
     private final boolean writePg;
 
+    // Phase 2 (S2.2): sinh embedding khi ingest.
+    private final boolean embed;
+    private final String embedUrl;
+    private final int embedBatch;
+    /** Cắt ngắn văn bản đưa đi embed (PhoBERT ~256 token; tránh payload quá lớn). */
+    private static final int EMBED_MAX_CHARS = 2000;
+
     private final VietnameseAnalyzer analyzer = VietnameseAnalyzer.get();
 
     public Migrator(String dbPath, String osUrl, String index, int batchSize, boolean writePg) {
+        this(dbPath, osUrl, index, batchSize, writePg, false, null, 32);
+    }
+
+    public Migrator(String dbPath, String osUrl, String index, int batchSize, boolean writePg,
+                    boolean embed, String embedUrl, int embedBatch) {
         this.dbPath = dbPath;
         this.osUrl = osUrl;
         this.index = index;
         this.batchSize = Math.max(1, batchSize);
         this.writePg = writePg;
+        this.embed = embed;
+        this.embedUrl = embedUrl;
+        this.embedBatch = Math.max(1, embedBatch);
     }
 
     public void run() throws Exception {
@@ -65,12 +82,22 @@ public class Migrator {
             }
         }
 
-        int totalOk = 0, totalFailed = 0, pgOk = 0;
+        EmbeddingClient ec = null;
+        if (embed) {
+            ec = new EmbeddingClient(embedUrl);
+            System.out.println("Bật sinh embedding khi ingest (EMBED_URL=" + embedUrl
+                    + ", embedBatch=" + embedBatch + ").");
+        }
+
+        int totalOk = 0, totalFailed = 0, pgOk = 0, embeddedOk = 0;
         List<OpenSearchClient.Item> batch = new ArrayList<>(batchSize);
+        List<String> embedInputs = new ArrayList<>(batchSize);
         for (int i = 0; i < valid.size(); i++) {
             Document d = valid.get(i);
             Instant crawled = parseInstant(d.crawledAt);
-            batch.add(new OpenSearchClient.Item(sha256(d.url), toSource(os, d, crawled)));
+            ObjectNode source = toSource(os, d, crawled);
+            batch.add(new OpenSearchClient.Item(sha256(d.url), source));
+            if (ec != null) embedInputs.add(embedText(source));
 
             if (pg != null) {
                 try { pg.upsert(d, crawled); pgOk++; }
@@ -78,6 +105,8 @@ public class Migrator {
             }
 
             if (batch.size() >= batchSize || i == valid.size() - 1) {
+                // Gắn embedding trước khi bulk; lỗi 1 lô con chỉ bỏ vector lô đó, KHÔNG chặn index.
+                if (ec != null) embeddedOk += attachEmbeddings(ec, batch, embedInputs);
                 OpenSearchClient.BulkResult r = os.bulk(index, batch);
                 totalOk += r.ok();
                 totalFailed += r.failed();
@@ -85,6 +114,7 @@ public class Migrator {
                         batch.size(), r.ok(), r.failed(),
                         r.firstError() != null ? (" | lỗi đầu: " + r.firstError()) : "");
                 batch.clear();
+                embedInputs.clear();
                 if (pg != null) pg.commit(); // commit theo lô (giảm round-trip, F7)
             }
         }
@@ -93,6 +123,10 @@ public class Migrator {
         long osCount = os.count(index);
         System.out.printf("%nXong di trú: index ok=%d failed=%d; OpenSearch count=%d%n",
                 totalOk, totalFailed, osCount);
+        if (ec != null) {
+            System.out.printf("Embedding: %d/%d doc có vector (%.1f%%).%n",
+                    embeddedOk, totalOk, totalOk == 0 ? 0.0 : 100.0 * embeddedOk / totalOk);
+        }
         if (pg != null) {
             System.out.printf("PostgreSQL documents count=%d (upsert ok=%d)%n", pg.count(), pgOk);
             pg.close();
@@ -118,6 +152,43 @@ public class Migrator {
     }
 
     private static String nz(String s) { return s == null ? "" : s; }
+
+    /**
+     * Văn bản đưa đi embed: {@code title_seg + " " + content_seg} (ĐÃ tách từ underscore — G3,
+     * khớp input PhoBERT của bi-encoder), cắt ngắn {@value #EMBED_MAX_CHARS} ký tự.
+     */
+    private static String embedText(ObjectNode source) {
+        String t = source.path("title_seg").asText("");
+        String c = source.path("content_seg").asText("");
+        String joined = t.isEmpty() ? c : (c.isEmpty() ? t : t + " " + c);
+        return joined.length() > EMBED_MAX_CHARS ? joined.substring(0, EMBED_MAX_CHARS) : joined;
+    }
+
+    /**
+     * Gọi Embedding Service theo lô con ({@code embedBatch}) và gắn field {@code embedding}
+     * vào từng source. Lỗi một lô con → cảnh báo + bỏ qua vector lô đó (KHÔNG chặn cả lô bulk).
+     * @return số doc đã gắn được vector trong lô này.
+     */
+    private int attachEmbeddings(EmbeddingClient ec, List<OpenSearchClient.Item> batch, List<String> inputs) {
+        int ok = 0;
+        for (int start = 0; start < batch.size(); start += embedBatch) {
+            int end = Math.min(start + embedBatch, batch.size());
+            List<String> chunk = inputs.subList(start, end);
+            try {
+                float[][] vecs = ec.embed(chunk);
+                for (int j = 0; j < vecs.length && (start + j) < end; j++) {
+                    ObjectNode src = batch.get(start + j).source();
+                    ArrayNode arr = src.putArray("embedding");
+                    for (float v : vecs[j]) arr.add(v);
+                    ok++;
+                }
+            } catch (EmbeddingClient.EmbeddingException e) {
+                System.err.printf("[EMBED] lỗi lô con [%d..%d): %s — index tiếp KHÔNG vector cho lô này.%n",
+                        start, end, e.getMessage());
+            }
+        }
+        return ok;
+    }
 
     /** Parse linh hoạt: ISO instant (có nano + Z) hoặc yyyy-MM-dd; lỗi → null. */
     static Instant parseInstant(String v) {
