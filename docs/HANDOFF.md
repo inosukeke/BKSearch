@@ -205,3 +205,25 @@ không đổi tới khi bật. Cần phiên LOCAL: re-crawl (sinh `links`) → m
 Crawler đa luồng/politeness + Monitoring có unit test; eval/p95/demo cần phiên LOCAL (Docker +
 OpenSearch + model + k6). Fetcher Selenium/headless (trang JS) **ĐÃ hiện thực** (`SeleniumFetcher` +
 `HybridFetcher`, env `CRAWL_FETCHER`) + smoke-test local (render hust.edu.vn → 187 cạnh link). Nhánh `feature/phase4`.
+
+## VERIFY LOCAL quy mô (2026-10-02) — crawl thật + Phase 3 end-to-end
+
+- **Crawl thật** `crawl-mt 2000 3` (CRAWL_FETCHER=auto, delay 500ms, 6 luồng): corpus **500 → 2337 bài**,
+  **671 URL tài liệu**, **99.102 cạnh link**. Selenium `auto` kích hoạt thật trong luồng (nhiều trang mỏng).
+- **migrate --embed:** 2337/2337 doc có vector (768-dim). 3 index (documents/_vsm/_lm) đều 2337.
+- **pagerank:** hội tụ sau 82 vòng (2337 node, 66.433 cạnh sau khử trùng) → ghi `pagerank`+`anchor_text` vào 3 index.
+- **dedupe:** 255 nhóm trùng / 809 bản trùng (~35%) → ghi `dup_group` canonical.
+- **classify:** gán `category` cho 2309 doc (phân bố tin tức/thông báo/nghiên cứu/đào tạo/tuyển sinh).
+  Leave-one-out trên seed 25 mẫu: accuracy 0.68, macroF1 0.628 (seed còn nhỏ — cần mở rộng để đạt ~0.8).
+- **UI verify:** facet **Danh mục** hiển thị đúng; `DEDUP_COLLAPSE=1` chạy không lỗi; vector/hybrid OK.
+
+### ⚠️ BUG đã sửa khi verify (quan trọng cho người chạy lại demo)
+- **Mapping lệch do index cũ:** `apply-mapping.sh` và `create-ranker-indices.sh` **idempotent — BỎ QUA nếu index
+  đã tồn tại**. Các field keyword mới của Phase 3 (`dup_group`, `category`) do đó KHÔNG được áp vào index
+  cũ (Phase 0/2) → OpenSearch dynamic-map thành `text` → `collapse`/facet `terms` **lỗi "all shards failed"**.
+- **Cách sửa đã dùng (không mất embedding):** `_reindex documents → documents_v2` (mapping đúng từ file) →
+  xoá+tạo lại `documents` từ mapping → reindex ngược → xoá vsm/lm → `create-ranker-indices.sh`. Reindex
+  giữ nguyên `_source` (vector + pagerank/dup_group/category) và RE-TYPE đúng keyword.
+- **Khuyến nghị:** khi mapping đổi, phải **XOÁ index rồi tạo lại** (hoặc reindex), không chỉ chạy lại script
+  idempotent. Nên bổ sung cờ `--recreate` cho `apply-mapping.sh`/`demo-up.sh`. (Lưu ý `exists` query trên
+  `knn_vector` KHÔNG đáng tin — dùng `must_not exists` để kiểm "đủ vector".)
