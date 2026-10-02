@@ -46,8 +46,11 @@ public class QueryService {
         int rerankTopK = envInt("RERANK_TOP_K", SearchEngine.DEFAULT_RERANK_TOP_K);
         double pagerankWeight = envDouble("PAGERANK_WEIGHT", 0.0);   // 0 = TẮT trộn PageRank (S3.1)
         boolean dedupCollapse = envBool("DEDUP_COLLAPSE", false);    // gộp near-duplicate (S3.2)
+        ExpansionOptions expansion = new ExpansionOptions(          // mở rộng truy vấn (S3.3)
+                envBool("QUERY_EXPAND_SYN", false), envInt("QUERY_EXPAND_SYN_MAX", 4),
+                envBool("QUERY_EXPAND_PRF", false), envInt("PRF_DOCS", 5), envInt("PRF_TERMS", 8));
         this.engine = new SearchEngine(osUrl, baseIndex, new SpellChecker(loadDefaultVocab()),
-                embed, rrfK, pool, rerankTopK, pagerankWeight, dedupCollapse);
+                embed, rrfK, pool, rerankTopK, pagerankWeight, dedupCollapse, expansion);
     }
 
     private static int envInt(String name, int def) {

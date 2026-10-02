@@ -97,6 +97,16 @@ public class QueryParser {
         return mm;
     }
 
+    /**
+     * Mệnh đề mở rộng truy vấn (S3.3): multi_match "or" trên các token ĐÃ tách từ, boost thấp
+     * ({@code boost}) để tăng recall qua nhánh {@code should} mà không lấn át điểm gốc.
+     */
+    ObjectNode expansionClause(String segmentedTerms, double boost) {
+        ObjectNode mm = multiMatch(segmentedTerms, "or");
+        ((ObjectNode) mm.get("multi_match")).put("boost", boost);
+        return mm;
+    }
+
     /** match_phrase (có slop) trên cả hai field, gộp bằng should. */
     ObjectNode phrase(String segmented, int slop) {
         ObjectNode q = mapper.createObjectNode();

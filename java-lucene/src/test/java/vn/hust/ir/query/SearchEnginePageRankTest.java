@@ -46,4 +46,25 @@ class SearchEnginePageRankTest {
         assertTrue(fields.contains("anchor_text_seg"), "anchor text (S3.1) phải là field tìm kiếm");
         assertTrue(fields.contains("title_seg^2"));
     }
+
+    @Test
+    void synonymExpansion_wrapsBoolMustShould() {
+        // S3.3: bật đồng nghĩa → truy vấn "tuyển sinh" thêm nhánh should (xét tuyển...).
+        OpenSearchClient os = new OpenSearchClient("http://127.0.0.1:1");
+        QueryParser parser = new QueryParser(VietnameseAnalyzer.get(), mapper);
+        ExpansionOptions exp = new ExpansionOptions(true, 4, false, 5, 8);
+        SearchEngine eng = new SearchEngine(os, "documents", parser, new SpellChecker(List.of()),
+                null, 0.0, false, exp);
+        JsonNode body = eng.buildRequest("tuyển sinh", 0, 10);
+        JsonNode bool = body.path("query").path("bool");
+        assertFalse(bool.isMissingNode(), "có mở rộng → bọc bool");
+        assertTrue(bool.has("must") && bool.has("should"), "must=gốc, should=mở rộng");
+    }
+
+    @Test
+    void synonymExpansion_disabled_noBoolWrap() {
+        JsonNode body = engine(0.0).buildRequest("tuyển sinh", 0, 10);
+        assertTrue(body.path("query").path("bool").isMissingNode(), "tắt mở rộng → không bọc bool");
+        assertTrue(body.path("query").has("multi_match"));
+    }
 }

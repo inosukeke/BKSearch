@@ -120,7 +120,10 @@ public class App {
         int pool = parseEnvInt("CANDIDATE_POOL", 100);
         int rerankTopK = parseEnvInt("RERANK_TOP_K", vn.hust.ir.query.SearchEngine.DEFAULT_RERANK_TOP_K);
         double pagerankWeight = parseEnvDouble("PAGERANK_WEIGHT", 0.0);
-        new vn.hust.ir.eval.EvalRunner(osUrl, index, k, embedUrl, rrfK, pool, rerankTopK, pagerankWeight).run(
+        var expansion = new vn.hust.ir.query.ExpansionOptions(
+                parseEnvBool("QUERY_EXPAND_SYN", false), parseEnvInt("QUERY_EXPAND_SYN_MAX", 4),
+                parseEnvBool("QUERY_EXPAND_PRF", false), parseEnvInt("PRF_DOCS", 5), parseEnvInt("PRF_TERMS", 8));
+        new vn.hust.ir.eval.EvalRunner(osUrl, index, k, embedUrl, rrfK, pool, rerankTopK, pagerankWeight, expansion).run(
                 Path.of("..", "eval", "queries", "queries.tsv"),
                 Path.of("..", "eval", "qrels", "qrels.txt"));
     }
@@ -215,6 +218,12 @@ public class App {
     private static double parseEnvDouble(String name, double def) {
         try { String v = System.getenv(name); return v == null ? def : Double.parseDouble(v.trim()); }
         catch (Exception e) { return def; }
+    }
+
+    private static boolean parseEnvBool(String name, boolean def) {
+        String v = System.getenv(name);
+        if (v == null) return def;
+        return switch (v.trim().toLowerCase()) { case "1", "true", "yes", "on" -> true; default -> false; };
     }
 
     private static int parseEnvInt(String name, int def) {

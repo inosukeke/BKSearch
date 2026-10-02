@@ -1,0 +1,21 @@
+# Từ điển đồng nghĩa / viết tắt cho mở rộng truy vấn (S3.3).
+# Mỗi dòng = MỘT NHÓM các cụm tương đương, phân tách bằng dấu phẩy.
+# Khi truy vấn chứa một cụm trong nhóm → thêm các cụm còn lại làm mở rộng (should).
+# Dòng bắt đầu bằng # là chú thích.
+đại học, đh
+sinh viên, sv
+tuyển sinh, xét tuyển, tuyển sinh đại học
+học phí, mức học phí
+học bổng, hỗ trợ tài chính
+nghiên cứu khoa học, nckh
+công nghệ thông tin, cntt
+bách khoa, bk, hust
+thạc sĩ, cao học
+tiến sĩ, nghiên cứu sinh, ncs
+ký túc xá, ktx
+điểm chuẩn, điểm trúng tuyển
+đào tạo, chương trình đào tạo
+giảng viên, giáo viên, gv
+phòng đào tạo, ban đào tạo
+tốt nghiệp, ra trường
+đồ án, luận văn, khóa luận

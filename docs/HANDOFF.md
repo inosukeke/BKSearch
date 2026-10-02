@@ -121,3 +121,15 @@ mvn test   # (trong java-lucene) — 38 test
 1. `migrate` (đã ghi dup_group=url) → `create-ranker-indices.sh`.
 2. `dedupe` → ghi canonical cho bản trùng. (Muốn test: chèn 2 trang gần trùng rồi chạy lại.)
 3. `DEDUP_COLLAPSE=1` khi `serve-api` → kiểm mỗi nhóm trùng chỉ còn 1 kết quả; tỉ lệ trùng top-20 giảm.
+
+### S3.3 Query expansion (synonym + Rocchio) — CODE XONG (chờ verify local)
+- **Đồng nghĩa:** `SynonymDictionary` nạp `resources/vi-synonyms.txt` (nhóm cụm tương đương, gồm viết
+  tắt đh/sv/cntt...). `SearchEngine.synonymExpansion` khớp truy vấn thô → thêm cụm còn lại (đã tách từ)
+  vào nhánh `should` (boost 0.5) của `bool{must:gốc, should:mở rộng}`. Chỉ áp cho truy vấn KHÔNG cấu trúc.
+- **Rocchio PRF:** `Rocchio.selectTerms` rút top token nổi bật từ `content` của top-`PRF_DOCS` kết quả
+  lượt mồi (loại token truy vấn + stopword + token quá ngắn), thêm `PRF_TERMS` token vào `should`.
+  `SearchEngine.expansionTerms` chạy lượt mồi khi bật PRF.
+- **Bật/đo:** env `QUERY_EXPAND_SYN=1` (+`QUERY_EXPAND_SYN_MAX`), `QUERY_EXPAND_PRF=1`
+  (+`PRF_DOCS`,`PRF_TERMS`) ở `serve-api`/`eval-run`. **Mặc định TẮT** (không đổi hành vi Phase 1/2).
+- **Verify LOCAL:** chạy `eval-run` 2 lần (tắt vs bật) so Recall@10; PASS: recall tăng, precision không
+  giảm nhiều. Chỉnh từ điển `vi-synonyms.txt` cho hợp truy vấn thực tế.

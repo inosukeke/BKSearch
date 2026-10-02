@@ -1,6 +1,7 @@
 package vn.hust.ir.eval;
 
 import vn.hust.ir.embed.EmbeddingClient;
+import vn.hust.ir.query.ExpansionOptions;
 import vn.hust.ir.query.Ranker;
 import vn.hust.ir.query.RrfFusion;
 import vn.hust.ir.query.SearchEngine;
@@ -39,6 +40,7 @@ public class EvalRunner {
     private final int pool;
     private final int rerankTopK;
     private final double pagerankWeight;
+    private final ExpansionOptions expansion;
 
     public EvalRunner(String osUrl, String baseIndex, int k) {
         this(osUrl, baseIndex, k, null, RrfFusion.DEFAULT_K, 100, SearchEngine.DEFAULT_RERANK_TOP_K, 0.0);
@@ -51,6 +53,11 @@ public class EvalRunner {
 
     public EvalRunner(String osUrl, String baseIndex, int k,
                       String embedUrl, int rrfK, int pool, int rerankTopK, double pagerankWeight) {
+        this(osUrl, baseIndex, k, embedUrl, rrfK, pool, rerankTopK, pagerankWeight, ExpansionOptions.disabled());
+    }
+
+    public EvalRunner(String osUrl, String baseIndex, int k, String embedUrl, int rrfK, int pool,
+                      int rerankTopK, double pagerankWeight, ExpansionOptions expansion) {
         this.osUrl = osUrl;
         this.baseIndex = baseIndex;
         this.k = Math.max(1, k);
@@ -59,6 +66,7 @@ public class EvalRunner {
         this.pool = pool;
         this.rerankTopK = rerankTopK;
         this.pagerankWeight = Math.max(0.0, pagerankWeight);
+        this.expansion = expansion != null ? expansion : ExpansionOptions.disabled();
     }
 
     /** Một cấu hình đánh giá: ranker + có rerank không + nhãn hiển thị. */
@@ -73,7 +81,7 @@ public class EvalRunner {
         boolean hasEmbed = embedUrl != null && !embedUrl.isBlank();
         EmbeddingClient embed = hasEmbed ? new EmbeddingClient(embedUrl) : null;
         SearchEngine engine = new SearchEngine(osUrl, baseIndex, new SpellChecker(List.of()),
-                embed, rrfK, pool, rerankTopK, pagerankWeight);
+                embed, rrfK, pool, rerankTopK, pagerankWeight, false, expansion);
 
         List<Config> configs = new ArrayList<>();
         configs.add(new Config(Ranker.BM25, false, "bm25"));

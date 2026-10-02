@@ -42,6 +42,10 @@ public class SearchEngine {
     private final double pagerankWeight;
     /** Gộp near-duplicate theo field dup_group (S3.2) — mỗi nhóm chỉ 1 kết quả; false = TẮT. */
     private final boolean dedupCollapse;
+    /** Cấu hình mở rộng truy vấn: đồng nghĩa + Rocchio (S3.3). */
+    private final ExpansionOptions expansion;
+    private final SynonymDictionary synonyms;
+    private final java.util.Set<String> stopwords;
 
     public static final String EMBEDDING_FIELD = "embedding";
 
@@ -75,6 +79,13 @@ public class SearchEngine {
     public SearchEngine(String osUrl, String baseIndex, SpellChecker spell,
                         EmbeddingClient embed, int rrfK, int candidatePool, int rerankTopK,
                         double pagerankWeight, boolean dedupCollapse) {
+        this(osUrl, baseIndex, spell, embed, rrfK, candidatePool, rerankTopK, pagerankWeight,
+                dedupCollapse, ExpansionOptions.disabled());
+    }
+
+    public SearchEngine(String osUrl, String baseIndex, SpellChecker spell,
+                        EmbeddingClient embed, int rrfK, int candidatePool, int rerankTopK,
+                        double pagerankWeight, boolean dedupCollapse, ExpansionOptions expansion) {
         this.os = new OpenSearchClient(osUrl);
         this.baseIndex = baseIndex;
         this.parser = new QueryParser(VietnameseAnalyzer.get(), mapper);
@@ -85,6 +96,9 @@ public class SearchEngine {
         this.rerankTopK = Math.max(1, rerankTopK);
         this.pagerankWeight = Math.max(0.0, pagerankWeight);
         this.dedupCollapse = dedupCollapse;
+        this.expansion = expansion != null ? expansion : ExpansionOptions.disabled();
+        this.synonyms = SynonymDictionary.getDefault();
+        this.stopwords = loadStopwords();
     }
 
     /** Dùng cho test: cho phép tiêm client/parser (không bắt buộc OpenSearch sống). */
@@ -107,6 +121,13 @@ public class SearchEngine {
     /** Dùng cho test: tiêm thêm cờ gộp near-duplicate (S3.2). */
     SearchEngine(OpenSearchClient os, String baseIndex, QueryParser parser, SpellChecker spell,
                  EmbeddingClient embed, double pagerankWeight, boolean dedupCollapse) {
+        this(os, baseIndex, parser, spell, embed, pagerankWeight, dedupCollapse, ExpansionOptions.disabled());
+    }
+
+    /** Dùng cho test: tiêm thêm cấu hình mở rộng truy vấn (S3.3). */
+    SearchEngine(OpenSearchClient os, String baseIndex, QueryParser parser, SpellChecker spell,
+                 EmbeddingClient embed, double pagerankWeight, boolean dedupCollapse,
+                 ExpansionOptions expansion) {
         this.os = os;
         this.baseIndex = baseIndex;
         this.parser = parser;
@@ -117,6 +138,23 @@ public class SearchEngine {
         this.rerankTopK = DEFAULT_RERANK_TOP_K;
         this.pagerankWeight = Math.max(0.0, pagerankWeight);
         this.dedupCollapse = dedupCollapse;
+        this.expansion = expansion != null ? expansion : ExpansionOptions.disabled();
+        this.synonyms = SynonymDictionary.getDefault();
+        this.stopwords = loadStopwords();
+    }
+
+    private static java.util.Set<String> loadStopwords() {
+        java.util.Set<String> out = new java.util.HashSet<>();
+        try (java.io.InputStream in = SearchEngine.class.getResourceAsStream("/vi-stopwords.txt")) {
+            if (in == null) return out;
+            var br = new java.io.BufferedReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8));
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.trim().toLowerCase();
+                if (!line.isEmpty() && !line.startsWith("#")) out.add(line);
+            }
+        } catch (Exception ignore) {}
+        return out;
     }
 
     /**
@@ -124,10 +162,18 @@ public class SearchEngine {
      * Tách riêng để test mà không cần engine sống.
      */
     ObjectNode buildRequest(String rawQuery, int from, int size) {
+        return buildRequest(rawQuery, from, size, synonymExpansion(rawQuery));
+    }
+
+    /**
+     * Như trên nhưng truyền sẵn các token mở rộng (S3.3) để thêm vào nhánh {@code should}.
+     * Dùng khi đã tính xong đồng nghĩa + Rocchio ở lượt tìm chính.
+     */
+    ObjectNode buildRequest(String rawQuery, int from, int size, List<String> extraSegTerms) {
         ObjectNode body = mapper.createObjectNode();
         body.put("from", Math.max(0, from));
         body.put("size", Math.max(0, size));
-        body.set("query", withPageRank(parser.buildQuery(rawQuery)));
+        body.set("query", withPageRank(buildKeywordQuery(rawQuery, extraSegTerms)));
         ArrayNode src = body.putArray("_source");
         SOURCE_FIELDS.forEach(src::add);
         // Highlight trên field đã tách từ; hiển thị sẽ thay '_' → ' '.
@@ -165,6 +211,74 @@ public class SearchEngine {
         fvf.put("missing", 0);
         fs.put("boost_mode", "sum");
         return wrap;
+    }
+
+    // ---- Mở rộng truy vấn (S3.3) ---------------------------------------------
+
+    /** Các token đồng nghĩa (đã tách từ) cho truy vấn thô; rỗng nếu tắt hoặc truy vấn có cấu trúc. */
+    List<String> synonymExpansion(String rawQuery) {
+        if (!expansion.synonyms() || rawQuery == null || QueryParser.isStructured(rawQuery)) {
+            return List.of();
+        }
+        List<String> out = new ArrayList<>();
+        for (String syn : synonyms.expand(rawQuery, expansion.maxSynonyms())) {
+            String seg = parser.segment(syn);
+            if (!seg.isBlank()) out.add(seg);
+        }
+        return out;
+    }
+
+    /**
+     * Dựng truy vấn từ khóa + mở rộng: nếu có {@code extraSegTerms} và truy vấn KHÔNG có cấu trúc,
+     * bọc {@code bool{ must: gốc, should: expansionClause }} (tăng recall mà không bắt buộc).
+     */
+    ObjectNode buildKeywordQuery(String rawQuery, List<String> extraSegTerms) {
+        ObjectNode base = parser.buildQuery(rawQuery);
+        if (extraSegTerms == null || extraSegTerms.isEmpty() || QueryParser.isStructured(rawQuery)) {
+            return base;
+        }
+        ObjectNode wrap = mapper.createObjectNode();
+        ObjectNode bool = wrap.putObject("bool");
+        bool.set("must", base);
+        ArrayNode should = bool.putArray("should");
+        should.add(parser.expansionClause(String.join(" ", extraSegTerms), 0.5));
+        return wrap;
+    }
+
+    /** Token truy vấn (đã tách từ) để loại khỏi mở rộng Rocchio. */
+    private java.util.Set<String> queryTermSet(String rawQuery) {
+        java.util.Set<String> out = new java.util.HashSet<>();
+        for (String t : parser.segment(rawQuery).toLowerCase().split("\\s+")) {
+            if (!t.isBlank()) out.add(t);
+        }
+        return out;
+    }
+
+    /**
+     * Toàn bộ token mở rộng: đồng nghĩa + (tùy chọn) Rocchio PRF. PRF chạy MỘT lượt tìm mồi lấy
+     * top {@code prfDocs}, rút token nổi bật từ {@code content} của chúng. Bỏ qua khi tắt hoặc truy
+     * vấn có cấu trúc.
+     */
+    private List<String> expansionTerms(String rawQuery, String index) throws Exception {
+        List<String> syn = synonymExpansion(rawQuery);
+        if (!expansion.prf() || rawQuery == null || rawQuery.isBlank()
+                || QueryParser.isStructured(rawQuery)) {
+            return syn;
+        }
+        ObjectNode firstBody = buildRequest(rawQuery, 0, Math.max(1, expansion.prfDocs()), syn);
+        JsonNode res = os.search(index, firstBody);
+        List<String> docTexts = new ArrayList<>();
+        JsonNode hits = res.path("hits").path("hits");
+        if (hits.isArray()) {
+            for (JsonNode h : hits) {
+                String content = h.path("_source").path("content").asText("");
+                if (!content.isBlank()) docTexts.add(parser.segment(content));
+            }
+        }
+        List<String> prf = Rocchio.selectTerms(docTexts, queryTermSet(rawQuery), stopwords, expansion.prfTerms());
+        List<String> out = new ArrayList<>(syn);
+        for (String t : prf) if (!out.contains(t)) out.add(t);
+        return out;
     }
 
     /**
@@ -213,13 +327,14 @@ public class SearchEngine {
         return candidateSearch(rawQuery, p, size, ranker, rerank);
     }
 
-    /** Đường đi Phase 1: OpenSearch lo phân trang từ khóa. */
+    /** Đường đi Phase 1: OpenSearch lo phân trang từ khóa (+ mở rộng truy vấn S3.3). */
     private SearchResponse keywordSearch(String rawQuery, int p, int size, Ranker ranker) throws Exception {
         int from = (p - 1) * size;
         String index = ranker.indexName(baseIndex);
-        ObjectNode body = buildRequest(rawQuery, from, size);
 
         long t0 = System.nanoTime();
+        List<String> terms = expansionTerms(rawQuery, index);   // đồng nghĩa (+ Rocchio nếu bật)
+        ObjectNode body = buildRequest(rawQuery, from, size, terms);
         JsonNode res = os.search(index, body);
         long tookMs = (System.nanoTime() - t0) / 1_000_000;
 
