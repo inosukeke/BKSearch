@@ -3,6 +3,7 @@ package vn.hust.ir.query;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import vn.hust.ir.embed.EmbeddingClient;
+import vn.hust.ir.metrics.Metrics;
 import vn.hust.ir.migrate.OpenSearchClient;
 
 import java.io.BufferedReader;
@@ -34,6 +35,7 @@ public class QueryService {
     private final String osUrl;
     private final String baseIndex;
     private final SearchEngine engine;
+    private final Metrics metrics = new Metrics();   // S4.2: đo QPS + độ trễ cho Prometheus
 
     public QueryService(String osUrl, String baseIndex) {
         this.osUrl = osUrl;
@@ -71,12 +73,34 @@ public class QueryService {
 
     public Javalin build() {
         Javalin app = Javalin.create(cfg -> cfg.showJavalinBanner = false);
+        // S4.2: đo mọi request (bỏ qua chính /metrics để không tự đếm scrape).
+        app.before(ctx -> {
+            ctx.attribute("t0", System.nanoTime());
+            if (!"/metrics".equals(ctx.path())) metrics.incInFlight();
+        });
+        app.after(ctx -> {
+            if ("/metrics".equals(ctx.path())) return;
+            Long t0 = ctx.attribute("t0");
+            double sec = t0 == null ? 0.0 : (System.nanoTime() - t0) / 1_000_000_000.0;
+            metrics.record(ctx.path(), ctx.statusCode(), sec);
+            metrics.decInFlight();
+        });
         app.get("/healthz", this::healthz);
+        app.get("/metrics", this::handleMetrics);
         app.get("/api/search", this::handleSearch);
         app.get("/api/suggest", this::handleSuggest);
         app.get("/", ctx -> ctx.html(UI_PAGE));
         return app;
     }
+
+    /** S4.2: điểm scrape Prometheus (QPS, p95 độ trễ, in-flight, uptime). */
+    private void handleMetrics(Context ctx) {
+        ctx.contentType("text/plain; version=0.0.4; charset=utf-8")
+           .result(metrics.renderPrometheus());
+    }
+
+    /** Hiện ra cho kiểm thử/giám sát nội bộ. */
+    public Metrics metrics() { return metrics; }
 
     public void start(int port) {
         build().start(port);

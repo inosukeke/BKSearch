@@ -1,0 +1,19 @@
+# Cấu hình Prometheus cho BKSearch (S4.2).
+# Scrape /metrics của Query Service. Query Service chạy trên HOST (java -jar ... serve-api),
+# nên dùng host.docker.internal (trên Linux cần extra_hosts: host-gateway trong compose).
+global:
+  scrape_interval: 5s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: bksearch-query
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["host.docker.internal:7070"]
+        labels:
+          service: query
+
+  # Tự giám sát Prometheus (tuỳ chọn).
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]

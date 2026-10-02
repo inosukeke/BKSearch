@@ -100,8 +100,47 @@ services:
       retries: 12
       start_period: 120s
 
+  # Monitoring (S4.2) — chỉ bật khi cần: docker compose --profile monitoring up -d
+  # Prometheus scrape /metrics của Query Service (chạy trên host:7070).
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    container_name: bksearch-prometheus
+    profiles: ["monitoring"]
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    extra_hosts:
+      # Cho phép container Prometheus gọi về Query Service chạy trên HOST (Linux).
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "9090:9090"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:9090/-/healthy || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: bksearch-grafana
+    profiles: ["monitoring"]
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
 volumes:
   opensearch-data:
   postgres-data:
   redis-data:
   embedding-models:
+  prometheus-data:
+  grafana-data:
