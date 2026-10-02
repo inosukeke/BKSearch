@@ -44,12 +44,18 @@ public class QueryService {
         int rrfK = envInt("RRF_K", RrfFusion.DEFAULT_K);
         int pool = envInt("CANDIDATE_POOL", 100);
         int rerankTopK = envInt("RERANK_TOP_K", SearchEngine.DEFAULT_RERANK_TOP_K);
+        double pagerankWeight = envDouble("PAGERANK_WEIGHT", 0.0);   // 0 = TẮT trộn PageRank (S3.1)
         this.engine = new SearchEngine(osUrl, baseIndex, new SpellChecker(loadDefaultVocab()),
-                embed, rrfK, pool, rerankTopK);
+                embed, rrfK, pool, rerankTopK, pagerankWeight);
     }
 
     private static int envInt(String name, int def) {
         try { String v = System.getenv(name); return v == null ? def : Integer.parseInt(v.trim()); }
+        catch (Exception e) { return def; }
+    }
+
+    private static double envDouble(String name, double def) {
+        try { String v = System.getenv(name); return v == null ? def : Double.parseDouble(v.trim()); }
         catch (Exception e) { return def; }
     }
 

@@ -29,7 +29,10 @@ public class QueryParser {
     /** Field + boost dùng cho khớp term (giữ nhất quán giữa simple & structured). */
     public static final String TITLE_FIELD = "title_seg";
     public static final String CONTENT_FIELD = "content_seg";
+    /** Anchor text của liên kết đến (S3.1) — tín hiệu mô tả trang từ bên ngoài. Rỗng → vô hại. */
+    public static final String ANCHOR_FIELD = "anchor_text_seg";
     public static final double TITLE_BOOST = 2.0;
+    public static final double ANCHOR_BOOST = 1.5;
 
     private final Segmenter analyzer;
     private final ObjectMapper mapper;
@@ -90,6 +93,7 @@ public class QueryParser {
         ArrayNode fields = body.putArray("fields");
         fields.add(TITLE_FIELD + "^" + (int) TITLE_BOOST);
         fields.add(CONTENT_FIELD);
+        fields.add(ANCHOR_FIELD + "^" + ANCHOR_BOOST);   // S3.1 anchor text (rỗng → không ảnh hưởng)
         return mm;
     }
 

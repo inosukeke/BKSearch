@@ -149,6 +149,53 @@ public class OpenSearchClient {
         return new BulkResult(ok, failed, firstError);
     }
 
+    /**
+     * Cập nhật từng phần (partial update) một lô tài liệu theo _id: chỉ MERGE các field trong
+     * {@code source} vào doc hiện có, KHÔNG ghi đè field khác (dùng cho S3.1: ghi {@code pagerank},
+     * {@code anchor_text} mà không mất {@code content}/{@code embedding}...).
+     * Tài liệu chưa tồn tại (_id lạ) → lô đó "failed" (không upsert).
+     */
+    public BulkResult bulkUpdate(String index, List<Item> items) throws Exception {
+        StringBuilder nd = new StringBuilder();
+        for (Item it : items) {
+            ObjectNode action = mapper.createObjectNode();
+            ObjectNode meta = action.putObject("update");
+            meta.put("_index", index);
+            meta.put("_id", it.id());
+            ObjectNode docWrap = mapper.createObjectNode();
+            docWrap.set("doc", it.source());
+            nd.append(mapper.writeValueAsString(action)).append('\n');
+            nd.append(mapper.writeValueAsString(docWrap)).append('\n');
+        }
+        HttpRequest req = HttpRequest.newBuilder(URI.create(base + "/_bulk"))
+                .header("Content-Type", "application/x-ndjson")
+                .POST(HttpRequest.BodyPublishers.ofString(nd.toString(), StandardCharsets.UTF_8))
+                .build();
+        HttpResponse<String> res = http.send(req, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+        JsonNode root = mapper.readTree(res.body());
+        if (res.statusCode() >= 300) {
+            throw new RuntimeException("Bulk update HTTP " + res.statusCode() + ": " + truncate(res.body()));
+        }
+        JsonNode itemsNode = root.path("items");
+        if (!itemsNode.isArray() || itemsNode.isEmpty()) {
+            String err = root.path("error").toString();
+            throw new RuntimeException("Bulk update không trả 'items'" + (err.isBlank() || err.equals("null") ? "" : ": " + err));
+        }
+        int ok = 0, failed = 0;
+        String firstError = null;
+        for (JsonNode it : itemsNode) {
+            JsonNode r = it.path("update");
+            int status = r.path("status").asInt();
+            if (status >= 200 && status < 300) {
+                ok++;
+            } else {
+                failed++;
+                if (firstError == null) firstError = r.path("error").toString();
+            }
+        }
+        return new BulkResult(ok, failed, firstError);
+    }
+
     public record Item(String id, ObjectNode source) {}
 
     private static String truncate(String s) {

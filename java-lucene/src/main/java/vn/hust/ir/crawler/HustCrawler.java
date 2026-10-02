@@ -48,7 +48,7 @@ public class HustCrawler {
             if (seen.add(s)) queue.add(new String[]{s, "0"});
         }
 
-        int pages = 0, nw = 0, up = 0, un = 0, files = 0;
+        int pages = 0, nw = 0, up = 0, un = 0, files = 0, edges = 0;
         while (!queue.isEmpty() && pages < maxPages) {
             String[] cur = queue.poll();
             String url = cur[0];
@@ -96,13 +96,16 @@ public class HustCrawler {
                 }
             }
 
-            // Thêm link nội bộ vào hàng đợi.
-            if (depth < maxDepth) {
-                for (Element a : doc.select("a[href]")) {
-                    String abs = a.absUrl("href").split("#")[0];
-                    if (inScope(abs) && seen.add(abs)) {
-                        queue.add(new String[]{abs, String.valueOf(depth + 1)});
-                    }
+            // Link nội bộ: (1) lưu CẠNH đồ thị trang→trang + anchor cho PageRank (S3.1) — ghi mọi
+            // cạnh trong phạm vi, kể cả tới trang đã thấy / quá maxDepth; (2) nạp trang mới vào hàng đợi.
+            for (Element a : doc.select("a[href]")) {
+                String abs = a.absUrl("href").split("#")[0];
+                if (!inScope(abs)) continue;
+                try {
+                    if (db.insertLink(url, abs, a.text())) edges++;
+                } catch (Exception ignore) { /* một cạnh lỗi không dừng crawl */ }
+                if (depth < maxDepth && seen.add(abs)) {
+                    queue.add(new String[]{abs, String.valueOf(depth + 1)});
                 }
             }
 
@@ -113,8 +116,8 @@ public class HustCrawler {
         }
 
         System.out.printf(
-            "Crawl xong: %d trang | mới=%d cập_nhật=%d không_đổi=%d | URL tài liệu mới=%d%n",
-            pages, nw, up, un, files);
+            "Crawl xong: %d trang | mới=%d cập_nhật=%d không_đổi=%d | URL tài liệu mới=%d | cạnh link mới=%d%n",
+            pages, nw, up, un, files, edges);
     }
 
     private boolean inScope(String url) {

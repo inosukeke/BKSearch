@@ -39,6 +39,7 @@ public class App {
             case "serve-api"-> serveApi(args);
             case "schedule" -> schedule(args);
             case "migrate"  -> migrate(args);
+            case "pagerank" -> pagerank(args);
             case "eval-run" -> evalRun(args);
             default         -> usage();
         }
@@ -117,7 +118,8 @@ public class App {
         int rrfK = parseEnvInt("RRF_K", vn.hust.ir.query.RrfFusion.DEFAULT_K);
         int pool = parseEnvInt("CANDIDATE_POOL", 100);
         int rerankTopK = parseEnvInt("RERANK_TOP_K", vn.hust.ir.query.SearchEngine.DEFAULT_RERANK_TOP_K);
-        new vn.hust.ir.eval.EvalRunner(osUrl, index, k, embedUrl, rrfK, pool, rerankTopK).run(
+        double pagerankWeight = parseEnvDouble("PAGERANK_WEIGHT", 0.0);
+        new vn.hust.ir.eval.EvalRunner(osUrl, index, k, embedUrl, rrfK, pool, rerankTopK, pagerankWeight).run(
                 Path.of("..", "eval", "queries", "queries.tsv"),
                 Path.of("..", "eval", "qrels", "qrels.txt"));
     }
@@ -144,6 +146,43 @@ public class App {
                 embed, embedUrl, embedBatch).run();
     }
 
+    /**
+     * S3.1: tính PageRank theo lô từ đồ thị liên kết trong SQLite rồi cập nhật field
+     * {@code pagerank} + anchor text vào các index OpenSearch (BM25/VSM/LM).
+     * Cú pháp: {@code pagerank [osUrl]}. Env: {@code PAGERANK_DAMPING}, {@code PAGERANK_INDICES}
+     * (phẩy ngăn cách, mặc định "documents,documents_vsm,documents_lm").
+     */
+    private static void pagerank(String[] a) throws Exception {
+        String osUrl = (a.length > 1 && !a[1].startsWith("--")) ? a[1]
+                : System.getenv().getOrDefault("OPENSEARCH_URL", "http://localhost:9200");
+        double damping = parseEnvDouble("PAGERANK_DAMPING", vn.hust.ir.linkgraph.PageRank.DEFAULT_DAMPING);
+        int batch = parseEnvInt("PAGERANK_BATCH", 500);
+        String idxEnv = System.getenv().getOrDefault("PAGERANK_INDICES",
+                "documents,documents_vsm,documents_lm");
+        List<String> indices = new java.util.ArrayList<>();
+        for (String s : idxEnv.split(",")) if (!s.isBlank()) indices.add(s.trim());
+
+        try (Db db = new Db(DB_PATH)) {
+            System.out.printf("PageRank: %d tài liệu, %d cạnh liên kết (damping=%.2f)...%n",
+                    db.countDocuments(), db.countLinks(), damping);
+            var runner = new vn.hust.ir.linkgraph.PageRankRunner();
+            var sum = runner.run(db, new vn.hust.ir.migrate.OpenSearchClient(osUrl),
+                    vn.hust.ir.nlp.VietnameseAnalyzer.get(), indices, damping,
+                    vn.hust.ir.linkgraph.PageRank.DEFAULT_MAX_ITER,
+                    vn.hust.ir.linkgraph.PageRank.DEFAULT_TOL, batch);
+            System.out.printf("PageRank xong: %d node, %d cạnh | hội tụ=%s sau %d vòng%n",
+                    sum.nodes(), sum.edgesKept(), sum.converged(), sum.iterations());
+            sum.perIndex().forEach((idx, r) ->
+                    System.out.printf("  %-18s ok=%d failed=%d%s%n", idx, r.ok(), r.failed(),
+                            r.firstError() != null ? " err=" + r.firstError() : ""));
+        }
+    }
+
+    private static double parseEnvDouble(String name, double def) {
+        try { String v = System.getenv(name); return v == null ? def : Double.parseDouble(v.trim()); }
+        catch (Exception e) { return def; }
+    }
+
     private static int parseEnvInt(String name, int def) {
         try { String v = System.getenv(name); return v == null ? def : Integer.parseInt(v.trim()); }
         catch (Exception e) { return def; }
@@ -166,6 +205,7 @@ public class App {
               serve-api [port] [osUrl] [index]  Query Service Javalin (S1.1, mặc định 7070)
               schedule [phút] [maxPages]   chạy định kỳ (mặc định 60 phút)
               migrate [osUrl] [batch]      di trú SQLite → OpenSearch (+Postgres); --no-pg bỏ Postgres; --embed sinh vector (EMBED_URL)
+              pagerank [osUrl]             tính PageRank + anchor text → cập nhật pagerank/anchor vào index (S3.1)
               eval-run [osUrl] [index] [k] chạy bộ đánh giá 3 ranker BM25/VSM/LM (S1.7)
             """);
     }

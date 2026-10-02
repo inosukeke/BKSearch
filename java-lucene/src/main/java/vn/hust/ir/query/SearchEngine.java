@@ -38,6 +38,8 @@ public class SearchEngine {
     private final int candidatePool;
     /** Chỉ rerank top-K ứng viên (S2.5, ràng buộc G7). */
     private final int rerankTopK;
+    /** Trọng số trộn PageRank vào điểm từ khóa qua function_score (S3.1); 0 = TẮT. */
+    private final double pagerankWeight;
 
     public static final String EMBEDDING_FIELD = "embedding";
 
@@ -53,11 +55,18 @@ public class SearchEngine {
             List.of("url", "title", "content", "doc_type", "subdomain");
 
     public SearchEngine(String osUrl, String baseIndex, SpellChecker spell) {
-        this(osUrl, baseIndex, spell, null, RrfFusion.DEFAULT_K, 100, DEFAULT_RERANK_TOP_K);
+        this(osUrl, baseIndex, spell, null, RrfFusion.DEFAULT_K, 100, DEFAULT_RERANK_TOP_K, 0.0);
+    }
+
+    /** Back-compat (không PageRank): trọng số = 0. */
+    public SearchEngine(String osUrl, String baseIndex, SpellChecker spell,
+                        EmbeddingClient embed, int rrfK, int candidatePool, int rerankTopK) {
+        this(osUrl, baseIndex, spell, embed, rrfK, candidatePool, rerankTopK, 0.0);
     }
 
     public SearchEngine(String osUrl, String baseIndex, SpellChecker spell,
-                        EmbeddingClient embed, int rrfK, int candidatePool, int rerankTopK) {
+                        EmbeddingClient embed, int rrfK, int candidatePool, int rerankTopK,
+                        double pagerankWeight) {
         this.os = new OpenSearchClient(osUrl);
         this.baseIndex = baseIndex;
         this.parser = new QueryParser(VietnameseAnalyzer.get(), mapper);
@@ -66,6 +75,7 @@ public class SearchEngine {
         this.rrfK = rrfK > 0 ? rrfK : RrfFusion.DEFAULT_K;
         this.candidatePool = Math.max(10, candidatePool);
         this.rerankTopK = Math.max(1, rerankTopK);
+        this.pagerankWeight = Math.max(0.0, pagerankWeight);
     }
 
     /** Dùng cho test: cho phép tiêm client/parser (không bắt buộc OpenSearch sống). */
@@ -76,6 +86,12 @@ public class SearchEngine {
     /** Dùng cho test: tiêm thêm EmbeddingClient (vector/hybrid/rerank). */
     SearchEngine(OpenSearchClient os, String baseIndex, QueryParser parser, SpellChecker spell,
                  EmbeddingClient embed) {
+        this(os, baseIndex, parser, spell, embed, 0.0);
+    }
+
+    /** Dùng cho test: tiêm EmbeddingClient + trọng số PageRank (S3.1). */
+    SearchEngine(OpenSearchClient os, String baseIndex, QueryParser parser, SpellChecker spell,
+                 EmbeddingClient embed, double pagerankWeight) {
         this.os = os;
         this.baseIndex = baseIndex;
         this.parser = parser;
@@ -84,6 +100,7 @@ public class SearchEngine {
         this.rrfK = RrfFusion.DEFAULT_K;
         this.candidatePool = 100;
         this.rerankTopK = DEFAULT_RERANK_TOP_K;
+        this.pagerankWeight = Math.max(0.0, pagerankWeight);
     }
 
     /**
@@ -94,7 +111,7 @@ public class SearchEngine {
         ObjectNode body = mapper.createObjectNode();
         body.put("from", Math.max(0, from));
         body.put("size", Math.max(0, size));
-        body.set("query", parser.buildQuery(rawQuery));
+        body.set("query", withPageRank(parser.buildQuery(rawQuery)));
         ArrayNode src = body.putArray("_source");
         SOURCE_FIELDS.forEach(src::add);
         // Highlight trên field đã tách từ; hiển thị sẽ thay '_' → ' '.
@@ -107,6 +124,27 @@ public class SearchEngine {
         fields.putObject(QueryParser.CONTENT_FIELD);
         fields.putObject(QueryParser.TITLE_FIELD);
         return body;
+    }
+
+    /**
+     * Trộn PageRank vào điểm từ khóa (S3.1) bằng {@code function_score}:
+     * <pre>điểm_cuối = điểm_text + ln1p(pagerankWeight * pagerank)</pre>
+     * ({@code field_value_factor} + {@code boost_mode=sum}; {@code missing=0} cho doc chưa có
+     * pagerank). Trọng số = 0 → trả nguyên truy vấn gốc (TẮT, không đổi hành vi Phase 1/2).
+     * Trọng số cần tinh chỉnh bằng eval ở phiên local (PageRank ~1/N nên rất nhỏ).
+     */
+    ObjectNode withPageRank(ObjectNode baseQuery) {
+        if (pagerankWeight <= 0.0) return baseQuery;
+        ObjectNode wrap = mapper.createObjectNode();
+        ObjectNode fs = wrap.putObject("function_score");
+        fs.set("query", baseQuery);
+        ObjectNode fvf = fs.putObject("field_value_factor");
+        fvf.put("field", "pagerank");
+        fvf.put("factor", pagerankWeight);
+        fvf.put("modifier", "ln1p");
+        fvf.put("missing", 0);
+        fs.put("boost_mode", "sum");
+        return wrap;
     }
 
     /**

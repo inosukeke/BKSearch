@@ -26,6 +26,8 @@
       "content":      { "type": "text", "analyzer": "standard", "similarity": "lm" },
       "title_seg":    { "type": "text", "analyzer": "vi_seg", "similarity": "lm" },
       "content_seg":  { "type": "text", "analyzer": "vi_seg", "similarity": "lm" },
+      "anchor_text":     { "type": "text", "analyzer": "standard", "similarity": "lm" },
+      "anchor_text_seg": { "type": "text", "analyzer": "vi_seg", "similarity": "lm" },
       "doc_type":     { "type": "keyword" },
       "subdomain":    { "type": "keyword" },
       "lang":         { "type": "keyword" },

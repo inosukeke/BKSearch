@@ -46,6 +46,18 @@ public class Db implements AutoCloseable {
                     subdomain     TEXT,
                     discovered_at TEXT
                 )""");
+            // Đồ thị liên kết trang→trang (S3.1 PageRank + anchor text). Một hàng/cạnh;
+            // (src_url,dst_url,anchor) UNIQUE để crawl lại không nhân đôi cạnh cùng anchor.
+            st.execute("""
+                CREATE TABLE IF NOT EXISTS links (
+                    id       INTEGER PRIMARY KEY AUTOINCREMENT,
+                    src_url  TEXT NOT NULL,
+                    dst_url  TEXT NOT NULL,
+                    anchor   TEXT,
+                    UNIQUE(src_url, dst_url, anchor)
+                )""");
+            st.execute("CREATE INDEX IF NOT EXISTS idx_links_src ON links(src_url)");
+            st.execute("CREATE INDEX IF NOT EXISTS idx_links_dst ON links(dst_url)");
         }
     }
 
@@ -112,6 +124,42 @@ public class Db implements AutoCloseable {
             ps.setString(4, subdomain);
             ps.setString(5, Instant.now().toString());
             return ps.executeUpdate() > 0;
+        }
+    }
+
+    /**
+     * Lưu một cạnh liên kết trang→trang kèm anchor (S3.1). Bỏ qua self-loop và URL rỗng.
+     * Trùng (src,dst,anchor) → bỏ qua (INSERT OR IGNORE).
+     * @return true nếu chèn mới.
+     */
+    public boolean insertLink(String srcUrl, String dstUrl, String anchor) throws SQLException {
+        if (srcUrl == null || dstUrl == null || srcUrl.isBlank() || dstUrl.isBlank()) return false;
+        if (srcUrl.equals(dstUrl)) return false;   // self-loop không đóng góp PageRank
+        try (PreparedStatement ps = conn.prepareStatement(
+                "INSERT OR IGNORE INTO links (src_url,dst_url,anchor) VALUES (?,?,?)")) {
+            ps.setString(1, srcUrl);
+            ps.setString(2, dstUrl);
+            ps.setString(3, anchor == null ? "" : anchor.trim());
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    /** Lấy toàn bộ cạnh liên kết {@code [src_url, dst_url, anchor]} để dựng đồ thị PageRank. */
+    public java.util.List<String[]> allLinks() throws SQLException {
+        java.util.List<String[]> out = new java.util.ArrayList<>();
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery("SELECT src_url,dst_url,anchor FROM links")) {
+            while (rs.next()) {
+                out.add(new String[]{rs.getString(1), rs.getString(2), rs.getString(3)});
+            }
+        }
+        return out;
+    }
+
+    public int countLinks() throws SQLException {
+        try (Statement st = conn.createStatement();
+             ResultSet rs = st.executeQuery("SELECT COUNT(*) FROM links")) {
+            return rs.next() ? rs.getInt(1) : 0;
         }
     }
 

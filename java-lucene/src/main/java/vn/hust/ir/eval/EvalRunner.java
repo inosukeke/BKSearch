@@ -38,13 +38,19 @@ public class EvalRunner {
     private final int rrfK;
     private final int pool;
     private final int rerankTopK;
+    private final double pagerankWeight;
 
     public EvalRunner(String osUrl, String baseIndex, int k) {
-        this(osUrl, baseIndex, k, null, RrfFusion.DEFAULT_K, 100, 50);
+        this(osUrl, baseIndex, k, null, RrfFusion.DEFAULT_K, 100, SearchEngine.DEFAULT_RERANK_TOP_K, 0.0);
     }
 
     public EvalRunner(String osUrl, String baseIndex, int k,
                       String embedUrl, int rrfK, int pool, int rerankTopK) {
+        this(osUrl, baseIndex, k, embedUrl, rrfK, pool, rerankTopK, 0.0);
+    }
+
+    public EvalRunner(String osUrl, String baseIndex, int k,
+                      String embedUrl, int rrfK, int pool, int rerankTopK, double pagerankWeight) {
         this.osUrl = osUrl;
         this.baseIndex = baseIndex;
         this.k = Math.max(1, k);
@@ -52,6 +58,7 @@ public class EvalRunner {
         this.rrfK = rrfK;
         this.pool = pool;
         this.rerankTopK = rerankTopK;
+        this.pagerankWeight = Math.max(0.0, pagerankWeight);
     }
 
     /** Một cấu hình đánh giá: ranker + có rerank không + nhãn hiển thị. */
@@ -66,7 +73,7 @@ public class EvalRunner {
         boolean hasEmbed = embedUrl != null && !embedUrl.isBlank();
         EmbeddingClient embed = hasEmbed ? new EmbeddingClient(embedUrl) : null;
         SearchEngine engine = new SearchEngine(osUrl, baseIndex, new SpellChecker(List.of()),
-                embed, rrfK, pool, rerankTopK);
+                embed, rrfK, pool, rerankTopK, pagerankWeight);
 
         List<Config> configs = new ArrayList<>();
         configs.add(new Config(Ranker.BM25, false, "bm25"));

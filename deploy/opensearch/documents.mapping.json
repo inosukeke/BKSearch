@@ -23,6 +23,8 @@
       "content":      { "type": "text", "analyzer": "standard" },
       "title_seg":    { "type": "text", "analyzer": "vi_seg" },
       "content_seg":  { "type": "text", "analyzer": "vi_seg" },
+      "anchor_text":     { "type": "text", "analyzer": "standard" },
+      "anchor_text_seg": { "type": "text", "analyzer": "vi_seg" },
       "doc_type":     { "type": "keyword" },
       "subdomain":    { "type": "keyword" },
       "lang":         { "type": "keyword" },

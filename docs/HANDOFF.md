@@ -82,3 +82,26 @@ mvn test   # (trong java-lucene) — 38 test
   `python eval/pool_to_qrels.py` + eval-run là bảng tự cập nhật. Vài truy vấn gần như không có doc liên quan (q12=0, q04/q10/q11/q32 rất ít).
 - **BM25 = VSM giống hệt mọi chỉ số** → dấu hiệu lạ từ Phase 1 (scripted tf-idf có thể chưa khác BM25 trên tập này) — nên soi riêng.
 - **Hạ tầng Phase 2** (chạy LOCAL): thêm service `embedding` trong compose; key `EMBED_*`/`RERANK_MODEL`/`EMBED_FAKE`/`EMBED_URL` ở `deploy/.env.example`.
+
+## PHASE 3 — Chất lượng & tín hiệu (đang làm; code + unit test trên cloud, verify local)
+
+### S3.1 PageRank + anchor text — CODE XONG (chờ verify local)
+- **Đồ thị liên kết:** crawler nay lưu CẠNH trang→trang + anchor vào bảng SQLite `links`
+  (`src_url,dst_url,anchor`, UNIQUE, bỏ self-loop). `vn.hust.ir.store.Db`: `insertLink/allLinks/countLinks`.
+- **Thuật toán:** `vn.hust.ir.linkgraph.PageRank` (power iteration, damping 0.85, xử lý dangling,
+  hội tụ theo L1 < tol) + `LinkGraph` (intern URL, khử self-loop/cạnh trùng, gom anchor theo dst). Thuần, unit test đầy đủ.
+- **Lệnh:** `pagerank [osUrl]` → đọc `links`+`documents` từ SQLite → tính PageRank → **cập nhật từng phần**
+  (`OpenSearchClient.bulkUpdate`, action `update`+`doc`) field `pagerank` + `anchor_text`/`anchor_text_seg`
+  vào cả 3 index. Env: `PAGERANK_DAMPING`, `PAGERANK_INDICES`, `PAGERANK_BATCH`.
+- **Trộn ranking:** `SearchEngine.withPageRank` bọc truy vấn từ khóa bằng `function_score`
+  (`field_value_factor` trên `pagerank`, `boost_mode=sum`, `modifier=ln1p`). Trọng số qua env
+  **`PAGERANK_WEIGHT`** (mặc định **0 = TẮT** → không đổi hành vi). Anchor text thành field tìm kiếm
+  `anchor_text_seg^1.5` trong `multi_match`.
+- **Mapping:** thêm `anchor_text`, `anchor_text_seg` vào 3 mapping (pagerank đã khai báo từ Phase 0).
+
+#### Verify LOCAL S3.1 (thứ tự quan trọng)
+1. **Re-crawl** để sinh đồ thị: `java -jar ... crawl` (corpus hiện tại migrate từ SQLite cũ **CHƯA có
+   bảng `links`** → PageRank sẽ đều nhau tới khi crawl lại). Kiểm `countLinks() > 0`.
+2. `migrate` → `create-ranker-indices.sh` (tạo đủ 3 index) → `pagerank` (ghi pagerank+anchor vào cả 3).
+3. Bật trộn: `PAGERANK_WEIGHT=<w>` khi `serve-api`/`eval-run`. **Tinh chỉnh w bằng eval** (PageRank ~1/N
+   rất nhỏ nên cần w lớn hoặc đổi modifier). PASS: bật/tắt thấy thứ hạng đổi; nDCG không giảm.

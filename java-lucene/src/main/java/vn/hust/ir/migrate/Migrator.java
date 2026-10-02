@@ -198,7 +198,8 @@ public class Migrator {
         return null;
     }
 
-    static String sha256(String s) {
+    /** _id ổn định của một tài liệu = SHA-256(url). Dùng chung cho migrate & cập nhật pagerank (S3.1). */
+    public static String sha256(String s) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] h = md.digest(s.getBytes(java.nio.charset.StandardCharsets.UTF_8));

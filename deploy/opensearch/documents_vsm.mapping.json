@@ -31,6 +31,8 @@
       "content":      { "type": "text", "analyzer": "standard", "similarity": "vsm" },
       "title_seg":    { "type": "text", "analyzer": "vi_seg", "similarity": "vsm" },
       "content_seg":  { "type": "text", "analyzer": "vi_seg", "similarity": "vsm" },
+      "anchor_text":     { "type": "text", "analyzer": "standard", "similarity": "vsm" },
+      "anchor_text_seg": { "type": "text", "analyzer": "vi_seg", "similarity": "vsm" },
       "doc_type":     { "type": "keyword" },
       "subdomain":    { "type": "keyword" },
       "lang":         { "type": "keyword" },

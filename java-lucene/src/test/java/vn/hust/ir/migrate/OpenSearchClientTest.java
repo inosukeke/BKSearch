@@ -47,4 +47,31 @@ class OpenSearchClientTest {
         assertNull(upgrade[0], "không được gửi Upgrade: h2c (đã ép HTTP/1.1)");
         assertNull(h2settings[0], "không được gửi HTTP2-Settings (đã ép HTTP/1.1)");
     }
+
+    @Test
+    void bulkUpdate_usesUpdateActionWithDocMerge() throws Exception {
+        final String[] captured = {null};
+        server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/_bulk", ex -> {
+            captured[0] = new String(ex.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+            byte[] b = "{\"items\":[{\"update\":{\"status\":200}},{\"update\":{\"status\":200}}]}"
+                    .getBytes(StandardCharsets.UTF_8);
+            ex.sendResponseHeaders(200, b.length);
+            try (OutputStream os = ex.getResponseBody()) { os.write(b); }
+        });
+        server.start();
+
+        OpenSearchClient c = new OpenSearchClient("http://127.0.0.1:" + server.getAddress().getPort());
+        ObjectMapper m = new ObjectMapper();
+        var a = new OpenSearchClient.Item("id1", m.createObjectNode().put("pagerank", 0.5));
+        var b2 = new OpenSearchClient.Item("id2", m.createObjectNode().put("pagerank", 0.3));
+        OpenSearchClient.BulkResult r = c.bulkUpdate("documents", java.util.List.of(a, b2));
+
+        assertEquals(2, r.ok());
+        assertEquals(0, r.failed());
+        // ndjson phải dùng action "update" + bọc "doc" (partial merge), không phải "index".
+        assertTrue(captured[0].contains("\"update\""), "phải là action update");
+        assertTrue(captured[0].contains("\"doc\""), "phải bọc doc để merge từng phần");
+        assertTrue(captured[0].contains("\"pagerank\":0.5"));
+    }
 }
