@@ -64,7 +64,7 @@ public class QueryParser {
         if (!isStructured(raw)) {
             String seg = analyzer.segment(raw);
             if (seg.isBlank()) seg = analyzer.normalize(raw);
-            return multiMatch(seg);
+            return segOrFold(seg, raw, "or");
         }
         List<Tok> toks = tokenize(raw);
         if (toks.isEmpty()) throw new QueryParseException("Truy vấn rỗng sau khi phân tích.");
@@ -77,6 +77,66 @@ public class QueryParser {
     }
 
     // ---- Bộ dựng mệnh đề cơ sở (dùng chung) ----------------------------------
+
+    /**
+     * Gộp đường TÁCH TỪ (có dấu, chính xác) + đường BỎ DẤU (không dấu, recall) cho truy vấn đơn.
+     * <ul>
+     *   <li>nhánh {@code _seg}: multi_match {@code segmented} trên {@code title_seg/content_seg} (token
+     *       ghép, giữ dấu) — khớp mạnh khi gõ ĐÚNG dấu;</li>
+     *   <li>nhánh BỎ DẤU: multi_match {@code raw} trên {@code title/content} (analyzer {@code vi_fold} có
+     *       {@code asciifolding}) — cho gõ KHÔNG dấu vẫn khớp ("giang vien" → "giảng viên").</li>
+     * </ul>
+     * Gộp bằng {@code bool.should} (khớp 1 trong 2 là đủ); nhánh _seg boost cao hơn để ưu tiên gõ đúng dấu.
+     */
+    ObjectNode segOrFold(String segmented, String raw, String operator) {
+        ObjectNode q = mapper.createObjectNode();
+        ObjectNode bool = q.putObject("bool");
+        ArrayNode should = bool.putArray("should");
+        should.add(multiMatch(segmented, operator));     // có dấu (tách từ)
+        should.add(foldMatch(raw, operator));            // không dấu (bỏ dấu, theo từng từ)
+        should.add(foldPhrase(raw));                     // BOOST cụm liền nhau (bỏ dấu) → "giảng viên" lên top
+        bool.put("minimum_should_match", 1);
+        return q;
+    }
+
+    /**
+     * Boost tài liệu có các từ truy vấn ĐỨNG GẦN NHAU trên field đã bỏ dấu ({@code title/content}),
+     * giúp cụm như "giang vien" (→ "giảng viên") xếp trên trang chỉ tình cờ chứa 1 từ (vd tên "Giang").
+     * Dùng {@code match_phrase} slop=1 (cho phép lệch 1 vị trí), boost cao.
+     */
+    ObjectNode foldPhrase(String raw) {
+        ObjectNode q = mapper.createObjectNode();
+        ObjectNode bool = q.putObject("bool");
+        ArrayNode should = bool.putArray("should");
+        should.add(matchPhraseBoost("title", raw, 1, 4.0));
+        should.add(matchPhraseBoost("content", raw, 1, 2.0));
+        bool.put("minimum_should_match", 1);
+        return q;
+    }
+
+    private ObjectNode matchPhraseBoost(String field, String raw, int slop, double boost) {
+        ObjectNode q = mapper.createObjectNode();
+        ObjectNode mp = q.putObject("match_phrase");
+        ObjectNode body = mp.putObject(field);
+        body.put("query", raw);
+        if (slop > 0) body.put("slop", slop);
+        body.put("boost", boost);
+        return q;
+    }
+
+    /** multi_match trên field RAW đã bỏ dấu ({@code title/content}, analyzer vi_fold), boost thấp hơn _seg. */
+    ObjectNode foldMatch(String raw, String operator) {
+        ObjectNode mm = mapper.createObjectNode();
+        ObjectNode body = mm.putObject("multi_match");
+        body.put("query", raw);
+        body.put("type", "best_fields");
+        body.put("operator", operator);
+        ArrayNode fields = body.putArray("fields");
+        fields.add("title^1.5");
+        fields.add("content");
+        body.put("boost", 0.8);   // nhường điểm cho nhánh tách từ (có dấu) khi cả hai cùng khớp
+        return mm;
+    }
 
     /** multi_match best_fields trên title_seg^2 + content_seg (BM25 S1.2), operator "or". */
     ObjectNode multiMatch(String segmented) {

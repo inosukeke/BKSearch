@@ -29,7 +29,9 @@ class SearchEngineTest {
         JsonNode body = engine().buildRequest("tuyển sinh", 10, 10);
         assertEquals(10, body.path("from").asInt());
         assertEquals(10, body.path("size").asInt());
-        assertTrue(body.path("query").has("multi_match"));
+        assertTrue(body.path("query").path("bool").path("should").isArray(),
+                "truy vấn đơn gộp nhánh tách-từ + bỏ-dấu (bool.should)");
+        assertTrue(body.path("query").toString().contains("multi_match"));
         assertTrue(body.path("highlight").path("fields").has("content_seg"));
         assertTrue(body.path("highlight").path("fields").has("title_seg"));
         assertTrue(body.path("_source").toString().contains("url"));

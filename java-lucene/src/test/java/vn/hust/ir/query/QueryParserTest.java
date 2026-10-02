@@ -17,14 +17,20 @@ class QueryParserTest {
     private final QueryParser p = new QueryParser(VietnameseAnalyzer.get(), m);
 
     @Test
-    void simpleQuery_usesMultiMatch_withSegmentedText() {
+    void simpleQuery_gopNhanhTachTu_vaBoDau() {
         JsonNode q = p.buildQuery("tuyển sinh");
-        assertTrue(q.has("multi_match"), "truy vấn đơn giản phải là multi_match (BM25)");
-        // G3: "tuyển sinh" tách thành "tuyển_sinh"
-        assertEquals("tuyển_sinh", q.path("multi_match").path("query").asText());
-        String fields = q.path("multi_match").path("fields").toString();
-        assertTrue(fields.contains("title_seg^2"), "phải boost title_seg^2");
-        assertTrue(fields.contains("content_seg"), "phải tìm trên content_seg");
+        JsonNode should = q.path("bool").path("should");
+        assertTrue(should.isArray() && should.size() == 3, "gộp nhánh tách-từ + bỏ-dấu + boost cụm");
+        // Nhánh 1: tách từ trên *_seg — G3: "tuyển sinh" → "tuyển_sinh"
+        JsonNode seg = should.get(0).path("multi_match");
+        assertEquals("tuyển_sinh", seg.path("query").asText());
+        String segFields = seg.path("fields").toString();
+        assertTrue(segFields.contains("title_seg^2"), "phải boost title_seg^2");
+        assertTrue(segFields.contains("content_seg"), "phải tìm trên content_seg");
+        // Nhánh 2: bỏ dấu dùng query THÔ trên title/content (analyzer vi_fold)
+        JsonNode fold = should.get(1).path("multi_match");
+        assertEquals("tuyển sinh", fold.path("query").asText(), "nhánh bỏ dấu dùng query thô");
+        assertTrue(fold.path("fields").toString().contains("content"), "tìm trên content (đã bỏ dấu)");
     }
 
     @Test

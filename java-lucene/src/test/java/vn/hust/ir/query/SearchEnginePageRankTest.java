@@ -35,14 +35,16 @@ class SearchEnginePageRankTest {
         assertEquals("pagerank", fs.path("field_value_factor").path("field").asText());
         assertEquals(2.0, fs.path("field_value_factor").path("factor").asDouble(), 1e-9);
         assertEquals("sum", fs.path("boost_mode").asText());
-        // truy vấn gốc vẫn nằm trong function_score.query
-        assertTrue(fs.path("query").has("multi_match"));
+        // truy vấn gốc (bool.should: tách-từ + bỏ-dấu) vẫn nằm trong function_score.query
+        assertTrue(fs.path("query").path("bool").path("should").get(0).has("multi_match"));
     }
 
     @Test
     void multiMatch_includesAnchorTextField() {
         JsonNode body = engine(0.0).buildRequest("học phí", 0, 10);
-        String fields = body.path("query").path("multi_match").path("fields").toString();
+        // Nhánh tách-từ = should[0].multi_match (sau khi gộp thêm nhánh bỏ-dấu).
+        String fields = body.path("query").path("bool").path("should").get(0)
+                .path("multi_match").path("fields").toString();
         assertTrue(fields.contains("anchor_text_seg"), "anchor text (S3.1) phải là field tìm kiếm");
         assertTrue(fields.contains("title_seg^2"));
     }
@@ -62,9 +64,12 @@ class SearchEnginePageRankTest {
     }
 
     @Test
-    void synonymExpansion_disabled_noBoolWrap() {
+    void synonymExpansion_disabled_segOrFoldBool() {
         JsonNode body = engine(0.0).buildRequest("tuyển sinh", 0, 10);
-        assertTrue(body.path("query").path("bool").isMissingNode(), "tắt mở rộng → không bọc bool");
-        assertTrue(body.path("query").has("multi_match"));
+        // Không mở rộng: truy vấn đơn = bool.should gồm 2 nhánh (tách-từ + bỏ-dấu), KHÔNG có must.
+        JsonNode bool = body.path("query").path("bool");
+        assertFalse(bool.isMissingNode());
+        assertFalse(bool.has("must"), "tắt mở rộng → không có nhánh must");
+        assertEquals(3, bool.path("should").size(), "gồm nhánh tách-từ + bỏ-dấu + boost cụm");
     }
 }

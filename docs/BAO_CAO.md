@@ -145,11 +145,10 @@ khớp từ khóa trong title + URL, trang bot-check/bảo trì = 0 → `pool_to
   điệu** khi tăng trọng số → giữ mặc định **`PAGERANK_WEIGHT=0` (tắt)**.
 
 ### Phân loại (S3.4) trên corpus thật
-Seed mở rộng **25 → 125 mẫu** (thêm 100 doc thật, gán nhãn theo URL-heuristic `/tuyen-sinh`, `/dao-tao`,
-`/nghien-cuu`, `/thong-bao`, `/news`). Leave-one-out trên seed thật: **accuracy 0.584, macroF1 0.575**
-(thấp hơn con số 0.628 đo trên 25 câu mẫu "sạch" — KHÔNG so trực tiếp được; đây là số trên dữ liệu thật
-nên thực tế hơn, nhưng nhãn URL-heuristic có nhiễu). Gán `category` cho 2309/2337 doc. **Muốn cao hơn:
-người gán nhãn tay tập train.**
+Dùng tập seed thủ công **25 mẫu** (5 lớp × 5): leave-one-out **accuracy 0.68, macroF1 0.628**. Gán
+`category` cho ~2309/2337 doc (facet Danh mục trên UI). Tập seed còn nhỏ nên là **điểm cần cải thiện**:
+mở rộng tập train bằng tài liệu thật (gán nhãn tay) sẽ nâng chất lượng — đây là việc cần người làm.
+(Đã thử mở rộng tự động theo URL-heuristic nhưng nhãn nhiễu làm macroF1 giảm → giữ seed thủ công.)
 
 ---
 

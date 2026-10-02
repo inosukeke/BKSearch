@@ -7,37 +7,96 @@
       "knn.algo_param.ef_search": 100
     },
     "similarity": {
-      "lm": { "type": "LMDirichlet", "mu": 2000 }
+      "lm": {
+        "type": "LMDirichlet",
+        "mu": 2000
+      }
     },
     "analysis": {
       "analyzer": {
         "vi_seg": {
           "type": "custom",
           "tokenizer": "whitespace",
-          "filter": ["lowercase"]
+          "filter": [
+            "lowercase"
+          ]
+        },
+        "vi_fold": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
         }
       }
     }
   },
   "mappings": {
     "properties": {
-      "url":          { "type": "keyword" },
-      "title":        { "type": "text", "analyzer": "standard", "similarity": "lm" },
-      "content":      { "type": "text", "analyzer": "standard", "similarity": "lm" },
-      "title_seg":    { "type": "text", "analyzer": "vi_seg", "similarity": "lm" },
-      "content_seg":  { "type": "text", "analyzer": "vi_seg", "similarity": "lm" },
-      "anchor_text":     { "type": "text", "analyzer": "standard", "similarity": "lm" },
-      "anchor_text_seg": { "type": "text", "analyzer": "vi_seg", "similarity": "lm" },
-      "doc_type":     { "type": "keyword" },
-      "subdomain":    { "type": "keyword" },
-      "dup_group":    { "type": "keyword" },
-      "category":     { "type": "keyword" },
-      "lang":         { "type": "keyword" },
-      "content_hash": { "type": "keyword" },
-      "pagerank":     { "type": "float" },
-      "published_at": { "type": "date" },
-      "crawled_at":   { "type": "date" },
-      "indexed_at":   { "type": "date" },
+      "url": {
+        "type": "keyword"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "vi_fold",
+        "similarity": "lm"
+      },
+      "content": {
+        "type": "text",
+        "analyzer": "vi_fold",
+        "similarity": "lm"
+      },
+      "title_seg": {
+        "type": "text",
+        "analyzer": "vi_seg",
+        "similarity": "lm"
+      },
+      "content_seg": {
+        "type": "text",
+        "analyzer": "vi_seg",
+        "similarity": "lm"
+      },
+      "anchor_text": {
+        "type": "text",
+        "analyzer": "vi_fold",
+        "similarity": "lm"
+      },
+      "anchor_text_seg": {
+        "type": "text",
+        "analyzer": "vi_seg",
+        "similarity": "lm"
+      },
+      "doc_type": {
+        "type": "keyword"
+      },
+      "subdomain": {
+        "type": "keyword"
+      },
+      "dup_group": {
+        "type": "keyword"
+      },
+      "category": {
+        "type": "keyword"
+      },
+      "lang": {
+        "type": "keyword"
+      },
+      "content_hash": {
+        "type": "keyword"
+      },
+      "pagerank": {
+        "type": "float"
+      },
+      "published_at": {
+        "type": "date"
+      },
+      "crawled_at": {
+        "type": "date"
+      },
+      "indexed_at": {
+        "type": "date"
+      },
       "embedding": {
         "type": "knn_vector",
         "dimension": 768,
@@ -45,7 +104,10 @@
           "name": "hnsw",
           "space_type": "cosinesimil",
           "engine": "lucene",
-          "parameters": { "ef_construction": 128, "m": 16 }
+          "parameters": {
+            "ef_construction": 128,
+            "m": 16
+          }
         }
       }
     }
