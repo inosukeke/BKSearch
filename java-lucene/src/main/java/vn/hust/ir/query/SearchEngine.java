@@ -40,6 +40,8 @@ public class SearchEngine {
     private final int rerankTopK;
     /** Trọng số trộn PageRank vào điểm từ khóa qua function_score (S3.1); 0 = TẮT. */
     private final double pagerankWeight;
+    /** Gộp near-duplicate theo field dup_group (S3.2) — mỗi nhóm chỉ 1 kết quả; false = TẮT. */
+    private final boolean dedupCollapse;
 
     public static final String EMBEDDING_FIELD = "embedding";
 
@@ -67,6 +69,12 @@ public class SearchEngine {
     public SearchEngine(String osUrl, String baseIndex, SpellChecker spell,
                         EmbeddingClient embed, int rrfK, int candidatePool, int rerankTopK,
                         double pagerankWeight) {
+        this(osUrl, baseIndex, spell, embed, rrfK, candidatePool, rerankTopK, pagerankWeight, false);
+    }
+
+    public SearchEngine(String osUrl, String baseIndex, SpellChecker spell,
+                        EmbeddingClient embed, int rrfK, int candidatePool, int rerankTopK,
+                        double pagerankWeight, boolean dedupCollapse) {
         this.os = new OpenSearchClient(osUrl);
         this.baseIndex = baseIndex;
         this.parser = new QueryParser(VietnameseAnalyzer.get(), mapper);
@@ -76,6 +84,7 @@ public class SearchEngine {
         this.candidatePool = Math.max(10, candidatePool);
         this.rerankTopK = Math.max(1, rerankTopK);
         this.pagerankWeight = Math.max(0.0, pagerankWeight);
+        this.dedupCollapse = dedupCollapse;
     }
 
     /** Dùng cho test: cho phép tiêm client/parser (không bắt buộc OpenSearch sống). */
@@ -92,6 +101,12 @@ public class SearchEngine {
     /** Dùng cho test: tiêm EmbeddingClient + trọng số PageRank (S3.1). */
     SearchEngine(OpenSearchClient os, String baseIndex, QueryParser parser, SpellChecker spell,
                  EmbeddingClient embed, double pagerankWeight) {
+        this(os, baseIndex, parser, spell, embed, pagerankWeight, false);
+    }
+
+    /** Dùng cho test: tiêm thêm cờ gộp near-duplicate (S3.2). */
+    SearchEngine(OpenSearchClient os, String baseIndex, QueryParser parser, SpellChecker spell,
+                 EmbeddingClient embed, double pagerankWeight, boolean dedupCollapse) {
         this.os = os;
         this.baseIndex = baseIndex;
         this.parser = parser;
@@ -101,6 +116,7 @@ public class SearchEngine {
         this.candidatePool = 100;
         this.rerankTopK = DEFAULT_RERANK_TOP_K;
         this.pagerankWeight = Math.max(0.0, pagerankWeight);
+        this.dedupCollapse = dedupCollapse;
     }
 
     /**
@@ -123,6 +139,10 @@ public class SearchEngine {
         ObjectNode fields = hl.putObject("fields");
         fields.putObject(QueryParser.CONTENT_FIELD);
         fields.putObject(QueryParser.TITLE_FIELD);
+        // Gộp near-duplicate (S3.2): mỗi dup_group chỉ giữ 1 kết quả (doc điểm cao nhất).
+        if (dedupCollapse) {
+            body.putObject("collapse").put("field", "dup_group");
+        }
         return body;
     }
 

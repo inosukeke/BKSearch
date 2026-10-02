@@ -45,8 +45,9 @@ public class QueryService {
         int pool = envInt("CANDIDATE_POOL", 100);
         int rerankTopK = envInt("RERANK_TOP_K", SearchEngine.DEFAULT_RERANK_TOP_K);
         double pagerankWeight = envDouble("PAGERANK_WEIGHT", 0.0);   // 0 = TẮT trộn PageRank (S3.1)
+        boolean dedupCollapse = envBool("DEDUP_COLLAPSE", false);    // gộp near-duplicate (S3.2)
         this.engine = new SearchEngine(osUrl, baseIndex, new SpellChecker(loadDefaultVocab()),
-                embed, rrfK, pool, rerankTopK, pagerankWeight);
+                embed, rrfK, pool, rerankTopK, pagerankWeight, dedupCollapse);
     }
 
     private static int envInt(String name, int def) {
@@ -57,6 +58,12 @@ public class QueryService {
     private static double envDouble(String name, double def) {
         try { String v = System.getenv(name); return v == null ? def : Double.parseDouble(v.trim()); }
         catch (Exception e) { return def; }
+    }
+
+    private static boolean envBool(String name, boolean def) {
+        String v = System.getenv(name);
+        if (v == null) return def;
+        return switch (v.trim().toLowerCase()) { case "1", "true", "yes", "on" -> true; default -> false; };
     }
 
     public Javalin build() {

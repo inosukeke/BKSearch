@@ -40,6 +40,7 @@ public class App {
             case "schedule" -> schedule(args);
             case "migrate"  -> migrate(args);
             case "pagerank" -> pagerank(args);
+            case "dedupe"   -> dedupe(args);
             case "eval-run" -> evalRun(args);
             default         -> usage();
         }
@@ -178,6 +179,39 @@ public class App {
         }
     }
 
+    /**
+     * S3.2: phát hiện near-duplicate (MinHash+LSH) từ corpus trong SQLite rồi ghi {@code dup_group}
+     * (url canonical) cho các bản trùng vào các index. Cú pháp: {@code dedupe [osUrl]}.
+     * Env: {@code DEDUP_K}, {@code DEDUP_NUM_HASHES}, {@code DEDUP_BANDS}, {@code DEDUP_THRESHOLD}.
+     */
+    private static void dedupe(String[] a) throws Exception {
+        String osUrl = (a.length > 1 && !a[1].startsWith("--")) ? a[1]
+                : System.getenv().getOrDefault("OPENSEARCH_URL", "http://localhost:9200");
+        int k = parseEnvInt("DEDUP_K", vn.hust.ir.dedup.Shingling.DEFAULT_K);
+        int numHashes = parseEnvInt("DEDUP_NUM_HASHES", vn.hust.ir.dedup.NearDuplicateDetector.DEFAULT_NUM_HASHES);
+        int bands = parseEnvInt("DEDUP_BANDS", vn.hust.ir.dedup.NearDuplicateDetector.DEFAULT_BANDS);
+        double threshold = parseEnvDouble("DEDUP_THRESHOLD", vn.hust.ir.dedup.NearDuplicateDetector.DEFAULT_THRESHOLD);
+        int batch = parseEnvInt("DEDUP_BATCH", 500);
+        String idxEnv = System.getenv().getOrDefault("PAGERANK_INDICES",
+                "documents,documents_vsm,documents_lm");
+        List<String> indices = new java.util.ArrayList<>();
+        for (String s : idxEnv.split(",")) if (!s.isBlank()) indices.add(s.trim());
+
+        try (Db db = new Db(DB_PATH)) {
+            System.out.printf("Near-duplicate: %d tài liệu (k=%d, hashes=%d, bands=%d, ngưỡng=%.2f)...%n",
+                    db.countDocuments(), k, numHashes, bands, threshold);
+            var sum = new vn.hust.ir.dedup.NearDuplicateRunner().run(db,
+                    new vn.hust.ir.migrate.OpenSearchClient(osUrl), indices, k, numHashes,
+                    vn.hust.ir.dedup.NearDuplicateDetector.DEFAULT_SEED, bands, threshold, batch);
+            System.out.printf("Dedupe xong: %d nhóm trùng, %d bản trùng / %d doc%n",
+                    sum.clusters(), sum.duplicates(), sum.docs());
+            sum.perIndex().forEach((idx, r) ->
+                    System.out.printf("  %-18s ok=%d failed=%d%s%n", idx, r.ok(), r.failed(),
+                            r.firstError() != null ? " err=" + r.firstError() : ""));
+            System.out.println("→ Bật DEDUP_COLLAPSE=1 khi serve-api để gộp mỗi nhóm còn 1 kết quả.");
+        }
+    }
+
     private static double parseEnvDouble(String name, double def) {
         try { String v = System.getenv(name); return v == null ? def : Double.parseDouble(v.trim()); }
         catch (Exception e) { return def; }
@@ -206,6 +240,7 @@ public class App {
               schedule [phút] [maxPages]   chạy định kỳ (mặc định 60 phút)
               migrate [osUrl] [batch]      di trú SQLite → OpenSearch (+Postgres); --no-pg bỏ Postgres; --embed sinh vector (EMBED_URL)
               pagerank [osUrl]             tính PageRank + anchor text → cập nhật pagerank/anchor vào index (S3.1)
+              dedupe [osUrl]               phát hiện near-duplicate (MinHash/LSH) → ghi dup_group (S3.2)
               eval-run [osUrl] [index] [k] chạy bộ đánh giá 3 ranker BM25/VSM/LM (S1.7)
             """);
     }

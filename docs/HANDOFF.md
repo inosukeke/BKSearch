@@ -105,3 +105,19 @@ mvn test   # (trong java-lucene) — 38 test
 2. `migrate` → `create-ranker-indices.sh` (tạo đủ 3 index) → `pagerank` (ghi pagerank+anchor vào cả 3).
 3. Bật trộn: `PAGERANK_WEIGHT=<w>` khi `serve-api`/`eval-run`. **Tinh chỉnh w bằng eval** (PageRank ~1/N
    rất nhỏ nên cần w lớn hoặc đổi modifier). PASS: bật/tắt thấy thứ hạng đổi; nDCG không giảm.
+
+### S3.2 Near-duplicate (MinHash/LSH) — CODE XONG (chờ verify local)
+- **Thuật toán thuần** `vn.hust.ir.dedup`: `Shingling` (w-shingle k token), `MinHasher` (chữ ký
+  MinHash, hash cơ sở FNV-1a, ước lượng Jaccard), `NearDuplicateDetector` (LSH banding → ứng viên →
+  xác nhận Jaccard ≥ ngưỡng → union-find nhóm; canonical = url nhỏ nhất). Unit test đầy đủ.
+- **Lệnh** `dedupe [osUrl]`: đọc corpus → gom nhóm → ghi `dup_group` (= url canonical) cho các bản
+  TRÙNG vào 3 index (bulkUpdate). Env: `DEDUP_K`, `DEDUP_NUM_HASHES`, `DEDUP_BANDS`, `DEDUP_THRESHOLD`.
+- **Migrate** nay ghi `dup_group = url` cho MỌI doc (mỗi doc tự nhóm) → field luôn tồn tại.
+- **Gộp kết quả:** `SearchEngine` thêm `collapse` theo `dup_group` (mỗi nhóm 1 kết quả, doc điểm cao
+  nhất), bật bằng env **`DEDUP_COLLAPSE=1`** (mặc định TẮT để an toàn index cũ chưa có field).
+- **Mapping:** thêm `dup_group` (keyword) vào 3 index.
+
+#### Verify LOCAL S3.2
+1. `migrate` (đã ghi dup_group=url) → `create-ranker-indices.sh`.
+2. `dedupe` → ghi canonical cho bản trùng. (Muốn test: chèn 2 trang gần trùng rồi chạy lại.)
+3. `DEDUP_COLLAPSE=1` khi `serve-api` → kiểm mỗi nhóm trùng chỉ còn 1 kết quả; tỉ lệ trùng top-20 giảm.

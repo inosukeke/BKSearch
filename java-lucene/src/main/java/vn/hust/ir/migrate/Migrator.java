@@ -142,6 +142,9 @@ public class Migrator {
         s.put("content_seg", analyzer.segment(nz(d.content)));
         s.put("doc_type", d.docType != null ? d.docType : "html");
         if (d.subdomain != null) s.put("subdomain", d.subdomain);
+        // Nhóm near-duplicate (S3.2): mặc định mỗi doc tự thành nhóm (= url); lệnh `dedupe` sẽ
+        // ghi đè canonical cho các bản trùng. Luôn có field → collapse an toàn.
+        s.put("dup_group", d.url);
         s.put("lang", "vi");
         if (d.contentHash != null) s.put("content_hash", d.contentHash);
         if (crawled != null) s.put("crawled_at", crawled.toEpochMilli());
