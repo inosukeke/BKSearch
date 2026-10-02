@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import math
+import threading
 from typing import List, Protocol
 
 
@@ -71,19 +72,24 @@ class SentenceTransformerEmbedder:
         self._batch = batch
         self._normalize = normalize
         self._model = None  # lazy
+        self._lock = threading.Lock()  # F3: chỉ một luồng nạp model (FastAPI threadpool)
 
     def _ensure(self):
+        # Double-checked locking: tránh khóa trên đường nóng sau khi model đã nạp.
         if self._model is None:
-            from sentence_transformers import SentenceTransformer  # import chậm → hoãn
+            with self._lock:
+                if self._model is None:
+                    from sentence_transformers import SentenceTransformer  # import chậm → hoãn
 
-            self._model = SentenceTransformer(self.model_name, device="cpu")
-            real = self._model.get_sentence_embedding_dimension()
-            if real and real != self.dims:
-                # Cảnh báo lệch dims (sẽ gãy ingest vì mapping cố định 768).
-                raise RuntimeError(
-                    f"Model '{self.model_name}' sinh vector {real} dims nhưng cấu hình/mapping "
-                    f"là {self.dims}. Hãy sửa EMBED_DIMS hoặc mapping OpenSearch cho khớp."
-                )
+                    model = SentenceTransformer(self.model_name, device="cpu")
+                    real = model.get_sentence_embedding_dimension()
+                    if real and real != self.dims:
+                        # Cảnh báo lệch dims (sẽ gãy ingest vì mapping cố định 768).
+                        raise RuntimeError(
+                            f"Model '{self.model_name}' sinh vector {real} dims nhưng cấu hình/mapping "
+                            f"là {self.dims}. Hãy sửa EMBED_DIMS hoặc mapping OpenSearch cho khớp."
+                        )
+                    self._model = model  # chỉ gán khi đã validate xong
         return self._model
 
     def encode(self, texts: List[str]) -> List[List[float]]:

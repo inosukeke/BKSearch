@@ -1,10 +1,16 @@
 """Cross-encoder rerank + bản GIẢ + cache (S2.5).
 
 Cross-encoder chấm điểm (query, document) theo cặp → chất lượng cao hơn bi-encoder nhưng
-đắt → chỉ áp cho top-K (≤50). Có cache LRU theo (query, document) để tránh chấm lại.
+đắt → chỉ áp cho top-K (mặc định ≤30, xem RERANK_TOP_K phía Java). Có cache LRU theo
+(query, document) để tránh chấm lại. Cross-encoder truncate input ở RERANK_MAX_LENGTH token
+(mặc định 256) để p95 không bị tài liệu rất dài kéo vọt lên.
+
+An toàn luồng (F3): FastAPI chạy handler sync trong threadpool → nhiều luồng có thể gọi cùng
+lúc. Nạp model lazy và cache LRU đều được bọc threading.Lock.
 """
 from __future__ import annotations
 
+import threading
 from collections import OrderedDict
 from typing import List, Protocol, Tuple
 
@@ -24,22 +30,25 @@ class _LruCache:
         self._d: "OrderedDict[Tuple[str, str], float]" = OrderedDict()
         self.hits = 0
         self.misses = 0
+        self._lock = threading.Lock()  # F3: nhiều luồng threadpool có thể đụng cache
 
     def get(self, key):
-        if key in self._d:
-            self._d.move_to_end(key)
-            self.hits += 1
-            return self._d[key]
-        self.misses += 1
-        return None
+        with self._lock:
+            if key in self._d:
+                self._d.move_to_end(key)
+                self.hits += 1
+                return self._d[key]
+            self.misses += 1
+            return None
 
     def put(self, key, value):
         if self.capacity == 0:
             return
-        self._d[key] = value
-        self._d.move_to_end(key)
-        while len(self._d) > self.capacity:
-            self._d.popitem(last=False)
+        with self._lock:
+            self._d[key] = value
+            self._d.move_to_end(key)
+            while len(self._d) > self.capacity:
+                self._d.popitem(last=False)
 
 
 class _CachingReranker:
@@ -106,17 +115,25 @@ class CrossEncoderReranker:
     chuỗi tự nhiên tốt hơn.
     """
 
-    def __init__(self, model_name: str, batch: int):
+    def __init__(self, model_name: str, batch: int, max_length: int = 256):
         self.model_name = model_name
         self.name = model_name
         self._batch = batch
+        self._max_length = max_length
         self._model = None
+        self._lock = threading.Lock()  # F3: chỉ một luồng nạp model
 
     def _ensure(self):
+        # Double-checked locking: tránh khóa trên đường nóng sau khi model đã nạp.
         if self._model is None:
-            from sentence_transformers import CrossEncoder
+            with self._lock:
+                if self._model is None:
+                    from sentence_transformers import CrossEncoder
 
-            self._model = CrossEncoder(self.model_name, device="cpu", max_length=512)
+                    # max_length truncate cặp (query, doc) → chặn tài liệu dài kéo p95 (F2).
+                    self._model = CrossEncoder(
+                        self.model_name, device="cpu", max_length=self._max_length
+                    )
         return self._model
 
     def score(self, query: str, documents: List[str]) -> List[float]:
@@ -128,6 +145,8 @@ class CrossEncoderReranker:
 
 def build_reranker(settings) -> _CachingReranker:
     core = FakeReranker() if settings.FAKE else CrossEncoderReranker(
-        model_name=settings.RERANK_MODEL, batch=settings.RERANK_BATCH
+        model_name=settings.RERANK_MODEL,
+        batch=settings.RERANK_BATCH,
+        max_length=settings.RERANK_MAX_LENGTH,
     )
     return _CachingReranker(core, settings.RERANK_CACHE_SIZE)

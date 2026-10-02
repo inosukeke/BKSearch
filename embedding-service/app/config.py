@@ -37,6 +37,9 @@ class Settings:
     RERANK_MODEL: str = os.getenv("RERANK_MODEL", "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1")
     RERANK_BATCH: int = _int("RERANK_BATCH", 16)
     RERANK_CACHE_SIZE: int = _int("RERANK_CACHE_SIZE", 4096)
+    # Số token tối đa khi cross-encoder encode cặp (query, doc). Tài liệu rất dài không được
+    # cắt → p95 tăng vọt (đo local: top_k=50 không truncate → p95 ~10s). 256 giữ p95 trong ngưỡng.
+    RERANK_MAX_LENGTH: int = _int("RERANK_MAX_LENGTH", 256)
 
     # Chế độ GIẢ (deterministic, không tải model) — dùng cho CI/test & smoke không có GPU/mạng.
     FAKE: bool = _flag("EMBED_FAKE", False)
@@ -52,6 +55,7 @@ class Settings:
             "embed_normalize": self.EMBED_NORMALIZE,
             "rerank_model": self.RERANK_MODEL,
             "rerank_cache_size": self.RERANK_CACHE_SIZE,
+            "rerank_max_length": self.RERANK_MAX_LENGTH,
             "fake": self.FAKE,
         }
 

@@ -15,6 +15,11 @@ def test_healthz():
     assert body["status"] == "ok"
     assert body["config"]["fake"] is True
     assert body["config"]["embed_dims"] == 768
+    # F2: max_length rerank mặc định 256 (chặn tài liệu dài kéo p95).
+    assert body["config"]["rerank_max_length"] == 256
+    # F8: healthcheck báo model đã nạp chưa (chế độ GIẢ → chưa nạp model thật).
+    assert body["model_loaded"]["embedder"] is False
+    assert body["model_loaded"]["reranker"] is False
 
 
 def test_embed_shape_and_dims():

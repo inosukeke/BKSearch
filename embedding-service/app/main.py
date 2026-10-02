@@ -60,10 +60,17 @@ class RerankResponse(BaseModel):
 
 @app.get("/healthz")
 def healthz():
+    # F8: healthcheck CHỈ xác nhận tiến trình sống + đọc được cấu hình. Model nạp LAZY nên
+    # "status: ok" KHÔNG đảm bảo model đã tải/encode được — lần /embed hay /rerank đầu tiên mới
+    # kích hoạt tải (và có thể 503 nếu thiếu model/mạng/OOM). Dùng model_loaded để biết đã nạp chưa.
     return {
         "status": "ok",
         "service": "bksearch-embedding",
         "config": settings.summary(),
+        "model_loaded": {
+            "embedder": getattr(_embedder, "_model", None) is not None,
+            "reranker": getattr(getattr(_reranker, "_core", None), "_model", None) is not None,
+        },
     }
 
 
