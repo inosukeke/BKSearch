@@ -116,7 +116,7 @@ public class App {
                                 : System.getenv("EMBED_URL");  // env đặt sẵn cũng bật
         int rrfK = parseEnvInt("RRF_K", vn.hust.ir.query.RrfFusion.DEFAULT_K);
         int pool = parseEnvInt("CANDIDATE_POOL", 100);
-        int rerankTopK = parseEnvInt("RERANK_TOP_K", 50);
+        int rerankTopK = parseEnvInt("RERANK_TOP_K", vn.hust.ir.query.SearchEngine.DEFAULT_RERANK_TOP_K);
         new vn.hust.ir.eval.EvalRunner(osUrl, index, k, embedUrl, rrfK, pool, rerankTopK).run(
                 Path.of("..", "eval", "queries", "queries.tsv"),
                 Path.of("..", "eval", "qrels", "qrels.txt"));

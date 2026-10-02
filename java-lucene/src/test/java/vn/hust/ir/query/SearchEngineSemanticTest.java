@@ -87,6 +87,12 @@ class SearchEngineSemanticTest {
         assertEquals(2, res.results.size());
         assertEquals("B", res.results.get(0).url);
         assertEquals("C", res.results.get(1).url);
+        // F4: nhánh ứng viên → total = kích thước pool; vector thuần không có total khớp corpus.
+        assertEquals(res.results.size(), res.total_candidates);
+        assertEquals(2, res.total);
+        assertEquals(-1, res.total_matched, "vector k-NN thuần: total_matched không áp dụng");
+        // F5: điểm k-NN mang thang cosine.
+        assertEquals("cosine", res.results.get(0).score_type);
     }
 
     @Test
@@ -97,6 +103,11 @@ class SearchEngineSemanticTest {
         assertEquals("hybrid", res.ranker);
         assertEquals(3, res.results.size(), "union A,B,C");
         assertEquals("B", res.results.get(0).url, "B ở cả hai nguồn → RRF xếp #1");
+        // F4: hybrid lấy total_matched từ nhánh BM25 nền (mock trả total=2 cho A,B).
+        assertEquals(2, res.total_matched, "total_matched = tổng khớp BM25 nền");
+        assertEquals(3, res.total_candidates, "pool = union sau RRF");
+        // F5: điểm hybrid mang thang RRF.
+        assertEquals("rrf", res.results.get(0).score_type);
     }
 
     @Test
@@ -108,6 +119,9 @@ class SearchEngineSemanticTest {
         assertEquals("vector+rerank", res.ranker);
         assertEquals("C", res.results.get(0).url, "doc điểm rerank cao hơn lên đầu");
         assertEquals("B", res.results.get(1).url);
+        // F5: phần đã rerank mang thang cross-encoder.
+        assertEquals("cross-encoder", res.results.get(0).score_type);
+        assertEquals(0.9, res.results.get(0).score, 1e-9);
     }
 
     @Test
