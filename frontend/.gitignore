@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+*.local
+.vite
+.DS_Store
+# build artefacts từ tsc -b (composite)
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
