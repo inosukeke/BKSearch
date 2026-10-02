@@ -120,29 +120,29 @@ Bộ đánh giá `eval-run` tính **nDCG@k, MAP, Recall** trên bộ truy vấn 
 \* Đo khi reranker còn `max_length=512` (trước fix F2 `RERANK_MAX_LENGTH=256` + `RERANK_TOP_K=30`);
 cần đo lại sau fix.
 
-### Kết quả trên corpus LỚN (2337 trang, k=10, 35 truy vấn) — đo LOCAL 2026-10-02
+### Kết quả trên corpus LỚN (2337 trang, k=10, 35 truy vấn, qrels mới 620 nhãn) — LOCAL 2026-10-02
 
-| Cấu hình | nDCG@10 | MAP | p95 |
-|---|---|---|---|
-| **VSM (tf-idf)** | **0.325** | **0.152** | ~35 ms |
-| LM (Dirichlet) | 0.227 | 0.115 | ~37 ms |
-| BM25 | 0.221 | 0.087 | ~28 ms |
-| Vector (k-NN) | 0.083 | 0.033 | ~186 ms |
-| Hybrid (RRF) | 0.173 | 0.077 | ~323 ms |
-| Hybrid + rerank | 0.021 | 0.007 | ~6000 ms |
+qrels đã **sinh lại cho corpus 2337** (`build_pool.py` → pool 620 cặp → gán nhãn first-pass theo mức
+khớp từ khóa trong title + URL, trang bot-check/bảo trì = 0 → `pool_to_qrels.py`).
 
-- **nDCG tuyệt đối thấp hơn bảng 500 trang** vì corpus tăng 4.7× nhưng **qrels vẫn gắn corpus cũ** →
-  nhiều doc mới chưa gán nhãn làm nhiễu (relative comparison vẫn hợp lệ). Cần gán nhãn lại qrels cho
-  corpus 2337 để có số tuyệt đối đúng.
-- **VSM giờ tách biệt BM25 rõ** (0.325 vs 0.221) — dấu hiệu "BM25=VSM giống hệt" ở corpus 500 đã biến mất.
-- **Kết luận giữ nguyên + mạnh hơn:** tín hiệu từ khóa (VSM) thắng áp đảo; vector/hybrid/rerank đều kém,
-  rerank tệ nhất (0.021) + p95 ~6s (vượt G7). Keyword p95 **<40ms** (đạt G7 <200ms).
+| Cấu hình | nDCG@10 | MAP | MRR | p95 (1 req) |
+|---|---|---|---|---|
+| **VSM (tf-idf)** | **0.643** | **0.459** | 0.816 | ~29 ms |
+| BM25 | 0.577 | 0.365 | 0.691 | ~44 ms |
+| LM (Dirichlet) | 0.548 | 0.356 | 0.790 | ~38 ms |
+| Hybrid (RRF) | 0.417 | 0.256 | 0.701 | ~768 ms |
+| Hybrid + rerank | 0.297 | 0.128 | 0.522 | ~2200 ms |
+| Vector (k-NN) | 0.185 | 0.077 | 0.407 | ~342 ms |
+
+- **VSM thắng áp đảo** và tách biệt BM25 rõ (0.643 vs 0.577) — dấu hiệu "BM25=VSM giống hệt" ở corpus 500
+  đã biến mất khi lên quy mô 2337.
+- **vector/hybrid/rerank vẫn kém** keyword. Hybrid khá hơn so với bảng cũ nhưng không vượt VSM; rerank làm
+  TỆ đi (0.297 < hybrid 0.417) và rất chậm.
+- ⚠️ **Thiên lệch cần nêu rõ:** nhãn first-pass dựa trên khớp từ khóa title → **ưu ái ranker từ khóa, bất
+  lợi cho vector/hybrid** (chúng lấy doc gần nghĩa nhưng title không trùng từ). So sánh bm25/vsm/lm với nhau
+  là tin cậy; số của vector/hybrid là CẬN DƯỚI. Cần người soát nhãn để công bằng với nhánh ngữ nghĩa.
 - **PageRank (S3.1): KHÔNG cải thiện.** Quét `PAGERANK_WEIGHT` ∈ {0,100,1k,5k,20k,100k} → nDCG **giảm đơn
-  điệu** khi tăng trọng số (vsm 0.325→0.302). → giữ mặc định **`PAGERANK_WEIGHT=0` (tắt)**; trên corpus
-  điều hướng + qrels từ khóa, tín hiệu liên kết không thắng tín hiệu nội dung.
-
-> qrels hiện là bản AI gán first-pass gắn **corpus 500** → sau khi crawl 2337 cần sinh lại pool
-> (`build_pool.py`) + gán nhãn + `pool_to_qrels.py` để bảng tuyệt đối có nghĩa.
+  điệu** khi tăng trọng số → giữ mặc định **`PAGERANK_WEIGHT=0` (tắt)**.
 
 ### Phân loại (S3.4) trên corpus thật
 Seed mở rộng **25 → 125 mẫu** (thêm 100 doc thật, gán nhãn theo URL-heuristic `/tuyen-sinh`, `/dao-tao`,
@@ -179,11 +179,21 @@ Hai kịch bản **k6** (`deploy/loadtest/`) với ngưỡng pass/fail nhúng s�
 ```bash
 k6 run -e BASE=http://localhost:7070 deploy/loadtest/keyword.js
 k6 run -e BASE=http://localhost:7070 deploy/loadtest/hybrid.js
+# hoặc qua Docker (không cần cài k6):
+docker run --rm -i grafana/k6 run -e BASE=http://host.docker.internal:7070 - < deploy/loadtest/keyword.js
 ```
 
-Bật `--profile monitoring` để xem p95/QPS realtime trên Grafana khi bắn tải. Số đo thực tế (máy,
-corpus, QPS, p95 đạt được) điền vào mục này sau phiên LOCAL. Rerank CPU rất chậm → cần hạ
-`RERANK_TOP_K`/`RERANK_MAX_LENGTH` hoặc GPU để đạt ngưỡng hybrid.
+#### Kết quả đo thật (LOCAL 2026-10-02, corpus 2337, k6 qua Docker)
+| Kịch bản | QPS | p95 đo được | Ngưỡng | Kết quả |
+|---|---|---|---|---|
+| `keyword.js` (bm25) | 30 (45s, 1351 req) | **53.5 ms** | <200 ms | ✅ **ĐẠT** (0% lỗi) |
+| `hybrid.js` (hybrid+rerank) | 20 (30s) | **~21 s** | <800 ms | ❌ **TRƯỢT** (0% lỗi nhưng rất chậm) |
+
+- **Từ khóa đạt G7 thoải mái** (p95 53ms « 200ms) — đường đi BM25/VSM trên OpenSearch rẻ.
+- **Hybrid+rerank TRƯỢT nặng dưới tải**: 1 request đơn ~768ms nhưng ở **20 QPS đồng thời**, cross-encoder
+  CPU bão hòa → p95 vọt lên ~21s. → rerank **không scale trên CPU**; muốn đạt ngưỡng cần **GPU**, giảm
+  `RERANK_TOP_K`/`RERANK_MAX_LENGTH`, hoặc cache. Đây là giới hạn trung thực của cấu hình hiện tại.
+- Bật `--profile monitoring` để xem p95/QPS realtime trên Grafana (`:3000`) khi bắn tải.
 
 ---
 

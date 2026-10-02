@@ -3,641 +3,691 @@
 # Gán xong chạy: PYTHONUTF8=1 python eval/pool_to_qrels.py  → sinh eval/qrels/qrels.txt
 
 # >>> q01: tuyển sinh đại học
+q01	2	https://sem.hust.edu.vn/tuyen-sinh-dai-hoc	Tuyển sinh đại học - Trường Kinh tế
+q01	0	https://sme.hust.edu.vn/vi/tuyen-sinh/tuyen-sinh-dai-hoc/	Hãy đợi...
+q01	1	http://dtlt.hust.edu.vn/admission/thong-bao-tuyen-sinh-dai-hoc-nam-2026	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q01	1	https://fed.hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh
+q01	2	https://svbk.hust.edu.vn/vi/news/thong-bao/truong-dai-hoc-bach-khoa-ha-noi-dieu-chinh-de-an-tuyen-sinh-nam-2021-247459.html	TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI ĐIỀU CHỈNH ĐỀ ÁN TUYỂN SINH NĂM 2021
+q01	1	http://dtlt.hust.edu.vn/admission/%5Bthong-bao%5D-ve-viec-thong-tin-dia-diem-tu-van-xet-tuyen-va-tiep-nhan-ho-so-tuyen-sinh-2023-do-vien-dao-tao-lien-tuc-dai-hoc-bach-khoa-ha-noi-to-chuc	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q01	1	http://dtlt.hust.edu.vn/education/thong-bao-tuyen-sinh-dai-hoc-nam-2026	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q01	1	http://dtlt.hust.edu.vn/news/sap-dien-ra-hoi-thao-tu-van-tuyen-sinh-2026-lien-thong-van-bang-2-cu-nhan-cong-nghe-a-cap-nhat-moi-nhat-tu-trung-tam-dao-tao-lien-tuc-dai-hoc-bach-khoa-ha-noi-cet-hust-danh-cho-sinh-vien-nguoi-di-lam	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
 q01	2	https://hust.edu.vn/vi/tuyen-sinh/thong-bao-tuyen-sinh/quy-che-tuyen-sinh-567343.html	Quy chế tuyển sinh đại học năm 2026
-q01	2	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/nganh-tuyen-sinh-dai-hoc-nam-2022-651865.html	Các ngành/chương trình tuyển sinh Đại học năm 2026
-q01	2	https://hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh
-q01	2	https://hust.edu.vn/vi/tuyen-sinh/dai-hoc/thong-tin-tuyen-sinh-dai-hoc-nam-2025-651881.html	Phương án tuyển sinh Đại học dự kiến năm 2026
+q01	1	https://hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh
 q01	1	https://hust.edu.vn/tuyen-sinh/nganh-tuyen-sinh-14/nganh-tuyen-sinh-58417.html	Các ngành tuyển sinh
-q01	1	https://hust.edu.vn/tuyen-sinh/nganh-tuyen-sinh-10/	Ngành tuyển sinh
 q01	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/	Ngành tuyển sinh
-q01	2	https://hust.edu.vn/tuyen-sinh/de-an-tuyen-sinh/de-an-tuyen-sinh-567354.html	Thông tin tuyển sinh năm 2026
-q01	1	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
-q01	1	https://hust.edu.vn/vi/su-kien-noi-bat/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
-q01	2	https://hust.edu.vn/vi/tuyen-sinh/dai-hoc/	Đại học
-q01	1	https://hust.edu.vn/vi/tuyen-sinh/dai-hoc/ky-thi-danh-gia-tu-duy-nam-2023-651870.html	Đề án tổ chức kỳ thi ĐGTD
-q01	1	https://hust.edu.vn/tuyen-sinh/dai-hoc/quy-che-thi-dgtd-569432.html	Quy chế thi ĐGTD của ĐHBK Hà Nội
-q01	1	https://hust.edu.vn/tuyen-sinh/dai-hoc/quy-che-thi-tuyen-sinh-dgtd-569432.html	Quy chế thi ĐGTD của ĐHBK Hà Nội
-q01	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/	Cao học
-q01	1	https://hust.edu.vn/vi/tuyen-sinh/vua-hoc-vua-lam/	Vừa làm vừa học
+q01	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=127	Ban đào tạo - Bộ phận sau đại học
+q01	0	https://sofl.hust.edu.vn/web/vien-ngoai-ngu/tuyen-sinh	Khoa Ngoại ngữ
+q01	1	https://sem.hust.edu.vn/tuyen-sinh	Tuyển sinh - Trường Kinh tế
+q01	1	https://hust.edu.vn/vi/tuyen-sinh/dai-hoc/	Đại học
+q01	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/hoi-dong-dai-hoc.html	Giới thiệu chung
+q01	1	https://sep.hust.edu.vn/tuyensinh/dai-hoc	Đại học | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q01	0	https://sep.hust.edu.vn/dao-tao/he-dai-hoc	Hệ đại học | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q01	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/bch-dang-bo-dai-hoc.html	BCH Đảng bộ đại học
+q01	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/ban-giam-doc-dai-hoc.html	Ban Giám đốc đại học
 
 # >>> q02: học phí kỹ sư
-q02	2	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-phi-654580.html	HỌC PHÍ
-q02	0	https://hust.edu.vn/vi/news/hoat-dong-chung/pov-mot-ngay-lam-viec-cua-ky-su-hse-tot-nghiep-bach-khoa-ha-noi-655975.html	POV: Một ngày làm việc của kỹ sư HSE tốt nghiệp Bách khoa Hà Nội
+q02	0	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-phi-654580.html	Hãy đợi...
+q02	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=143	Ban đào tạo - Bộ phận sau đại học
+q02	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=147	Ban đào tạo - Bộ phận sau đại học
+q02	0	http://dtlt.hust.edu.vn/tuition-announcement/thong-bao-ve-viec-thu-hoc-phi-hoc-ky-20252-cua-sinh-vien-cac-lop-vlvh	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
 q02	1	https://hust.edu.vn/vi/dao-tao/ky-su/chuong-trinh-dao-tao-ky-su-chuyen-sau-dac-thu-cua-truong-dai-hoc-bach-khoa-ha-noi-2.html	Chương trình đào tạo kỹ sư chuyên sâu đặc thù của Đại học Bách Khoa Hà Nội
-q02	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/san-bach-khoa-buoc-vao-the-gioi-cong-nghe-bang-cach-hieu-ngon-ngu-ky-su-655974.html	“Sắn” Bách khoa bước vào thế giới công nghệ bằng cách hiểu ngôn ngữ kỹ sư
-q02	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hinh-dung-ve-nhung-ky-su-bien-am-hieu-ai-thanh-giai-phap-thoi-trang-ben-vung-thong-minh-655977.html	Hình dung về những kỹ sư biến am hiểu AI thành giải pháp thời trang bền vững, thông minh
-q02	0	https://hust.edu.vn/vi/feeds/	RSS-feeds
-q02	0	https://hust.edu.vn/vi/dao-tao/thac-si/chuong-trinh-dao-tao-thac-si-3.html	ĐÀO TẠO TRÌNH ĐỘ THẠC SĨ
-q02	1	https://hust.edu.vn/vi/dao-tao/	Đào tạo
-q02	0	https://hust.edu.vn/vi/sinh-vien/	Sinh viên
-q02	0	https://hust.edu.vn/vi/sinh-vien	Sinh viên
-q02	0	https://hust.edu.vn/vi/dao-tao/dai-hoc-chinh-quy/mo-hinh-va-chuong-trinh-dao-tao-he-dai-hoc-chinh-quy-1.html	Mô hình và chương trình đào tạo hệ đại học chính quy
-q02	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-khang-dinh-chat-luong-dao-tao-tieu-chuan-chau-au-622099.html	Bách khoa Hà Nội khẳng định chất lượng đào tạo tiêu chuẩn châu Âu
-q02	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hon-90-sinh-vien-tot-nghiep-co-viec-lam-sau-6-thang-nganh-hoc-tai-bach-khoa-van-giu-gia-thoi-ai-655958.html	Hơn 90% sinh viên tốt nghiệp có việc làm sau 6 tháng, ngành học tại Bách khoa vẫn “giữ giá” thời AI
+q02	0	http://ctt-daotao.hust.edu.vn/DisplayWeb/DisplayMenu?menu=53	404 - File or directory not found.
+q02	1	https://soict.hust.edu.vn/chuong-trinh-dao-tao-ky-su-chuyen-sau-dac-thu-tri-tue-nhan-tao-tao-sinh-chinh-thuc-ra-mat.html	Chương trình đào tạo Kỹ sư chuyên sâu đặc thù Trí tuệ nhân tạo tạo sinh chính thức ra mắt - SoICT
+q02	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=110&nid=3546	Ban đào tạo - Bộ phận sau đại học
+q02	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=122&nid=3580	Ban đào tạo - Bộ phận sau đại học
+q02	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=111&nid=3538	Ban đào tạo - Bộ phận sau đại học
+q02	0	http://sdh.hust.edu.vn/home/Default.aspx?scid=29&CategoryID=147	Ban đào tạo - Bộ phận sau đại học
+q02	1	https://hust.edu.vn/vi/news/hoat-dong-chung/pov-mot-ngay-lam-viec-cua-ky-su-hse-tot-nghiep-bach-khoa-ha-noi-655975.html	POV: Một ngày làm việc của kỹ sư HSE tốt nghiệp Bách khoa Hà Nội
+q02	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/san-bach-khoa-buoc-vao-the-gioi-cong-nghe-bang-cach-hieu-ngon-ngu-ky-su-655974.html	“Sắn” Bách khoa bước vào thế giới công nghệ bằng cách hiểu ngôn ngữ kỹ sư
+q02	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hinh-dung-ve-nhung-ky-su-bien-am-hieu-ai-thanh-giai-phap-thoi-trang-ben-vung-thong-minh-655977.html	Hình dung về những kỹ sư biến am hiểu AI thành giải pháp thời trang bền vững, thông minh
+q02	0	https://sdh.hust.edu.vn/default.aspx?scid=23&CategoryID=143&nid=3400	Ban đào tạo - Bộ phận sau đại học
+q02	0	https://sdh.hust.edu.vn/default.aspx?scid=23&CategoryID=143&nid=2728	Ban đào tạo - Bộ phận sau đại học
+q02	0	https://work.hust.edu.vn/	Job-Fair - Work Hust
+q02	0	http://dtlt.hust.edu.vn/education/coming-soon	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
 
 # >>> q03: học bổng khuyến khích học tập
-q03	0	https://hust.edu.vn/vi/sinh-vien/ho-tro-sinh-vien/bieu-do-ke-hoach-hoc-tap-654590.html	Biểu đồ kế hoạch học tập
-q03	0	https://hust.edu.vn/vi/news/hoat-dong-chung/co-hoi-hoc-tap-tai-duc-cho-sinh-vien-bach-khoa-ha-noi-655868.html	Cơ hội học tập tại Đức cho sinh viên Bách khoa Hà Nội
-q03	0	https://hust.edu.vn/vi/news/hoat-dong-chung/sinh-vien-bach-khoa-ha-noi-nhan-chung-chi-hoc-tap-tu-argentina-655845.html	Sinh viên Bách khoa Hà Nội nhận chứng chỉ học tập từ Argentina
-q03	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/sinh-vien-bach-khoa-hoc-tap-gan-voi-nghien-cuu-sang-tao-huong-toi-thuc-tien-655929.html	Sinh viên Bách khoa học tập gắn với nghiên cứu, sáng tạo hướng tới thực tiễn
-q03	2	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-bong-hoc-phi-645445.html	HỌC BỔNG/ SCHOLARSHIPS
-q03	2	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-bong-645445.html	HỌC BỔNG/ SCHOLARSHIPS
-q03	1	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/	Tin tức - học bổng
-q03	0	https://hust.edu.vn/vi/doi-tac-doanh-nghiep/	Đối tác doanh nghiệp
-q03	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/cap-bai-trung-dua-4-sinh-vien-bach-khoa-vao-top-6-san-choi-hoc-thuat-toan-cau-655973.html	“Cặp bài trùng” đưa 4 sinh viên Bách khoa vào Top 6 sân chơi học thuật toàn cầu
-q03	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/	Cao học
+q03	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=111&nid=3554	Ban đào tạo - Bộ phận sau đại học
+q03	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=111&nid=3561	Ban đào tạo - Bộ phận sau đại học
+q03	0	https://svbk.hust.edu.vn/hoc-tap-nghien-cuu-khoa-hoc	Hãy đợi...
+q03	1	https://soict.hust.edu.vn/lich-truc-co-van-hoc-tap.html	Lịch trực Cố vấn học tập - SoICT
+q03	1	https://sep.hust.edu.vn/sinh-vien/ban-co-van-hoc-tap	Ban cố vấn học tập | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q03	0	https://hust.edu.vn/vi/sinh-vien/ho-tro-sinh-vien/bieu-do-ke-hoach-hoc-tap-654590.html	Hãy đợi...
+q03	0	https://sofl.hust.edu.vn/ban-co-van-hoc-tap	Khoa Ngoại ngữ
+q03	1	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/ban-chuyen-mon/hoc-tap-nghien-cuu-khoa-hoc-207439.html	BAN HỌC TẬP - NGHIÊN CỨU KHOA HỌC
+q03	0	http://ctt-daotao.hust.edu.vn/DisplayWeb/DisplayMenu?menu=20	404 - File or directory not found.
+q03	0	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/cau-lac-bo/clb-ho-tro-hoc-tap-academic-support-club-asc-284664.html	Hãy đợi...
+q03	1	https://act.hust.edu.vn/vi/news/hoc-bong/hoc-bong-177.html	Học bổng
+q03	1	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-bong-645445.html	HỌC BỔNG/ SCHOLARSHIPS
+q03	1	http://scls.hust.edu.vn/vi/news/tuyen-dung-hoc-bong/	Tuyển dụng-Học bổng
+q03	1	https://sme.hust.edu.vn/vi/tuyen-dung-hoc-bong/	Tuyển dụng – Học bổng
+q03	0	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-bong-hoc-phi-645445.html	Hãy đợi...
+q03	1	https://sep.hust.edu.vn/sinh-vien/hoc-bong	Học bổng | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q03	0	https://fed.hust.edu.vn/vi/sinh-vien/hoc-bong/	Hãy đợi...
+q03	0	https://sme.hust.edu.vn/vi/sinh-vien/hoc-bong	Hãy đợi...
+q03	0	https://sofl.hust.edu.vn/bai-viet/-/asset_publisher/ATrC9k30TC0S/content/tu-fofl-en-nus-hanh-trinh-vuon-ra-the-gioi-cua-sinh-vien-k68-fl1	Khoa Ngoại ngữ
+q03	0	http://sdh.hust.edu.vn/home/Default.aspx?scid=29&CategoryID=111	Ban đào tạo - Bộ phận sau đại học
 q03	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/san-pham-moi-cua-nhung-nguoi-thay-chua-bao-gio-ngung-hoc-655951.html	Sản phẩm mới của những người thầy chưa bao giờ ngừng học
+q03	0	http://congdoan.hust.edu.vn/thong-bao-ve-viec-to-chuc-hoi-thi-tieng-hat-karaoke-cong-doan-nam-2026/	Thông báo về việc tổ chức Hội thi Tiếng hát Karaoke Công đoàn năm 2026
+q03	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/cap-bai-trung-dua-4-sinh-vien-bach-khoa-vao-top-6-san-choi-hoc-thuat-toan-cau-655973.html	“Cặp bài trùng” đưa 4 sinh viên Bách khoa vào Top 6 sân chơi học thuật toàn cầu
 q03	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/tsa-2026-nang-canh-uoc-mo-bang-cong-nghe-va-he-sinh-thai-hoc-bong-but-pha-656023.html	TSA 2026 nâng cánh ước mơ bằng công nghệ và hệ sinh thái học bổng bứt phá
-q03	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoc-hoa-hoc-bach-khoa-to-mo-hoi-vi-sao-nuoc-bien-lai-man-655957.html	Học Hóa học Bách khoa, tò mò hỏi vì sao nước biển lại mặn?
-q03	1	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/cham-hoc-bong-toan-phan-chau-au-tu-uoc-mo-tro-thanh-nguoi-bao-ve-trai-dat-655970.html	Chạm học bổng toàn phần châu Âu từ ước mơ trở thành "người bảo vệ Trái Đất"
-q03	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/lop-hoc-con-nha-nguoi-ta-va-nhung-manh-ghep-thanh-xuan-tai-bach-khoa-655964.html	Lớp học “con nhà người ta” và những mảnh ghép thanh xuân tại Bách khoa
-q03	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/dai-hoc-bach-khoa-ha-noi-them-mot-lan-don-nhan-chung-nhan-kiem-dinh-hceres-655156.html	Đại học Bách khoa Hà Nội thêm một lần đón nhận Chứng nhận kiểm định HCERES
 
 # >>> q04: ký túc xá sinh viên
+q04	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/ngay-chu-nhat-xanh-chung-tay-xay-dung-ky-tuc-xa-bach-khoa-xanh-sach-van-minh-303000.html	NGÀY CHỦ NHẬT XANH – CHUNG TAY XÂY DỰNG KÝ TÚC XÁ BÁCH KHOA XANH, SẠCH, VĂN MINH
+q04	0	http://dtlt.hust.edu.vn/document/25	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
 q04	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/lanh-dao-dai-hoc-bach-khoa-ha-noi-kiem-tra-cong-tac-chuan-bi-bau-cu-tai-khu-vuc-bo-phieu-ky-tuc-xa-655823.html	Lãnh đạo Đại học Bách khoa Hà Nội kiểm tra công tác chuẩn bị bầu cử tại khu vực bỏ phiếu Ký túc xá
 q04	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ngay-hoi-bau-cu-tai-dai-hoc-bach-khoa-ha-noi-655827.html	Ngày hội bầu cử tại Đại học Bách khoa Hà Nội
-q04	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ky-uc-gui-lai-tu-chien-truong-nhung-ky-vat-cua-nguoi-linh-sinh-vien-bach-khoa-655628.html	Ký ức gửi lại từ chiến trường: Những kỷ vật của người lính sinh viên Bách khoa
+q04	0	https://svbk.hust.edu.vn/vi/news/thong-bao/thanh-doan-ha-noi-ky-ket-bien-ban-ghi-nho-voi-doan-truong-dh-bach-khoa-ha-noi-253691.html	Hãy đợi...
+q04	1	https://sem.hust.edu.vn/events/recap-buoi-le-ky-ket-mou-giua-truong-kinh-te-dai-hoc-bach-khoa-ha-noi-va-cong-ty-tnhh-dien-tu-byd-viet-nam	RECAP BUỔI LỄ KÝ KẾT MoU GIỮA TRƯỜNG KINH TẾ – ĐẠI HỌC BÁCH KHOA HÀ NỘI VÀ CÔNG TY TNHH ĐIỆN TỬ BYD VIỆT NAM - Trường Kinh tế
 q04	0	https://hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-san-sang-cho-ngay-hoi-bau-cu-15-3-655825.html	Đại học Bách khoa Hà Nội sẵn sàng cho ngày hội bầu cử 15/3
+q04	0	https://bksign.hust.edu.vn/	BKSign | Hệ thống ký số
+q04	1	https://hust.edu.vn/vi/news/hoat-dong-chung/uy-ban-khoa-hoc-cong-nghe-va-moi-truong-ky-ket-chuong-trinh-phoi-hop-cong-tac-voi-dai-hoc-bach-khoa-ha-noi-655979.html	Ủy ban Khoa học, Công nghệ và Môi trường ký kết Chương trình phối hợp công tác với Đại học Bách khoa Hà Nội
 q04	0	https://hust.edu.vn/vi/about/tong-quan.html	Tổng quan
-q04	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-so-ket-6-thang-dau-nam-2026-tang-toc-chuyen-doi-so-huong-toi-ai-first-university-655981.html	Bách khoa Hà Nội sơ kết 6 tháng đầu năm 2026, tăng tốc chuyển đổi số, hướng tới AI-First University
+q04	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ky-uc-gui-lai-tu-chien-truong-nhung-ky-vat-cua-nguoi-linh-sinh-vien-bach-khoa-655628.html	Ký ức gửi lại từ chiến trường: Những kỷ vật của người lính sinh viên Bách khoa
+q04	1	https://fpt.hust.edu.vn/vi/sinh-vien/	Sinh viên
+q04	1	https://hust.edu.vn/vi/sinh-vien/	Sinh viên
+q04	1	https://fed.hust.edu.vn/vi/sinh-vien/	Sinh viên
+q04	1	https://sme.hust.edu.vn/vi/sinh-vien/	Sinh viên
 q04	0	https://hust.edu.vn/vi/news/cong-tac-dang-va-doan-the/bach-khoa-ha-noi-so-ket-6-thang-dau-nam-2026-tang-toc-chuyen-doi-so-huong-toi-ai-first-university-655981.html	Bách khoa Hà Nội sơ kết 6 tháng đầu năm 2026, tăng tốc chuyển đổi số, hướng tới AI-First University
-q04	0	https://hust.edu.vn/vi/trao-doi-sinh-vien/	Trao đổi sinh viên
-q04	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chao-mung-ky-niem-70-nam-thanh-lap-dai-hoc-bach-khoa-ha-noi-70-nam-qua-cac-bieu-tuong-vuot-thoi-gian-655996.html	Chào mừng Kỷ niệm 70 năm thành lập Đại học Bách khoa Hà Nội: 70 năm qua các biểu tượng vượt thời gian
-q04	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/cac-to-chuc-doan-the.html	Các tổ chức đoàn thể
-q04	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/sinh-vien-bach-khoa-ha-noi-va-trach-nhiem-cong-dan-tu-la-phieu-655820.html	Sinh viên Bách khoa Hà Nội và trách nhiệm công dân từ lá phiếu
+q04	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chao-mung-ky-niem-70-nam-thanh-lap-dai-hoc-bach-khoa-ha-noi-70-nam-qua-cac-bieu-tuong-vuot-thoi-gian-655996.html	Chào mừng Kỷ niệm 70 năm thành lập Đại học Bách khoa Hà Nội: 70 năm qua các biểu tượng vượt thời gian
+q04	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/sinh-vien-bach-khoa-ha-noi-va-trach-nhiem-cong-dan-tu-la-phieu-655820.html	Sinh viên Bách khoa Hà Nội và trách nhiệm công dân từ lá phiếu
+q04	0	https://svbk.hust.edu.vn/vi/news/	Tin Tức
 q04	0	https://hust.edu.vn/vi/news/hoat-dong-chung/ajinomoto-viet-nam-cung-bach-khoa-ha-noi-phat-trien-nguon-nhan-luc-655824.html	Ajinomoto Việt Nam cùng Bách khoa Hà Nội phát triển nguồn nhân lực
 
 # >>> q05: chương trình đào tạo công nghệ thông tin
+q05	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-dai-hoc/chuong-trinh-dao-tao-cong-nghe-det-may-2.html	Hãy đợi...
+q05	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-dai-hoc/chuong-trinh-dao-tao-cong-nghe-vat-lieu-polyme-va-compozit-3.html	Hãy đợi...
+q05	1	https://qldt.hust.edu.vn/students/hop-tac-doi-ngoai/4517549111771137	Chương trình Đào tạo AI năm 2026 tại ĐH CNĐT Quế Lâm - Cổng thông tin sinh viên - ĐẠI HỌC BÁCH KHOA HÀ NỘI HUST
+q05	0	http://dtlt.hust.edu.vn/news/sap-dien-ra-hoi-thao-chuyen-de-chia-se-kinh-nghiem-thuc-te-tu-cac-chuyen-gia-doanh-nghiep-ve-xu-huong-phat-trien-cong-nghe-nhu-cau-tuyen-dung-va-co-hoi-nghe-nghiep-danh-cho-sinh-vien-cac-nganh-ky-thuat-dien-tu-ky-thuat-o-to-dien-tu-vien-thong-va-cac-chuong-trinh-dao-tao-lien-ket-quoc-te-trong-nam-hoc-2026-2027	Bad Request
+q05	1	https://sep.hust.edu.vn/dao-tao/khung-ctdt	Chương trình đào tạo | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q05	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=135	Ban đào tạo - Bộ phận sau đại học
+q05	1	https://seee.hust.edu.vn/vi/dao-tao/chuong-trinh/	Chương trình đào tạo | Trường Điện - Điện tử
+q05	1	http://scls.hust.edu.vn/vi/download/Chuong-trinh-dao-tao/	Chương trình đào tạo
+q05	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-dai-hoc/chuong-trinh-ky-thuat-vi-dien-tu-va-cong-nghe-nano-7.html	Hãy đợi...
+q05	0	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/lien-chi-doan-lien-chi-hoi/vien-cong-nghe-thong-tin-va-truyen-thong-207712.html	Hãy đợi...
 q05	1	https://ctt-daotao.hust.edu.vn/	Cổng thông tin Đào tạo
-q05	1	https://hust.edu.vn/vi/dao-tao/dai-hoc-chinh-quy/mo-hinh-va-chuong-trinh-dao-tao-he-dai-hoc-chinh-quy-1.html	Mô hình và chương trình đào tạo hệ đại học chính quy
-q05	1	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/chuong-trinh-hoc-vien-cong-nghe-bkacad-thuoc-bk-holdings-653330.html	CHƯƠNG TRÌNH HỌC VIỆN CÔNG NGHỆ BKACAD - THUỘC BK-HOLDINGS
-q05	1	https://hust.edu.vn/vi/dao-tao/ky-su/chuong-trinh-dao-tao-ky-su-chuyen-sau-dac-thu-cua-truong-dai-hoc-bach-khoa-ha-noi-2.html	Chương trình đào tạo kỹ sư chuyên sâu đặc thù của Đại học Bách Khoa Hà Nội
-q05	0	https://hust.edu.vn/vi/news/hoat-dong-chung/16-chuong-trinh-dao-tao-cua-bach-khoa-ha-noi-duoc-chung-nhan-chat-luong-tieu-chuan-chau-au-654756.html	16 chương trình đào tạo của Bách khoa Hà Nội được chứng nhận chất lượng tiêu chuẩn châu Âu
-q05	0	https://hust.edu.vn/vi/nghien-cuu/cac-don-vi-nghien-cuu/thong-tin-phong-thi-nghiem-nghien-cuu-650372.html	Thông tin Phòng thí nghiệm nghiên cứu
-q05	0	https://hust.edu.vn/tuyen-sinh/de-an-tuyen-sinh/de-an-tuyen-sinh-567354.html	Thông tin tuyển sinh năm 2026
-q05	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chi-tiet-55-chuong-trinh-dao-tao-tai-bach-khoa-ha-noi-nhan-hoc-bong-chinh-phu-theo-nghi-dinh-179-655959.html	Chi tiết 55 Chương trình đào tạo tại Bách khoa Hà Nội nhận Học bổng Chính phủ theo Nghị định 179
-q05	0	https://hust.edu.vn/tuyen-sinh/thong-tin-tuyen-sinh-13/thong-tin-tuyen-sinh-van-bang-2-58454.html	Thông tin tuyển sinh Văn bằng 2
-q05	0	https://hust.edu.vn/vi/nghien-cuu/thong-tin-ung-vien-gs-pgs/	Thông tin ứng viên GS/PGS
-q05	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/nganh-tuyen-sinh-dai-hoc-nam-2022-651865.html	Các ngành/chương trình tuyển sinh Đại học năm 2026
-q05	0	https://hust.edu.vn/tuyen-sinh/vua-hoc-vua-lam/dao-tao-dai-hoc-theo-hinh-thuc-vua-lam-vua-hoc-651864.html	Đào tạo đại học theo hình thức vừa làm vừa học
-q05	0	https://hust.edu.vn/vi/trao-doi-can-bo/	Trao đổi cán bộ
-q05	0	https://hust.edu.vn/vi/news/hoat-dong-chung/to-chuc-aun-qa-kiem-dinh-chat-luong-la-mot-hanh-trinh-khong-ngung-nghi-654824.html	Tổ chức AUN-QA: “Kiểm định chất lượng là một hành trình không ngừng nghỉ”
-q05	0	https://hust.edu.vn/vi/ba-cong-khai/ba-cong-khai-313404.html	Năm học 2023-2024 về trước
-q05	0	https://hust.edu.vn/vi/ba-cong-khai/	Năm học 2023-2024 về trước
+q05	1	https://library.hust.edu.vn/vi/node/779	Trường Công nghệ Thông tin và Truyền thông | Thư viện
+q05	1	https://svbk.hust.edu.vn/vien-cong-nghe-thong-tin-va-truyen-thong	Đoàn trường Công nghệ Thông tin và Truyền thông
+q05	1	https://act.hust.edu.vn/vi/dao-tao/dao-tao-tien-si/dao-tao-tien-si-19.html	Thông tin chung Đào tạo tiến sĩ
+q05	1	https://fed.hust.edu.vn/vi/nghien-cuu/gioi-thieu/thong-tin-chung-178159.html	Thông tin chung
+q05	1	https://sep.hust.edu.vn/tin-tuc/tin-khoa-hoc-cong-nghe	Tin Khoa học & Công nghệ | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q05	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/	Khoa học - Công nghệ - ĐMST
+q05	1	https://hust.edu.vn/vi/su-kien-noi-bat/khoa-hoc-cong-nghe-dmst/	Khoa học - Công nghệ - ĐMST
+q05	1	https://hust.edu.vn/vi/san-pham-khoa-hoc-cong-nghe/	Sản phẩm Khoa học Công nghệ
 
 # >>> q06: điểm chuẩn các năm
+q06	0	http://dtlt.hust.edu.vn/news/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026-2	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q06	2	https://seee.hust.edu.vn/vi/tin-tuc/2026-08-09_diem-chuan-2026-chao-tan-sinh-vien-k71/	Điểm chuẩn tuyển sinh đại học chính quy năm 2026 và lời chào tân sinh viên K71 | Tin tức SEEE
+q06	2	https://soict.hust.edu.vn/diem-chuan-tham-khao.html	Điểm chuẩn tham khảo - SoICT
 q06	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026-656013.html	Điểm chuẩn Đại học Bách khoa Hà Nội năm 2026
-q06	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/kiem-dinh-khong-phai-la-diem-ket-dat-chuan-khong-phai-la-diem-dung-655679.html	"Kiểm định không phải là điểm kết, đạt chuẩn không phải là điểm dừng"
-q06	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-cong-bo-chi-tiet-do-lech-diem-to-hop-xet-tuyen-quy-doi-diem-va-du-bao-diem-chuan-nam-2026-655962.html	Bách khoa Hà Nội công bố chi tiết độ lệch điểm tổ hợp xét tuyển, quy đổi điểm và dự báo điểm chuẩn năm 2026
+q06	2	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/kiem-dinh-khong-phai-la-diem-ket-dat-chuan-khong-phai-la-diem-dung-655679.html	"Kiểm định không phải là điểm kết, đạt chuẩn không phải là điểm dừng"
 q06	1	https://hust.edu.vn/vi/su-kien-noi-bat/thong-bao-chung/cong-bo-bang-phan-vi-tuong-duong-giua-diem-thi-tsa-va-diem-thi-tot-nghiep-thpt-nam-2026-654816.html	CÔNG BỐ BẢNG PHÂN VỊ TƯƠNG ĐƯƠNG GIỮA ĐIỂM THI TSA VÀ ĐIỂM THI TỐT NGHIỆP THPT NĂM 2026
-q06	0	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/hoan-thien-chuan-dao-tao-sau-dai-hoc-nganh-duong-sat-dap-ung-yeu-cau-phat-trien-cac-du-an-trong-diem-quoc-gia-655966.html	Hoàn thiện chuẩn đào tạo sau đại học ngành đường sắt, đáp ứng yêu cầu phát triển các dự án trọng điểm quốc gia
-q06	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/viet-nam-phat-trien-5-dai-hoc-trong-diem-ve-ky-thuat-cong-nghe-655368.html	Việt Nam phát triển 5 đại học trọng điểm về kỹ thuật, công nghệ
-q06	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/icce-2026-tai-nha-trang-diem-hen-cho-nhung-giai-phap-cong-nghe-phuc-vu-con-nguoi-656002.html	ICCE 2026 tại Nha Trang: Điểm hẹn cho những giải pháp công nghệ phục vụ con người
-q06	0	https://hust.edu.vn/vi/news/hoat-dong-chung/khong-gian-doi-moi-sang-tao-lien-nganh-dai-hoc-bach-khoa-ha-noi-hat-nhan-cua-mo-hinh-design-factory-chuan-quoc-te-655954.html	Đại học Bách khoa Hà Nội ra mắt “hạt nhân” của mô hình Design Factory chuẩn quốc tế
-q06	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/dai-hoc-bach-khoa-ha-noi-tham-gia-danh-gia-ngoai-theo-chuan-aun-qa-lan-thu-486-655695.html	Đại học Bách khoa Hà Nội tham gia đánh giá ngoài theo chuẩn AUN-QA lần thứ 486
-q06	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoi-nghi-dai-bieu-can-bo-vien-chuc-2025-nen-tang-cho-chu-ky-phat-trien-moi-655782.html	Hội nghị Đại biểu cán bộ, viên chức 2025: Chuẩn bị nền tảng cho chu kỳ phát triển mới
-q06	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/tat-tan-tat-cho-nguyen-vong-1-so-tay-giai-ma-nganh-ky-thuat-thuc-pham-bach-khoa-ha-noi-655968.html	“Tất tần tật” cho nguyện vọng 1: Sổ tay “giải mã” ngành Kỹ thuật thực phẩm Bách khoa Hà Nội
-q06	0	https://hust.edu.vn/vi/news/	Tin Tức
-q06	0	https://hust.edu.vn/news/campus-life/	Tin Tức
-q06	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/dat-nguyen-vong-1-vao-bach-khoa-ha-noi-bat-dau-tuong-lai-tu-dieu-minh-yeu-655967.html	Đặt nguyện vọng 1 vào Bách khoa Hà Nội, bắt đầu tương lai từ điều mình yêu
-q06	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/vi-sao-nhieu-csv-ke-toan-ghen-ti-voi-khoa-tuyen-sinh-cttt-ke-toan-bach-khoa-nam-2026-655971.html	Vì sao nhiều CSV Kế toán “ghen tị” với khóa tuyển sinh CTTT Kế toán Bách khoa năm 2026?
-q06	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ket-qua-xttn-bach-khoa-ha-noi-nam-2026-chat-luong-thi-sinh-vuot-troi-655969.html	Kết quả XTTN Bách khoa Hà Nội năm 2026: Chất lượng thí sinh vượt trội
+q06	1	https://svbk.hust.edu.vn/vi/news/thong-bao/bach-khoa-ha-noi-cong-bo-muc-diem-nhan-ho-so-xet-tuyen-nam-2021-247737.html	BÁCH KHOA HÀ NỘI CÔNG BỐ MỨC ĐIỂM NHẬN HỒ SƠ XÉT TUYỂN NĂM 2021
+q06	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-cong-bo-chi-tiet-do-lech-diem-to-hop-xet-tuyen-quy-doi-diem-va-du-bao-diem-chuan-nam-2026-655962.html	Bách khoa Hà Nội công bố chi tiết độ lệch điểm tổ hợp xét tuyển, quy đổi điểm và dự báo điểm chuẩn năm 2026
+q06	1	https://sme.hust.edu.vn/vi/dao-tao/chuong-trinh-chuan/	Chương trình chuẩn
+q06	0	http://dtlt.hust.edu.vn/research	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q06	0	http://dtlt.hust.edu.vn/news/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q06	1	https://library.hust.edu.vn/vi/node/224	Điểm sách | Thư viện
+q06	2	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/hoan-thien-chuan-dao-tao-sau-dai-hoc-nganh-duong-sat-dap-ung-yeu-cau-phat-trien-cac-du-an-trong-diem-quoc-gia-655966.html	Hoàn thiện chuẩn đào tạo sau đại học ngành đường sắt, đáp ứng yêu cầu phát triển các dự án trọng điểm quốc gia
+q06	0	http://scls.hust.edu.vn/vi/news/diem-tin/	Hãy đợi...
+q06	1	https://sep.hust.edu.vn/sinh-vien/vldc	Thí nghiệm - Điểm thi VLĐC | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q06	0	https://seee.hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh 2026 | Trường Điện - Điện tử
 
 # >>> q07: tuyển sinh thạc sĩ
-q07	2	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/thong-bao-tuyen-sinh-trinh-do-thac-si-nam-2023-651873.html	Thông báo tuyển sinh trình độ Thạc sĩ năm 2026
+q07	1	https://sem.hust.edu.vn/thac-si	Thạc sĩ - Trường Kinh tế
 q07	2	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/cac-chuong-trinh-tuyen-sinh-thac-si-nam-2022-651867.html	DANH MỤC CHƯƠNG TRÌNH TUYỂN SINH THẠC SĨ NĂM 2026
+q07	2	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/thong-bao-tuyen-sinh-trinh-do-thac-si-nam-2023-651873.html	Thông báo tuyển sinh trình độ Thạc sĩ năm 2026
 q07	1	https://hust.edu.vn/vi/dao-tao/thac-si/chuong-trinh-dao-tao-thac-si-3.html	ĐÀO TẠO TRÌNH ĐỘ THẠC SĨ
+q07	1	https://sem.hust.edu.vn/dao-tao-thac-si	Đào tạo Thạc sĩ - Trường Kinh tế
+q07	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-thac-si/	Hãy đợi...
+q07	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-thac-si/ctdt-thac-si-khoa-hoc-vat-lieu-9.html	Hãy đợi...
+q07	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-thac-si/ctdt-thac-si-vat-lieu-dien-tu-12.html	Hãy đợi...
+q07	1	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-sau-dai-hoc/ctdt-thac-si-ky-thuat-in-11.html	CTĐT THẠC SĨ KỸ THUẬT IN
+q07	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-thac-si/ctdt-thac-si-cong-nghe-det-may-10.html	Hãy đợi...
 q07	1	https://hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh
+q07	1	https://fed.hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh
 q07	1	https://hust.edu.vn/tuyen-sinh/nganh-tuyen-sinh-14/nganh-tuyen-sinh-58417.html	Các ngành tuyển sinh
-q07	1	https://hust.edu.vn/tuyen-sinh/nganh-tuyen-sinh-10/	Ngành tuyển sinh
 q07	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/	Ngành tuyển sinh
-q07	1	https://hust.edu.vn/tuyen-sinh/de-an-tuyen-sinh/de-an-tuyen-sinh-567354.html	Thông tin tuyển sinh năm 2026
-q07	1	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
-q07	1	https://hust.edu.vn/vi/su-kien-noi-bat/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
-q07	2	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/	Cao học
-q07	0	https://hust.edu.vn/vi/tuyen-sinh/van-bang-2	Văn bằng 2
-q07	0	https://hust.edu.vn/vi/tuyen-sinh/nghien-cuu-sinh/	Nghiên cứu sinh
-q07	0	https://hust.edu.vn/vi/tuyen-sinh/vua-hoc-vua-lam/	Vừa làm vừa học
-q07	0	https://hust.edu.vn/vi/tuyen-sinh/dai-hoc/	Đại học
-q07	0	https://hust.edu.vn/vi/tuyen-sinh/thong-bao-tuyen-sinh/quy-che-tuyen-sinh-567343.html	Quy chế tuyển sinh đại học năm 2026
+q07	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=141	Ban đào tạo - Bộ phận sau đại học
+q07	1	https://library.hust.edu.vn/vi/node/417	Quy trình nộp lưu chiểu Luận văn thạc sĩ | Thư viện
+q07	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/nganh-tuyen-sinh-dai-hoc-nam-2022-651865.html	Các ngành/chương trình tuyển sinh Đại học năm 2026
+q07	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh-10/nganh-tuyen-sinh-tien-si-58618.html	DANH MỤC NGÀNH TUYỂN SINH TRÌNH ĐỘ TIẾN SĨ NĂM 2026
 
 # >>> q08: đào tạo tiến sĩ
+q08	2	https://sem.hust.edu.vn/dao-tao-tien-si	Đào tạo Tiến sĩ - Trường Kinh tế
+q08	2	https://act.hust.edu.vn/vi/dao-tao/dao-tao-tien-si/dao-tao-tien-si-19.html	Thông tin chung Đào tạo tiến sĩ
+q08	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-4/	Hãy đợi...
+q08	1	http://sdh.hust.edu.vn/default.aspx?scid=23&CategoryID=137&nid=2266	Ban đào tạo - Bộ phận sau đại học
+q08	1	http://sdh.hust.edu.vn/default.aspx?scid=23&CategoryID=137&nid=2267	Ban đào tạo - Bộ phận sau đại học
 q08	2	https://hust.edu.vn/vi/dao-tao/tien-si/dao-tao-trinh-do-tien-si-653330.html	ĐÀO TẠO TRÌNH ĐỘ TIẾN SĨ
-q08	2	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh-10/nganh-tuyen-sinh-tien-si-58618.html	DANH MỤC NGÀNH TUYỂN SINH TRÌNH ĐỘ TIẾN SĨ NĂM 2026
+q08	1	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-4/ctdt-tien-si-ky-thuat-vat-lieu-13.html	CTĐT TIẾN SĨ KỸ THUẬT VẬT LIỆU
+q08	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-4/ctdt-tien-si-kim-loai-hoc-14.html	Hãy đợi...
+q08	1	https://library.hust.edu.vn/vi/node/555	Hướng dẫn nộp lưu chiểu Luận án tiến sĩ | Thư viện
+q08	2	https://hust.edu.vn/tuyen-sinh/thong-tin-tuyen-sinh-15/thong-tin-tuyen-sinh-ncs-499909.html	THÔNG BÁO TUYỂN SINH ĐÀO TẠO TRÌNH ĐỘ TIẾN SĨ NĂM 2026
+q08	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh-10/nganh-tuyen-sinh-tien-si-58618.html	DANH MỤC NGÀNH TUYỂN SINH TRÌNH ĐỘ TIẾN SĨ NĂM 2026
 q08	1	https://hust.edu.vn/vi/dao-tao/	Đào tạo
-q08	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chang-trai-phan-tich-kinh-doanh-bach-khoa-gianh-hoc-bong-tien-si-ai-tai-my-656029.html	Chàng trai Phân tích Kinh doanh Bách khoa giành học bổng tiến sĩ AI tại Mỹ
-q08	1	https://hust.edu.vn/vi/news/hoat-dong-chung/chang-trai-phan-tich-kinh-doanh-bach-khoa-gianh-hoc-bong-tien-si-ai-tai-my-656029.html	Chàng trai Phân tích Kinh doanh Bách khoa giành học bổng tiến sĩ AI tại Mỹ
-q08	1	https://ctt-daotao.hust.edu.vn/	Cổng thông tin Đào tạo
-q08	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/hoi-dong-khoa-hoc-va-dao-tao.html	Hội đồng khoa học và đào tạo
-q08	1	https://hust.edu.vn/vi/dao-tao/thac-si/chuong-trinh-dao-tao-thac-si-3.html	ĐÀO TẠO TRÌNH ĐỘ THẠC SĨ
-q08	1	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
-q08	1	https://hust.edu.vn/vi/su-kien-noi-bat/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
-q08	0	https://hust.edu.vn/tuyen-sinh/vua-hoc-vua-lam/dao-tao-dai-hoc-theo-hinh-thuc-vua-lam-vua-hoc-651864.html	Đào tạo đại học theo hình thức vừa làm vừa học
-q08	0	https://hust.edu.vn/vi/su-kien-noi-bat/thong-bao-chung/thong-bao-danh-sach-de-cu-nha-giao-tieu-bieu-nam-2026-654828.html	Thông báo danh sách đề cử Nhà giáo tiêu biểu năm 2026
-q08	1	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/hoan-thien-chuan-dao-tao-sau-dai-hoc-nganh-duong-sat-dap-ung-yeu-cau-phat-trien-cac-du-an-trong-diem-quoc-gia-655966.html	Hoàn thiện chuẩn đào tạo sau đại học ngành đường sắt, đáp ứng yêu cầu phát triển các dự án trọng điểm quốc gia
-q08	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/huong-toi-dai-hoi-dang-toan-quoc-lan-thu-xiv-dong-gop-tri-tue-dai-hoc-cho-thanh-cong-cua-dai-hoi-xiv-655767.html	Hướng tới Đại hội Đảng toàn quốc lần thứ XIV: Đóng góp trí tuệ đại học cho thành công của Đại hội XIV
-q08	2	https://hust.edu.vn/vi/tuyen-sinh/nghien-cuu-sinh/	Nghiên cứu sinh
-q08	0	https://act.hust.edu.vn/	Viện Công nghệ Điều khiển và Tự động hóa
-q08	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/doi-ngu-can-bo.html	Đội ngũ cán bộ
-q08	0	https://hust.edu.vn/vi/ba-cong-khai/ba-cong-khai-313404.html	Năm học 2023-2024 về trước
+q08	1	https://sem.hust.edu.vn/dao-tao-dai-hoc	Đào tạo đại học - Trường Kinh tế
+q08	1	https://sep.hust.edu.vn/dao-tao	Đào tạo | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
 
 # >>> q09: nghiên cứu khoa học sinh viên
-q09	2	https://hust.edu.vn/vi/nghien-cuu/de-tai-nghien-cuu-khoa-hoc/	Đề tài nghiên cứu khoa học
-q09	2	https://hust.edu.vn/vi/nghien-cuu/hd-nghien-cuu-khoa-hoc-va-sang-tao/	Hoạt động nghiên cứu khoa học và sáng tạo
-q09	0	https://hust.edu.vn/vi/news/hoat-dong-chung/bach-khoa-ha-noi-cung-doi-tac-nga-phat-trien-dao-tao-va-nghien-cuu-khoa-hoc-655867.html	Bách khoa Hà Nội cùng đối tác Nga phát triển đào tạo và nghiên cứu khoa học
-q09	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/sinh-vien-bach-khoa-hoc-tap-gan-voi-nghien-cuu-sang-tao-huong-toi-thuc-tien-655929.html	Sinh viên Bách khoa học tập gắn với nghiên cứu, sáng tạo hướng tới thực tiễn
+q09	2	https://soict.hust.edu.vn/category/sinh-vien/hoat-dong-sinh-vien-nghien-cuu-khoa-hoc	Hoạt động sinh viên nghiên cứu khoa học - SoICT
+q09	2	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/cau-lac-bo/clb-sinh-vien-nghien-cuu-khoa-hoc-vien-dien-tu-vien-thong-set-researcher-club-src-243798.html	CLB Sinh viên Nghiên cứu khoa học Viện Điện tử- Viễn thông, SET Researcher Club, SRC
+q09	1	https://library.hust.edu.vn/vi/node/55	Đề tài nghiên cứu khoa học | Thư viện
+q09	1	https://hust.edu.vn/vi/nghien-cuu/de-tai-nghien-cuu-khoa-hoc/	Đề tài nghiên cứu khoa học
+q09	1	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/ban-chuyen-mon/hoc-tap-nghien-cuu-khoa-hoc-207439.html	BAN HỌC TẬP - NGHIÊN CỨU KHOA HỌC
+q09	0	https://library.hust.edu.vn/vi/node/1335	Tài nguyên số của Đại học Bách khoa Hà Nội | Thư viện
+q09	0	https://fed.hust.edu.vn/vi/news/thong-bao/hoc-vien-khoa-khoa-hoc-va-cong-nghe-giao-duc-bao-cao-nghien-cuu-tai-hoi-thao-scopus-paee-ale-2026-302824.html	Hãy đợi...
+q09	0	https://fed.hust.edu.vn/vi/news/tin-tuc/khoa-khoa-hoc-va-cong-nghe-giao-duc-tuyen-dung-giang-vien-xuat-sac-truong-nhom-nghien-cuu-va-chuyen-gia-theo-de-an-hust-talent-302831.html	Hãy đợi...
+q09	1	https://hust.edu.vn/vi/nghien-cuu/hd-nghien-cuu-khoa-hoc-va-sang-tao/	Hoạt động nghiên cứu khoa học và sáng tạo
+q09	0	https://research.hust.edu.vn/sme-vn-jp-icstr	
+q09	1	https://sme.hust.edu.vn/vi/nghien-cuu/ameafm-2026/	Nghiên cứu
 q09	1	https://hust.edu.vn/vi/nghien-cuu/	Nghiên cứu
-q09	0	https://hust.edu.vn/vi/tuyen-sinh/nghien-cuu-sinh/	Nghiên cứu sinh
-q09	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/danh-sach-cac-vien-trung-tam-nghien-cuu-34398.html	Danh sách các Viện nghiên cứu
+q09	1	https://fed.hust.edu.vn/vi/nghien-cuu/	Nghiên cứu
+q09	1	https://soict.hust.edu.vn/nghien-cuu	Nghiên cứu - SoICT
+q09	1	https://hust.edu.vn/vi/nghien-cuu/cong-bo-khoa-hoc/	Công bố khoa học
+q09	1	https://soict.hust.edu.vn/bo-phan/khoa-hoc-may-tinh	Khoa học Máy tính - SoICT
+q09	1	https://sep.hust.edu.vn/tin-tuc/tin-khoa-hoc-cong-nghe	Tin Khoa học & Công nghệ | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q09	1	https://soict.hust.edu.vn/nghien-cuu/cong-bo-khoa-hoc	Công bố khoa học - SoICT
 q09	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/	Khoa học - Công nghệ - ĐMST
 q09	1	https://hust.edu.vn/vi/su-kien-noi-bat/khoa-hoc-cong-nghe-dmst/	Khoa học - Công nghệ - ĐMST
-q09	2	https://hust.edu.vn/vi/sinh-vien/nghien-cuu-sang-tao-khoi-nghiep/	Nghiên cứu - sáng tạo - khởi nghiệp
-q09	0	https://hust.edu.vn/vi/doi-tac-hoc-thuat/	Đối tác học thuật
-q09	0	https://hust.edu.vn/vi/nghien-cuu/tap-chi-khoa-hoc-cong-nghe/jst-650113.html	Tạp chí Khoa học và Công nghệ
-q09	0	https://hust.edu.vn/vi/feeds/	RSS-feeds
-q09	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/cac-chuong-trinh-tuyen-sinh-thac-si-nam-2022-651867.html	DANH MỤC CHƯƠNG TRÌNH TUYỂN SINH THẠC SĨ NĂM 2026
-q09	2	https://hust.edu.vn/vi/sinh-vien/nghien-cuu-sang-tao-khoi-nghiep/hoi-nghi-sinh-vien-nckh-thuong-nien-654582.html	Hội nghị sinh viên NCKH thường niên
-q09	0	https://hust.edu.vn/vi/tai-nguyen-so/tai-nguyen-so/tai-nguyen-so-1.html	Tài nguyên số
-q09	0	https://hust.edu.vn/vi/sinh-vien/	Sinh viên
+q09	1	https://sep.hust.edu.vn/nghien-cuu/cong-bo-khoa-hoc/danh-sach-cong-bo-khoa-hoc.html	Danh sách công bố khoa học | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
 
 # >>> q10: lịch thi cuối kỳ
-q10	0	https://hust.edu.vn/vi/tuyen-sinh/dai-hoc/ky-thi-danh-gia-tu-duy-nam-2023-651870.html	Đề án tổ chức kỳ thi ĐGTD
-q10	1	https://hust.edu.vn/vi/lich-lam-viec/	Lịch làm việc
-q10	1	https://hust.edu.vn/vi/events/	Lịch sự kiện
-q10	0	https://hust.edu.vn/vi/about/cac-giai-doan-lich-su-191736.html	Các giai đoạn lịch sử
-q10	0	https://hust.edu.vn/vi/about/lich-su-hinh-thanh-phat-trien-21686.html	Lịch sử hình thành, phát triển
-q10	0	https://hust.edu.vn/tuyen-sinh/dai-hoc/quy-che-thi-dgtd-569432.html	Quy chế thi ĐGTD của ĐHBK Hà Nội
-q10	0	https://hust.edu.vn/tuyen-sinh/dai-hoc/quy-che-thi-tuyen-sinh-dgtd-569432.html	Quy chế thi ĐGTD của ĐHBK Hà Nội
-q10	0	https://hust.edu.vn/vi/su-kien-noi-bat/thong-bao-chung/cong-bo-bang-phan-vi-tuong-duong-giua-diem-thi-tsa-va-diem-thi-tot-nghiep-thpt-nam-2026-654816.html	CÔNG BỐ BẢNG PHÂN VỊ TƯƠNG ĐƯƠNG GIỮA ĐIỂM THI TSA VÀ ĐIỂM THI TỐT NGHIỆP THPT NĂM 2026
-q10	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/giam-doc-hieu-truong-dhbk-ha-noi-qua-cac-thoi-ky.html	Giám đốc/ Hiệu trưởng ĐHBK Hà Nội qua các thời kỳ
-q10	0	https://hust.edu.vn/vi/news/cong-tac-dang-va-doan-the/dau-an-lich-su-ba-lan-chu-tich-ho-chi-minh-den-bach-khoa-656028.html	Dấu ấn lịch sử ba lần Chủ tịch Hồ Chí Minh đến Bách khoa
-q10	0	https://clc.hust.edu.vn/	CLC - BKHN - Luyện thi TOEIC, VSTEP. Đào tạo tiếng Anh, Đức, Nhật, Hàn
-q10	0	https://hust.edu.vn/vi/su-kien-noi-bat/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
-q10	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoi-nghi-dai-bieu-can-bo-vien-chuc-2025-nen-tang-cho-chu-ky-phat-trien-moi-655782.html	Hội nghị Đại biểu cán bộ, viên chức 2025: Chuẩn bị nền tảng cho chu kỳ phát triển mới
+q10	0	https://fpt.hust.edu.vn/vi/news/thong-bao/lich-phuc-tra-diem-cuoi-ky-mon-cnxh-khoa-hoc-ky-2025-2-302829.html	Hãy đợi...
+q10	1	https://hust.edu.vn/vi/tuyen-sinh/dai-hoc/ky-thi-danh-gia-tu-duy-nam-2023-651870.html	Đề án tổ chức kỳ thi ĐGTD
+q10	1	https://svbk.hust.edu.vn/vi/news/thong-bao/thong-bao-ve-viec-on-tap-va-thi-cac-mon-ky-20202-248285.html	THÔNG BÁO VỀ VIỆC ÔN TẬP VÀ THI CÁC MÔN KỲ 20202
+q10	1	https://svbk.hust.edu.vn/vi/news/thong-bao/truong-dai-hoc-bach-khoa-ha-noi-dung-to-chuc-ky-thi-danh-gia-tu-duy-nam-2021-246994.html	TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI DỪNG TỔ CHỨC KỲ THI ĐÁNH GIÁ TƯ DUY NĂM 2021
+q10	1	https://svbk.hust.edu.vn/vi/news/thong-bao/dieu-chinh-mo-rong-lich-thi-hoc-ky-20202-246860.html	Điều chỉnh mở rộng lịch thi học kỳ 20202
+q10	0	https://fpt.hust.edu.vn/vi/news/thong-bao/lich-phuc-tra-lich-su-dang-cong-san-viet-nam-ky-2025-3-302839.html	Hãy đợi...
+q10	0	https://fed.hust.edu.vn/vi/news/tong-hop/hon-3-300-sinh-vien-tham-gia-ky-thi-tren-may-tinh-hoc-phan-ky-nang-mem-buoc-tien-trong-chuyen-doi-so-danh-gia-hoc-tap-tai-dai-hoc-bach-khoa-ha-noi-302829.html	Hãy đợi...
+q10	0	https://fpt.hust.edu.vn/vi/news/thong-bao/lich-phuc-tra-hoc-phan-triet-hoc-mac-lenin-ky-2025-3-302838.html	Hãy đợi...
+q10	0	https://fpt.hust.edu.vn/vi/news/thong-bao/lich-phuc-tra-hoc-phan-triet-hoc-mac-lenin-ky-2025-2-302834.html	Hãy đợi...
+q10	1	http://congdoan.hust.edu.vn/lich-thi-dau-chinh-thuc-giai-pickleball-cong-doan-bach-khoa-2026/	LỊCH THI ĐẤU CHÍNH THỨC GIẢI PICKLEBALL CÔNG ĐOÀN BÁCH KHOA 2026
+q10	0	https://library.hust.edu.vn/vi/index?page=268	Trang chủ | Thư viện
+q10	0	https://fed.hust.edu.vn/vi/workcalendar/Truong-Vat-lieu-Dai-hoc-BKHN/	Lịch làm việc
+q10	0	https://sme.hust.edu.vn/vi/workcalendar/Truong-Vat-lieu-Dai-hoc-BKHN/	Lịch làm việc
+q10	0	https://library.hust.edu.vn/vi/page-t-m-ki-m?page=1	Tìm kiếm | Thư viện
+q10	0	https://library.hust.edu.vn/en/index?page=2	Home | Library
+q10	0	https://hust.edu.vn/vi/events/	Lịch sự kiện
+q10	1	https://soict.hust.edu.vn/sinh-hoat-cong-dan-cuoi-khoa-nam-hoc-2025-2026.html	Sinh hoạt công dân cuối khóa năm học 2025-2026 - SoICT
+q10	0	https://svbk.hust.edu.vn/vi/news/thong-bao/tho-ng-bao-ga-p-ma-t-cac-lien-chi-doan-va-ta-p-hua-n-co-ng-tac-cuo-i-na-m-hoc-2020-2021-249943.html	Hãy đợi...
+q10	1	https://hust.edu.vn/tuyen-sinh/dai-hoc/quy-che-thi-dgtd-569432.html	Quy chế thi ĐGTD của ĐHBK Hà Nội
 q10	0	https://hust.edu.vn/vi/sinh-vien/cuoc-thi-sang-tao-tre/sang-tao-tre-2023-654594.html	SÁNG TẠO TRẺ 2023
-q10	0	https://hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-ra-mat-ban-bien-tap-moi-tap-chi-khoa-hoc-va-cong-nghe-nhiem-ky-2026-2032-655905.html	Đại học Bách khoa Hà Nội ra mắt Ban Biên tập mới Tạp chí Khoa học và Công nghệ nhiệm kỳ 2026–2032
-q10	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/sinh-vien-bach-khoa-ha-noi-va-trach-nhiem-cong-dan-tu-la-phieu-655820.html	Sinh viên Bách khoa Hà Nội và trách nhiệm công dân từ lá phiếu
-q10	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoi-dong-dai-hoc-hop-ky-thu-5-trong-boi-canh-thay-doi-mo-hinh-quan-tri-giao-duc-dai-hoc-655745.html	Hội đồng đại học họp kỳ thứ 5 trong bối cảnh thay đổi mô hình quản trị giáo dục đại học
-q10	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-so-ket-6-thang-dau-nam-2026-tang-toc-chuyen-doi-so-huong-toi-ai-first-university-655981.html	Bách khoa Hà Nội sơ kết 6 tháng đầu năm 2026, tăng tốc chuyển đổi số, hướng tới AI-First University
-q10	0	https://hust.edu.vn/vi/news/cong-tac-dang-va-doan-the/bach-khoa-ha-noi-so-ket-6-thang-dau-nam-2026-tang-toc-chuyen-doi-so-huong-toi-ai-first-university-655981.html	Bách khoa Hà Nội sơ kết 6 tháng đầu năm 2026, tăng tốc chuyển đổi số, hướng tới AI-First University
+q10	1	https://sep.hust.edu.vn/gioi-thieu/ban-lanh-dao-vien-qua-cac-thoi-ky.html	Ban Lãnh đạo Viện qua các thời kỳ | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
 
 # >>> q11: đăng ký học phần
-q11	1	http://dtlt.hust.edu.vn	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
-q11	0	https://hust.edu.vn/tuyen-sinh/thong-tin-tuyen-sinh-13/thong-tin-tuyen-sinh-van-bang-2-58454.html	Thông tin tuyển sinh Văn bằng 2
-q11	0	https://hust.edu.vn/vi/news/hoat-dong-chung/tap-huan-can-bo-nam-2026-thong-nhat-tam-nhin-cho-giai-doan-phat-trien-moi-655884.html	Tập huấn cán bộ năm 2026: Thống nhất tầm nhìn cho giai đoạn phát triển mới
-q11	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/lua-chon-nguoc-dong-va-tam-ve-buoc-ra-the-gioi-rong-lon-cua-nu-lanh-dao-truong-vin-655976.html	Lựa chọn “ngược dòng” và tấm vé bước ra thế giới rộng lớn của nữ lãnh đạo trường Vin
-q11	0	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/nu-thu-khoa-ai-xuat-than-tay-ngang-655921.html	Nữ thủ khoa AI xuất thân “tay ngang”
-q11	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/san-bach-khoa-buoc-vao-the-gioi-cong-nghe-bang-cach-hieu-ngon-ngu-ky-su-655974.html	“Sắn” Bách khoa bước vào thế giới công nghệ bằng cách hiểu ngôn ngữ kỹ sư
-q11	0	https://hust.edu.vn/vi/dao-tao/ky-su/chuong-trinh-dao-tao-ky-su-chuyen-sau-dac-thu-cua-truong-dai-hoc-bach-khoa-ha-noi-2.html	Chương trình đào tạo kỹ sư chuyên sâu đặc thù của Đại học Bách Khoa Hà Nội
-q11	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/thong-bao-tuyen-sinh-trinh-do-thac-si-nam-2023-651873.html	Thông báo tuyển sinh trình độ Thạc sĩ năm 2026
-q11	0	https://clc.hust.edu.vn/	CLC - BKHN - Luyện thi TOEIC, VSTEP. Đào tạo tiếng Anh, Đức, Nhật, Hàn
-q11	0	https://csv.hust.edu.vn/	Mạng lưới cựu sinh viên Bách Khoa Hà Nội - Kết nối các thế hệ cựu sinh viên Bách Khoa Hà Nội
-q11	0	https://hust.edu.vn/vi/su-kien-noi-bat/khoa-hoc-cong-nghe-dmst/phat-dong-giai-thuong-khoa-hoc-cong-nghe-qua-cau-vang-nam-2026-654826.html	Phát động Giải thưởng Khoa học Công nghệ Quả cầu vàng năm 2026
+q11	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=122&nid=3578	Ban đào tạo - Bộ phận sau đại học
+q11	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=122&nid=3534	Ban đào tạo - Bộ phận sau đại học
+q11	0	https://library.hust.edu.vn/vi/node/742	Thư mục tài liệu điện tử theo học phần | Thư viện
+q11	0	https://fpt.hust.edu.vn/vi/news/giang-day/de-cuong-hoc-phan-224582.html	Hãy đợi...
+q11	0	http://dtlt.hust.edu.vn/admission/%5Bthong-bao%5D-ve-viec-thong-tin-dia-diem-tu-van-xet-tuyen-va-tiep-nhan-ho-so-tuyen-sinh-2023-do-vien-dao-tao-lien-tuc-dai-hoc-bach-khoa-ha-noi-to-chuc	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q11	0	http://dtlt.hust.edu.vn/document/21	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q11	0	https://fpt.hust.edu.vn/vi/news/thong-bao/phuc-tra-hoc-phan-kinh-te-chinh-tri-hoc-ky-2025-2-302835.html	Hãy đợi...
+q11	0	https://fpt.hust.edu.vn/vi/news/thong-bao/thong-bao-dang-ky-lop-day-hoc-ky-2026-1-302836.html	Hãy đợi...
+q11	0	https://fpt.hust.edu.vn/vi/news/thong-bao/lich-phuc-tra-hoc-phan-triet-hoc-mac-lenin-ky-2025-3-302838.html	Hãy đợi...
+q11	0	https://fpt.hust.edu.vn/vi/news/thong-bao/lich-phuc-tra-hoc-phan-triet-hoc-mac-lenin-ky-2025-2-302834.html	Hãy đợi...
+q11	1	https://svbk.hust.edu.vn/vi/news/thong-bao/huong-dan-chuyen-sinh-hoat-doan-sinh-hoat-dang-va-dang-ky-tam-hoan-nghia-vu-quan-su-cho-k66-252589.html	HƯỚNG DẪN CHUYỂN SINH HOẠT ĐOÀN, SINH HOẠT ĐẢNG VÀ ĐĂNG KÝ TẠM HOÃN NGHĨA VỤ QUÂN SỰ CHO K66
+q11	0	https://fpt.hust.edu.vn/vi/news/tin-tuc/phuc-tra-hoc-phan-kinh-te-chinh-tri-hoc-ky-2025-3-302837.html	Hãy đợi...
+q11	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=122&nid=3490	Ban đào tạo - Bộ phận sau đại học
+q11	0	https://soict.hust.edu.vn/bieu-mau-va-quy-dinh-danh-cho-sinh-vien.html	Biểu mẫu và quy định dành cho sinh viên - SoICT
+q11	0	https://sem.hust.edu.vn/tai-lieu	Tài liệu - Trường Kinh tế
+q11	0	https://fpt.hust.edu.vn/vi/sinh-vien/	Sinh viên
 
 # >>> q12: chuẩn đầu ra ngoại ngữ
-q12	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026-656013.html	Điểm chuẩn Đại học Bách khoa Hà Nội năm 2026
-q12	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/kiem-dinh-khong-phai-la-diem-ket-dat-chuan-khong-phai-la-diem-dung-655679.html	"Kiểm định không phải là điểm kết, đạt chuẩn không phải là điểm dừng"
-q12	0	https://hust.edu.vn/vi/news/hoat-dong-chung/khong-gian-doi-moi-sang-tao-lien-nganh-dai-hoc-bach-khoa-ha-noi-hat-nhan-cua-mo-hinh-design-factory-chuan-quoc-te-655954.html	Đại học Bách khoa Hà Nội ra mắt “hạt nhân” của mô hình Design Factory chuẩn quốc tế
-q12	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/dai-hoc-bach-khoa-ha-noi-tham-gia-danh-gia-ngoai-theo-chuan-aun-qa-lan-thu-486-655695.html	Đại học Bách khoa Hà Nội tham gia đánh giá ngoài theo chuẩn AUN-QA lần thứ 486
-q12	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoi-nghi-dai-bieu-can-bo-vien-chuc-2025-nen-tang-cho-chu-ky-phat-trien-moi-655782.html	Hội nghị Đại biểu cán bộ, viên chức 2025: Chuẩn bị nền tảng cho chu kỳ phát triển mới
-q12	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/csv-ky-thuat-hoa-hoc-bach-khoa-thiet-lap-chuan-muc-vat-lieu-moi-cho-chuyen-dich-nang-luong-ben-vung-655965.html	CSV Kỹ thuật Hóa học Bách khoa thiết lập chuẩn mực vật liệu mới cho chuyển dịch năng lượng bền vững
-q12	0	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/To-chuc-Tuan-dinh-huong-cho-sinh-vien-dau-khoa-K71/	Tổ chức Tuần định hướng cho sinh viên đầu khóa K71.
-q12	0	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/To-chuc-Tuan-dinh-huong-cho-sinh-vien-dau-khoa-K71-2/	Tổ chức Tuần định hướng cho sinh viên đầu khóa K71.
-q12	0	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/To-chuc-Tuan-dinh-huong-cho-sinh-vien-dau-khoa-K71-t3/	Tổ chức Tuần định hướng cho sinh viên đầu khóa K71.
-q12	0	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/To-chuc-Tuan-dinh-huong-cho-sinh-vien-dau-khoa-K71-t31/	Tổ chức Tuần định hướng cho sinh viên đầu khóa K71.
-q12	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/lua-chon-nguoc-dong-va-tam-ve-buoc-ra-the-gioi-rong-lon-cua-nu-lanh-dao-truong-vin-655976.html	Lựa chọn “ngược dòng” và tấm vé bước ra thế giới rộng lớn của nữ lãnh đạo trường Vin
-q12	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-cong-bo-chi-tiet-do-lech-diem-to-hop-xet-tuyen-quy-doi-diem-va-du-bao-diem-chuan-nam-2026-655962.html	Bách khoa Hà Nội công bố chi tiết độ lệch điểm tổ hợp xét tuyển, quy đổi điểm và dự báo điểm chuẩn năm 2026
-q12	0	https://hust.edu.vn/vi/news/	Tin Tức
-q12	0	https://hust.edu.vn/news/campus-life/	Tin Tức
-q12	0	https://hust.edu.vn/vi/news/hoat-dong-chung/lanh-dao-doanh-nghiep-han-quoc-tai-viet-nam-bach-khoa-mo-nganh-tieng-han-khoa-hoc-va-cong-nghe-dung-mong-muon-cua-doanh-nghiep-655956.html	Lãnh đạo doanh nghiệp Hàn Quốc tại Việt Nam: “Bách khoa mở ngành Tiếng Hàn Khoa học và Công nghệ đúng mong muốn của doanh nghiệp”
-q12	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/san-bach-khoa-buoc-vao-the-gioi-cong-nghe-bang-cach-hieu-ngon-ngu-ky-su-655974.html	“Sắn” Bách khoa bước vào thế giới công nghệ bằng cách hiểu ngôn ngữ kỹ sư
-q12	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/dat-nguyen-vong-1-vao-bach-khoa-ha-noi-bat-dau-tuong-lai-tu-dieu-minh-yeu-655967.html	Đặt nguyện vọng 1 vào Bách khoa Hà Nội, bắt đầu tương lai từ điều mình yêu
-q12	0	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/	Đại học Bách khoa Hà Nội
-q12	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/cu-be-lai-vao-the-gioi-cong-nghe-sinh-hoc-cua-chang-trai-yeu-ngon-ngu-655983.html	“Cú bẻ lái” vào thế giới công nghệ sinh học của chàng trai yêu ngôn ngữ
+q12	0	https://sofl.hust.edu.vn/project-b-learning	Khoa Ngoại ngữ
+q12	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=146	Ban đào tạo - Bộ phận sau đại học
+q12	0	https://svbk.hust.edu.vn/vien-ngoai-ngu	Hãy đợi...
+q12	1	https://sme.hust.edu.vn/vi/dao-tao/chuong-trinh-chuan/	Chương trình chuẩn
+q12	1	https://soict.hust.edu.vn/diem-chuan-tham-khao.html	Điểm chuẩn tham khảo - SoICT
+q12	0	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/lien-chi-doan-lien-chi-hoi/vien-ngoai-ngu-207894.html	Hãy đợi...
+q12	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/nha-vo-dich-svbk-2023-goi-ten-sinh-vien-vien-ngoai-ngu-dai-hoc-bach-khoa-ha-noi-297140.html	NHÀ VÔ ĐỊCH SVBK 2023 GỌI TÊN SINH VIÊN VIỆN NGOẠI NGỮ ĐẠI HỌC BÁCH KHOA HÀ NỘI
+q12	0	http://dtlt.hust.edu.vn/news/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026-2	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q12	0	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/noi-guong-tinh-than-hoc-ngoai-ngu-va-hoc-tap-suot-doi-cua-chu-tich-ho-chi-minh-302991.html	Hãy đợi...
+q12	1	https://library.hust.edu.vn/vi/index	Trang chủ | Thư viện
+q12	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026-656013.html	Điểm chuẩn Đại học Bách khoa Hà Nội năm 2026
+q12	0	http://sofl.hust.edu.vn	Khoa Ngoại ngữ
+q12	1	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/kiem-dinh-khong-phai-la-diem-ket-dat-chuan-khong-phai-la-diem-dung-655679.html	"Kiểm định không phải là điểm kết, đạt chuẩn không phải là điểm dừng"
+q12	1	https://hust.edu.vn/vi/news/hoat-dong-chung/khong-gian-doi-moi-sang-tao-lien-nganh-dai-hoc-bach-khoa-ha-noi-hat-nhan-cua-mo-hinh-design-factory-chuan-quoc-te-655954.html	Đại học Bách khoa Hà Nội ra mắt “hạt nhân” của mô hình Design Factory chuẩn quốc tế
+q12	0	https://svbk.hust.edu.vn/vi/news/thong-bao/ke-hoach-to-chuc-tuan-sinh-hoat-cong-dan-dau-khoa-cho-sinh-vien-k66-251942.html	KẾ HOẠCH TỔ CHỨC TUẦN SINH HOẠT CÔNG DÂN ĐẦU KHÓA CHO SINH VIÊN K66
+q12	0	https://act.hust.edu.vn/vi/news/tin-bai/dao-tao-ve-ky-thuat-tham-dinh-he-thong-thiet-bi-trong-thuy-dien-vua-va-nho-tai-cong-ty-dau-tu-scic-172.html	Đào tạo về “Kỹ thuật thẩm định hệ thống thiết bị trong Thủy điện vừa và nhỏ” tại Công ty Đầu tư SCIC
 
 # >>> q13: trao đổi sinh viên quốc tế
-q13	2	https://hust.edu.vn/vi/trao-doi-sinh-vien/	Trao đổi sinh viên
-q13	0	https://hust.edu.vn/vi/trao-doi-can-bo/	Trao đổi cán bộ
-q13	1	https://hust.edu.vn/vi/mangluoi/	Mạng lưới quốc tế
-q13	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-bac-nhip-cau-dua-sinh-vien-vuon-tam-quoc-te-cung-cong-nghe-sieu-cao-tan-656006.html	Bách khoa Hà Nội bắc nhịp cầu đưa sinh viên vươn tầm quốc tế cùng công nghệ siêu cao tần
-q13	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/khang-dinh-chat-luong-bang-kiem-dinh-quoc-te-655462.html	Khẳng định chất lượng bằng kiểm định quốc tế
-q13	0	https://hust.edu.vn/vi/news/hoat-dong-chung/bach-khoa-ha-noi-cung-ieee-ket-noi-hoc-thuat-quoc-te-656005.html	Bách khoa Hà Nội cùng IEEE kết nối học thuật quốc tế
-q13	0	https://hust.edu.vn/vi/sinh-vien/	Sinh viên
-q13	0	https://hust.edu.vn/vi/sinh-vien	Sinh viên
-q13	0	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/dai-hoc-bach-khoa-ha-noi-trao-bang-tot-nghiep-cho-56-can-bo-chien-si-cong-an-nhan-dan-655912.html	Đại học Bách khoa Hà Nội trao bằng tốt nghiệp cho 56 cán bộ, chiến sĩ Công an nhân dân
-q13	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-va-dien-mao-tu-chu-tu-tuyen-sinh-den-quoc-te-hoa-655759.html	Diện mạo tự chủ Bách khoa Hà Nội: Từ tuyển sinh đến quốc tế hóa
-q13	1	https://hust.edu.vn/vi/doi-tac-hoc-thuat/	Đối tác học thuật
-q13	0	https://hust.edu.vn/hop-tac-doi-ngoai/hoat-dong-hop-tac/hop-tac-hoat-dong-638626.html	Hợp tác hoạt động
-q13	0	https://hust.edu.vn/vi/hop-tac-doi-ngoai/hoat-dong-hop-tac/hop-tac-hoat-dong-638626.html	Hợp tác hoạt động
-q13	0	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/	Tin tức - học bổng
+q13	1	https://hust.edu.vn/vi/trao-doi-sinh-vien/	Hãy đợi...
+q13	1	https://qldt.hust.edu.vn/students/hop-tac-doi-ngoai/4617538413527041	Trao đổi sinh viên về Sản xuất thông minh - Cổng thông tin sinh viên - ĐẠI HỌC BÁCH KHOA HÀ NỘI HUST
+q13	1	https://hust.edu.vn/vi/trao-doi-can-bo/	Hãy đợi...
+q13	1	http://congdoan.hust.edu.vn/trao-doi/tat-ca-trao-doi/	Trao Đổi, tư vấn pháp luật - Công đoàn ĐH BKHN
+q13	0	https://act.hust.edu.vn/vi/news/tin-bai/khai-giang-lop-van-hanh-chuyen-sau-bao-tri-tram-can-dien-tu-150-tan-va-trao-doi-trien-khai-du-an-cai-tao-nang-cap-he-thong-dieu-khien-dcs-voi-cong-ty-cp-supe-phot-phat-va-hoa-chat-lam-thao-173.html	Khai giảng lớp vận hành chuyên sâu, bảo trì trạm cân điện tử 150 tấn và Trao đổi triển khai Dự án cải tạo nâng cấp hệ thống điều khiển DCS với Công ty CP Supe Phốt phát và Hóa chất Lâm Thao
 q13	0	https://clc.hust.edu.vn/	CLC - BKHN - Luyện thi TOEIC, VSTEP. Đào tạo tiếng Anh, Đức, Nhật, Hàn
-q13	0	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/chuong-trinh-hoc-vien-cong-nghe-bkacad-thuoc-bk-holdings-653330.html	CHƯƠNG TRÌNH HỌC VIỆN CÔNG NGHỆ BKACAD - THUỘC BK-HOLDINGS
-q13	0	https://hust.edu.vn/vi/news/hoat-dong-chung/nhom-7-truong-ky-thuat-hang-dau-hop-tac-trong-kiem-dinh-quoc-te-654640.html	Nhóm 7 trường kỹ thuật hàng đầu hợp tác trong kiểm định quốc tế
-q13	0	https://hust.edu.vn/vi/news/hoat-dong-chung/16-chuong-trinh-dao-tao-cua-bach-khoa-ha-noi-duoc-chung-nhan-chat-luong-tieu-chuan-chau-au-654756.html	16 chương trình đào tạo của Bách khoa Hà Nội được chứng nhận chất lượng tiêu chuẩn châu Âu
+q13	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/trai-nghiem-tet-co-truyen-viet-nam-2026-cung-sinh-vien-quoc-te-302984.html	TRẢI NGHIỆM TẾT CỔ TRUYỀN VIỆT NAM 2026 CÙNG SINH VIÊN QUỐC TẾ
+q13	1	https://soict.hust.edu.vn/le-trao-chung-nhan-hoc-bong-sinh-vien-ky-2025-2.html	Lễ trao chứng nhận Học bổng sinh viên kỳ 2025.2 - SoICT
+q13	1	https://soict.hust.edu.vn/trao-chung-chi-ta-cho-sinh-vien-tro-giang-ky-2-nam-hoc-2025-2026.html	Trao chứng chỉ TA cho sinh viên trợ giảng kỳ 2 năm học 2025-2026 - SoICT
+q13	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-bac-nhip-cau-dua-sinh-vien-vuon-tam-quoc-te-cung-cong-nghe-sieu-cao-tan-656006.html	Bách khoa Hà Nội bắc nhịp cầu đưa sinh viên vươn tầm quốc tế cùng công nghệ siêu cao tần
+q13	1	https://act.hust.edu.vn/vi/hop-tac/hop-tac-quoc-te/quoc-te-19.html	Quốc tế
+q13	1	https://qldt.hust.edu.vn/students/hop-tac-doi-ngoai/4575503261368321	Trao đổi sinh viên TUMSAT - Cổng thông tin sinh viên - ĐẠI HỌC BÁCH KHOA HÀ NỘI HUST
+q13	1	https://sme.hust.edu.vn/vi/dao-tao/chuong-trinh-quoc-te/	Chương trình quốc tế
+q13	1	https://fed.hust.edu.vn/vi/hop-tac/gioi-thieu/hop-tac-quoc-te-178201.html	Hợp tác quốc tế
+q13	1	https://sme.hust.edu.vn/vi/hop-tac/hop-tac/hop-tac-quoc-te-17.html	HỢP TÁC QUỐC TẾ
+q13	1	https://sep.hust.edu.vn/hop-tac-doi-ngoai/hop-tac-quoc-te.html	Hợp tác Quốc tế | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q13	0	https://hust.edu.vn/vi/mangluoi/	Hãy đợi...
+q13	0	https://sofl.hust.edu.vn/bai-viet/-/asset_publisher/ATrC9k30TC0S/content/tu-fofl-en-nus-hanh-trinh-vuon-ra-the-gioi-cua-sinh-vien-k68-fl1	Khoa Ngoại ngữ
 
 # >>> q14: thực tập doanh nghiệp
-q14	1	https://hust.edu.vn/vi/doi-tac-doanh-nghiep/	Đối tác doanh nghiệp
+q14	2	https://soict.hust.edu.vn/thuc-tap-doanh-nghiep.html	Thực tập doanh nghiệp - SoICT
+q14	1	https://sme.hust.edu.vn/vi/sinh-vien/thuc-tap-doanh-nghiep/	Hãy đợi...
+q14	2	https://seee.hust.edu.vn/vi/tin-tuc/2026-09-26_ket-noi-sinh-vien-doanh-nghiep-nhat-ban/	Sinh viên Trường Điện - Điện tử kết nối với doanh nghiệp Nhật Bản, mở rộng cơ hội thực tập và việc làm | Tin tức SEEE
+q14	0	http://dtlt.hust.edu.vn/education/coming-soon	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q14	1	https://sep.hust.edu.vn/thuc-tap-tuyen-dung/thuc-tap	Thực tập | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q14	1	https://sep.hust.edu.vn/thuc-tap-tuyen-dung	Thực tập - Tuyển dụng | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
 q14	1	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/he-thong-doanh-nghiep-cua-truong-52084.html	Hệ thống doanh nghiệp của Đại học
-q14	2	https://hust.edu.vn/vi/news/hoat-dong-chung/co-hoi-thuc-tap-co-luong-tai-nhat-cho-sinh-vien-chuong-trinh-hust-kioxia-656035.html	Cơ hội thực tập có lương tại Nhật cho sinh viên chương trình HUST - KIOXIA
-q14	0	https://hust.edu.vn/vi/news/hoat-dong-chung/lanh-dao-doanh-nghiep-han-quoc-tai-viet-nam-bach-khoa-mo-nganh-tieng-han-khoa-hoc-va-cong-nghe-dung-mong-muon-cua-doanh-nghiep-655956.html	Lãnh đạo doanh nghiệp Hàn Quốc tại Việt Nam: “Bách khoa mở ngành Tiếng Hàn Khoa học và Công nghệ đúng mong muốn của doanh nghiệp”
-q14	1	https://hust.edu.vn/vi/news/hoat-dong-chung/hop-tac-ba-ben-tich-hop-dao-tao-nghien-cuu-va-doanh-nghiep-655882.html	Hợp tác ba bên tích hợp đào tạo, nghiên cứu và doanh nghiệp
-q14	2	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/BGD-PGS-H-D-Chinh-Chu-tri-Le-khai-giang-Chuong-trinh-thuc-tap-HUST-KIOXIA-ve-cong-nghe-Ban-dan/	BGĐ (PGS. H.Đ. Chính) Chủ trì Lễ khai giảng Chương trình thực tập HUST-KIOXIA về công nghệ Bán dẫn.
-q14	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/thanh-pho-ha-noi-gap-mat-chuyen-gia-nha-khoa-hoc-va-doanh-nghiep-655761.html	Thành phố Hà Nội gặp mặt chuyên gia, nhà khoa học và doanh nghiệp
-q14	1	https://hust.edu.vn/vi/news/hoat-dong-chung/sinh-vien-dai-hoc-bach-khoa-ha-noi-buoc-ra-doanh-nghiep-tien-gan-hon-toi-tuong-lai-655952.html	Sinh viên Đại học Bách khoa Hà Nội: Bước ra doanh nghiệp, tiến gần hơn tới tương lai
-q14	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoc-tai-bach-khoa-trai-nghiem-tai-doanh-nghiep-cong-thuc-thuc-hoc-thuc-chien-cho-gen-z-655852.html	Học tại Bách khoa, trải nghiệm tại doanh nghiệp, công thức "Thực học - Thực chiến" cho Gen Z
-q14	0	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/BGD-PGD-N-P-Dien-Chu-tri-don-tiep-Doan-cong-tac-Khu-tu-tri-dan-toc-Choang-Quang-Tay-va-cac-Doanh-nghiep-cong-nghe-Trung-Quoc/	BGĐ (PGĐ. N.P. Điền) Chủ trì đón tiếp Đoàn công tác Khu tự trị dân tộc Choang Quảng Tây và các Doanh nghiệp công nghệ Trung Quốc.
-q14	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoc-hoa-hoc-bach-khoa-to-mo-hoi-vi-sao-nuoc-bien-lai-man-655957.html	Học Hóa học Bách khoa, tò mò hỏi vì sao nước biển lại mặn?
-q14	0	https://hust.edu.vn/vi/news/hop-tac-doi-ngoai-truyen-thong/dai-hoc-bach-khoa-ha-noi-ket-noi-nguon-luc-he-sinh-thai-ban-dan-singapore-655997.html	Đại học Bách khoa Hà Nội kết nối nguồn lực hệ sinh thái bán dẫn Singapore
-q14	0	https://hust.edu.vn/vi/su-kien-noi-bat/	Sự kiện nổi bật
-q14	0	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/chuong-trinh-hoc-vien-cong-nghe-bkacad-thuoc-bk-holdings-653330.html	CHƯƠNG TRÌNH HỌC VIỆN CÔNG NGHỆ BKACAD - THUỘC BK-HOLDINGS
-q14	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/mo-cua-hoa-duoc-bach-khoa-vao-the-gioi-r-d-my-pham-655953.html	Mở cửa Hóa dược Bách khoa, vào thế giới R&D mỹ phẩm
-q14	0	https://hust.edu.vn/vi/news/hoat-dong-chung/co-hoi-hoc-tap-tai-duc-cho-sinh-vien-bach-khoa-ha-noi-655868.html	Cơ hội học tập tại Đức cho sinh viên Bách khoa Hà Nội
-q14	0	https://hust.edu.vn/vi/news/hoat-dong-chung/bach-khoa-ha-noi-bat-tay-voi-trung-tam-cong-nghiep-hang-dau-nhat-ban-655832.html	Bách khoa Hà Nội "bắt tay" với trung tâm công nghiệp hàng đầu Nhật Bản
+q14	0	https://hust.edu.vn/vi/doi-tac-doanh-nghiep/	Hãy đợi...
+q14	1	https://sep.hust.edu.vn/hop-tac-doi-ngoai/hop-tac-doanh-nghiep.html	Hợp tác Doanh nghiệp | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q14	1	https://soict.hust.edu.vn/hop-tac-voi-khoi-doanh-nghiep.html	Hợp tác doanh nghiệp - SoICT
+q14	1	https://soict.hust.edu.vn/hop-tac-doanh-nghiep.html	Hợp tác doanh nghiệp - SoICT
+q14	1	https://sem.hust.edu.vn/doi-tac-to-chuc-doanh-nghiep	Đối tác Tổ chức Doanh nghiệp - Trường Kinh tế
 
 # >>> q15: việc làm sau tốt nghiệp
+q15	1	https://sep.hust.edu.vn/thuc-tap-tuyen-dung/viec-lam-tai-sep	Việc làm tại SEP | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q15	1	https://soict.hust.edu.vn/tuyen-dung/viec-lam-tai-soict	Việc làm tại SoICT - SoICT
+q15	1	https://soict.hust.edu.vn/tuyen-dung/viec-lam-cho-sinh-vien	Việc làm cho Sinh viên - SoICT
+q15	1	https://sep.hust.edu.vn/thuc-tap-tuyen-dung/viec-lam-cho-sinh-vien	Việc làm cho Sinh viên | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q15	0	https://work.hust.edu.vn/	Job-Fair - Work Hust
+q15	1	https://sme.hust.edu.vn/vi/tuyen-dung-hoc-bong/co-hoi-viec-lam/	Cơ hội việc làm
+q15	1	https://fed.hust.edu.vn/vi/sinh-vien/co-hoi-viec-lam/	Cơ hội việc làm
+q15	0	http://ctt-daotao.hust.edu.vn/DisplayWeb/DisplayMenu?menu=12	404 - File or directory not found.
 q15	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hon-90-sinh-vien-tot-nghiep-co-viec-lam-sau-6-thang-nganh-hoc-tai-bach-khoa-van-giu-gia-thoi-ai-655958.html	Hơn 90% sinh viên tốt nghiệp có việc làm sau 6 tháng, ngành học tại Bách khoa vẫn “giữ giá” thời AI
+q15	1	https://seee.hust.edu.vn/vi/tin-tuc/2026-09-26_ket-noi-sinh-vien-doanh-nghiep-nhat-ban/	Sinh viên Trường Điện - Điện tử kết nối với doanh nghiệp Nhật Bản, mở rộng cơ hội thực tập và việc làm | Tin tức SEEE
 q15	1	https://hust.edu.vn/vi/news/hoat-dong-chung/pov-mot-ngay-lam-viec-cua-ky-su-hse-tot-nghiep-bach-khoa-ha-noi-655975.html	POV: Một ngày làm việc của kỹ sư HSE tốt nghiệp Bách khoa Hà Nội
-q15	0	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/dai-hoc-bach-khoa-ha-noi-trao-bang-tot-nghiep-cho-56-can-bo-chien-si-cong-an-nhan-dan-655912.html	Đại học Bách khoa Hà Nội trao bằng tốt nghiệp cho 56 cán bộ, chiến sĩ Công an nhân dân
-q15	0	https://hust.edu.vn/vi/su-kien-noi-bat/thong-bao-chung/cong-bo-bang-phan-vi-tuong-duong-giua-diem-thi-tsa-va-diem-thi-tot-nghiep-thpt-nam-2026-654816.html	CÔNG BỐ BẢNG PHÂN VỊ TƯƠNG ĐƯƠNG GIỮA ĐIỂM THI TSA VÀ ĐIỂM THI TỐT NGHIỆP THPT NĂM 2026
-q15	0	https://hust.edu.vn/tuyen-sinh/vua-hoc-vua-lam/dao-tao-dai-hoc-theo-hinh-thuc-vua-lam-vua-hoc-651864.html	Đào tạo đại học theo hình thức vừa làm vừa học
-q15	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/thong-bao-tuyen-sinh-trinh-do-thac-si-nam-2023-651873.html	Thông báo tuyển sinh trình độ Thạc sĩ năm 2026
-q15	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026-656013.html	Điểm chuẩn Đại học Bách khoa Hà Nội năm 2026
-q15	1	https://hust.edu.vn/vi/sinh-vien/cuu-sinh-vien/cuu-sinh-vien-654599.html	Cựu sinh viên
-q15	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-cong-bo-chi-tiet-do-lech-diem-to-hop-xet-tuyen-quy-doi-diem-va-du-bao-diem-chuan-nam-2026-655962.html	Bách khoa Hà Nội công bố chi tiết độ lệch điểm tổ hợp xét tuyển, quy đổi điểm và dự báo điểm chuẩn năm 2026
-q15	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hinh-dung-ve-nhung-ky-su-bien-am-hieu-ai-thanh-giai-phap-thoi-trang-ben-vung-thong-minh-655977.html	Hình dung về những kỹ sư biến am hiểu AI thành giải pháp thời trang bền vững, thông minh
-q15	1	https://hust.edu.vn/vi/doi-tac-doanh-nghiep/	Đối tác doanh nghiệp
-q15	0	http://dtlt.hust.edu.vn	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
-q15	0	https://hust.edu.vn/vi/su-kien-noi-bat/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
+q15	0	http://dtlt.hust.edu.vn/news/dai-hoc-bach-khoa-ha-noi-trao-bang-tot-nghiep-cho-56-can-bo-chien-si-cong-an-nhan-dan	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q15	0	http://dtlt.hust.edu.vn/notification/le-khai-giang-khoa-ii-va-be-giang-trao-bang-tot-nghiep-nganh-ky-thuat-vat-lieu-nganh-ky-thuat-dieu-khien-tu-dong-hoa-tai-lam-dong	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q15	1	https://sem.hust.edu.vn/vinh-danh-sinh-vien-tot-nghiep-xuat-sac-ky-2025-2-nam-2026-4.sem	VINH DANH SINH VIÊN TỐT NGHIỆP XUẤT SẮC KỲ 2025.2 NĂM 2026 - Trường Kinh tế
+q15	1	https://sem.hust.edu.vn/vinh-danh-sinh-vien-tot-nghiep-xuat-sac-ky-2025-2-nam-2026-6.sem	VINH DANH SINH VIÊN TỐT NGHIỆP XUẤT SẮC KỲ 2025.2 NĂM 2026 - Trường Kinh tế
+q15	1	https://sem.hust.edu.vn/vinh-danh-sinh-vien-tot-nghiep-xuat-sac-ky-2025-2-nam-2026-5.sem	VINH DANH SINH VIÊN TỐT NGHIỆP XUẤT SẮC KỲ 2025.2 NĂM 2026 - Trường Kinh tế
 
 # >>> q16: hệ thống tín chỉ
-q16	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/he-thong-doanh-nghiep-cua-truong-52084.html	Hệ thống doanh nghiệp của Đại học
-q16	0	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/	Hệ thống nhận diện thương hiệu
-q16	1	https://e.hust.edu.vn/	Hệ thống Quản trị Đại học Trực tuyến - Đại học Bách Khoa Hà Nội
-q16	0	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/page-2/	Hệ thống nhận diện thương hiệu - Trang 2
-q16	0	https://hust.edu.vn/vi/trao-doi-sinh-vien/	Trao đổi sinh viên
-q16	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-co-nganh-ke-toan-hoc-bang-tieng-anh-lam-chu-ai-va-cong-nghe-moi-trong-3-5-nam-655982.html	Bách khoa có ngành Kế toán học bằng tiếng Anh, làm chủ AI và công nghệ mới trong 3,5 năm
-q16	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chi-tiet-55-chuong-trinh-dao-tao-tai-bach-khoa-ha-noi-nhan-hoc-bong-chinh-phu-theo-nghi-dinh-179-655959.html	Chi tiết 55 Chương trình đào tạo tại Bách khoa Hà Nội nhận Học bổng Chính phủ theo Nghị định 179
-q16	0	https://hust.edu.vn/vi/news/hoat-dong-chung/nhom-7-truong-ky-thuat-hang-dau-hop-tac-trong-kiem-dinh-quoc-te-654640.html	Nhóm 7 trường kỹ thuật hàng đầu hợp tác trong kiểm định quốc tế
-q16	0	https://hust.edu.vn/tuyen-sinh/vua-hoc-vua-lam/dao-tao-dai-hoc-theo-hinh-thuc-vua-lam-vua-hoc-651864.html	Đào tạo đại học theo hình thức vừa làm vừa học
-q16	0	https://hust.edu.vn/vi/dao-tao/ky-su/chuong-trinh-dao-tao-ky-su-chuyen-sau-dac-thu-cua-truong-dai-hoc-bach-khoa-ha-noi-2.html	Chương trình đào tạo kỹ sư chuyên sâu đặc thù của Đại học Bách Khoa Hà Nội
-q16	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/thong-bao-tuyen-sinh-trinh-do-thac-si-nam-2023-651873.html	Thông báo tuyển sinh trình độ Thạc sĩ năm 2026
-q16	0	https://hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh
-q16	1	https://hust.edu.vn/vi/dao-tao/dai-hoc-chinh-quy/mo-hinh-va-chuong-trinh-dao-tao-he-dai-hoc-chinh-quy-1.html	Mô hình và chương trình đào tạo hệ đại học chính quy
-q16	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/kiem-dinh-aun-qa-va-dinh-huong-chon-truong-dai-hoc-650287.html	Kiểm định AUN-QA và định hướng chọn trường đại học
+q16	0	https://fpt.hust.edu.vn/vi/news/giang-day/chuong-trinh-ly-luan-chinh-tri-theo-hoc-che-tin-chi-224568.html	Hãy đợi...
+q16	1	https://dkhsdh.hust.edu.vn	Đăng nhập hệ thống
+q16	1	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/he-thong-doanh-nghiep-cua-truong-52084.html	Hệ thống doanh nghiệp của Đại học
+q16	0	https://sep.hust.edu.vn/nghien-cuu/cac-phong-thi-nghiem	Các phòng thí nghiệm | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q16	1	http://qldt.hust.edu.vn	Hệ thống Quản trị Đại học Trực tuyến - Đại học Bách Khoa Hà Nội
+q16	1	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/	Hệ thống nhận diện thương hiệu
+q16	0	https://act.hust.edu.vn/vi/phong-lab-nghien-cuu/phong-lab-dieu-khien-va-toi-uu-he-thong-nang-luong/gioi-thieu-chung-4.html	Giới thiệu chung
+q16	0	https://act.hust.edu.vn/vi/phong-lab-nghien-cuu/phong-lab-dong-hoc-he-thong-va-cac-phuong-phap-dieu-khien/gioi-thieu-chung-6.html	Giới thiệu chung
+q16	0	https://act.hust.edu.vn/vi/phong-lab-nghien-cuu/phong-lab-he-thong-va-thiet-bi-thong-minh/gioi-thieu-chung-1.html	Giới thiệu chung
+q16	1	https://bksign.hust.edu.vn/	BKSign | Hệ thống ký số
+q16	1	https://tuyendung.hust.edu.vn/	Hệ thống Quản trị Đại học Trực tuyến
+q16	1	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/page-2/	Hệ thống nhận diện thương hiệu - Trang 2
+q16	1	https://act.hust.edu.vn/vi/news/su-kien-da-dien-ra/trien-khai-khoa-dao-tao-ky-thuat-dieu-khien-cho-he-thong-thiet-bi-lam-sach-175.html	Triển khai khóa đào tạo “Kỹ thuật điều khiển cho hệ thống thiết bị làm sạch”
+q16	0	https://sem.hust.edu.vn/dao-tao-thac-si	Đào tạo Thạc sĩ - Trường Kinh tế
+q16	0	https://soict.hust.edu.vn/dao-tao/gioi-thieu-chung	Giới thiệu chung - SoICT
+q16	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-co-nganh-ke-toan-hoc-bang-tieng-anh-lam-chu-ai-va-cong-nghe-moi-trong-3-5-nam-655982.html	Bách khoa có ngành Kế toán học bằng tiếng Anh, làm chủ AI và công nghệ mới trong 3,5 năm
+q16	0	https://library.hust.edu.vn/vi/node/55	Đề tài nghiên cứu khoa học | Thư viện
+q16	0	https://sofl.hust.edu.vn/nganh-fl2	Khoa Ngoại ngữ
 
 # >>> q17: phòng đào tạo liên hệ
-q17	2	https://hust.edu.vn/vi/contact/	Liên hệ
-q17	1	http://dtlt.hust.edu.vn	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
-q17	1	https://hust.edu.vn/vi/dao-tao/dai-hoc-chinh-quy/mo-hinh-va-chuong-trinh-dao-tao-he-dai-hoc-chinh-quy-1.html	Mô hình và chương trình đào tạo hệ đại học chính quy
-q17	1	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/He-thong-NDTH/bien-phong-lam-viec-dhbk-ha-noi.html	BIỂN PHÒNG LÀM VIỆC - ĐHBK HÀ NỘI
-q17	0	https://hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-tham-gia-lien-minh-phat-trien-he-sinh-thai-ban-dan-thu-do-655955.html	Đại học Bách khoa Hà Nội tham gia liên minh phát triển hệ sinh thái bán dẫn Thủ đô
-q17	1	https://hust.edu.vn/vi/dao-tao/	Đào tạo
-q17	1	https://ctt-daotao.hust.edu.vn/	Cổng thông tin Đào tạo
-q17	1	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/hoi-dong-khoa-hoc-va-dao-tao.html	Hội đồng khoa học và đào tạo
-q17	0	https://hust.edu.vn/vi/dao-tao/thac-si/chuong-trinh-dao-tao-thac-si-3.html	ĐÀO TẠO TRÌNH ĐỘ THẠC SĨ
-q17	0	https://hust.edu.vn/vi/dao-tao/tien-si/dao-tao-trinh-do-tien-si-653330.html	ĐÀO TẠO TRÌNH ĐỘ TIẾN SĨ
-q17	0	https://act.hust.edu.vn/	Viện Công nghệ Điều khiển và Tự động hóa
-q17	0	https://hust.edu.vn/vi/news/hoat-dong-chung/nhung-dau-an-va-con-nguoi-bach-khoa-gan-bo-cung-quan-doi-nhan-dan-655740.html	Những dấu ấn và con người Bách khoa gắn bó cùng Quân đội nhân dân
-q17	0	https://iet.hust.edu.vn/	Viện Công nghệ Năng lượng
-q17	0	https://ctt-sis.hust.edu.vn/pub/SearchGraduation.aspx	
-q17	0	https://hust.edu.vn/tuyen-sinh/thong-tin-tuyen-sinh-13/thong-tin-tuyen-sinh-van-bang-2-58454.html	Thông tin tuyển sinh Văn bằng 2
-q17	0	https://hust.edu.vn/vi/news/hoat-dong-chung/khong-gian-doi-moi-sang-tao-lien-nganh-dai-hoc-bach-khoa-ha-noi-hat-nhan-cua-mo-hinh-design-factory-chuan-quoc-te-655954.html	Đại học Bách khoa Hà Nội ra mắt “hạt nhân” của mô hình Design Factory chuẩn quốc tế
-q17	0	https://hust.edu.vn/tuyen-sinh/vua-hoc-vua-lam/dao-tao-dai-hoc-theo-hinh-thuc-vua-lam-vua-hoc-651864.html	Đào tạo đại học theo hình thức vừa làm vừa học
+q17	0	https://library.hust.edu.vn/vi/node/48	Liên hệ | Thư viện
+q17	1	https://sep.hust.edu.vn/lien-he	Liên hệ | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q17	0	https://svbk.hust.edu.vn/vi/contact/	Liên hệ
+q17	0	https://hust.edu.vn/vi/contact/	Liên hệ
+q17	0	https://svbk.hust.edu.vn/lien-phong-ban	Hãy đợi...
+q17	0	https://sofl.hust.edu.vn/lien-he	Khoa Ngoại ngữ
+q17	1	http://dtlt.hust.edu.vn/about/lien-he	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q17	0	https://sme.hust.edu.vn/vi/contact/	Liên hệ
+q17	0	https://act.hust.edu.vn/vi/contact/	Hãy đợi...
+q17	0	http://congdoan.hust.edu.vn/lien-he/	
+q17	0	https://fpt.hust.edu.vn/vi/contact/	Liên hệ
+q17	0	http://scls.hust.edu.vn/vi/contact/	Liên hệ
+q17	1	https://act.hust.edu.vn/vi/contact/Van-phong-Vien/	Liên hệ
+q17	0	https://library.hust.edu.vn/vi/node/48?page=0%2C0%2C1	Liên hệ | Thư viện
+q17	1	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/lien-chi-doan-lien-chi-hoi/	Liên chi đoàn - Liên chi hội
 
 # >>> q18: quy chế đào tạo đại học chính quy
-q18	2	https://hust.edu.vn/vi/dao-tao/dai-hoc-chinh-quy/mo-hinh-va-chuong-trinh-dao-tao-he-dai-hoc-chinh-quy-1.html	Mô hình và chương trình đào tạo hệ đại học chính quy
+q18	0	http://sdh.hust.edu.vn/default.aspx?scid=23&CategoryID=144&nid=2206	Ban đào tạo - Bộ phận sau đại học
+q18	0	http://sdh.hust.edu.vn/default.aspx?scid=23&CategoryID=144&nid=2847	Ban đào tạo - Bộ phận sau đại học
+q18	0	http://sdh.hust.edu.vn/default.aspx?scid=23&CategoryID=144&nid=2268	Ban đào tạo - Bộ phận sau đại học
+q18	1	https://seee.hust.edu.vn/vi/dao-tao/	Đào tạo | Trường Điện - Điện tử
+q18	1	http://dtlt.hust.edu.vn/education/quyet-dinh-ve-viec-ban-hanh-quy-che-dao-tao-cua-dai-hoc-bach-khoa-ha-noi	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q18	1	https://hust.edu.vn/vi/dao-tao/dai-hoc-chinh-quy/mo-hinh-va-chuong-trinh-dao-tao-he-dai-hoc-chinh-quy-1.html	Mô hình và chương trình đào tạo hệ đại học chính quy
+q18	0	https://ctt.hust.edu.vn/Upload/Nguyen%20Quoc%20Dat/files/DTDH_QDQC/Hoctap/QCDT-2021-upload.pdf	
+q18	0	http://ctt-daotao.hust.edu.vn/DisplayWeb/DisplayBaiViet?baiviet=38096	404 - File or directory not found.
+q18	1	http://dtlt.hust.edu.vn/admission/hoc-ngoai-gio-hanh-chinh-nhan-bang-dai-hoc-chinh-quy-thu-2	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q18	0	https://sdh.hust.edu.vn/	Ban đào tạo - Bộ phận sau đại học
+q18	1	https://hust.edu.vn/vi/dao-tao/vua-lam-vua-hoc/van-ban-quy-che-vua-lam-vua-hoc-208399.html	Văn bản - Quy chế Vừa làm vừa học
 q18	1	https://hust.edu.vn/vi/tuyen-sinh/thong-bao-tuyen-sinh/quy-che-tuyen-sinh-567343.html	Quy chế tuyển sinh đại học năm 2026
 q18	1	https://hust.edu.vn/tuyen-sinh/dai-hoc/quy-che-thi-dgtd-569432.html	Quy chế thi ĐGTD của ĐHBK Hà Nội
-q18	1	https://hust.edu.vn/vi/dao-tao/vua-lam-vua-hoc/van-ban-quy-che-vua-lam-vua-hoc-208399.html	Văn bản - Quy chế Vừa làm vừa học
-q18	1	https://hust.edu.vn/tuyen-sinh/dai-hoc/quy-che-thi-tuyen-sinh-dgtd-569432.html	Quy chế thi ĐGTD của ĐHBK Hà Nội
+q18	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=113	Ban đào tạo - Bộ phận sau đại học
+q18	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=144	Ban đào tạo - Bộ phận sau đại học
+q18	0	http://ctt-daotao.hust.edu.vn/DisplayWeb/DisplayMenu?menu=18	404 - File or directory not found.
+q18	0	https://sofl.hust.edu.vn/van-ban-quy-che	Khoa Ngoại ngữ
 q18	1	https://hust.edu.vn/vi/dao-tao/	Đào tạo
-q18	1	https://ctt-daotao.hust.edu.vn/	Cổng thông tin Đào tạo
-q18	1	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/hoi-dong-khoa-hoc-va-dao-tao.html	Hội đồng khoa học và đào tạo
-q18	0	https://hust.edu.vn/vi/dao-tao/thac-si/chuong-trinh-dao-tao-thac-si-3.html	ĐÀO TẠO TRÌNH ĐỘ THẠC SĨ
-q18	0	https://hust.edu.vn/vi/dao-tao/tien-si/dao-tao-trinh-do-tien-si-653330.html	ĐÀO TẠO TRÌNH ĐỘ TIẾN SĨ
-q18	1	https://hust.edu.vn/tuyen-sinh/vua-hoc-vua-lam/dao-tao-dai-hoc-theo-hinh-thuc-vua-lam-vua-hoc-651864.html	Đào tạo đại học theo hình thức vừa làm vừa học
-q18	0	https://hust.edu.vn/vi/feeds/	RSS-feeds
-q18	0	https://hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh
-q18	0	https://hust.edu.vn/vi/tuyen-sinh/dai-hoc/thong-tin-tuyen-sinh-dai-hoc-nam-2025-651881.html	Phương án tuyển sinh Đại học dự kiến năm 2026
+q18	1	https://seee.hust.edu.vn/vi/tin-tuc/2026-08-09_diem-chuan-2026-chao-tan-sinh-vien-k71/	Điểm chuẩn tuyển sinh đại học chính quy năm 2026 và lời chào tân sinh viên K71 | Tin tức SEEE
+q18	1	https://sem.hust.edu.vn/dao-tao-dai-hoc	Đào tạo đại học - Trường Kinh tế
 
 # >>> q19: chương trình tiên tiến
-q19	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/icpmat-icamt-2026-dien-dan-ket-noi-nghien-cuu-va-doi-moi-sang-tao-trong-linh-vuc-vat-lieu-tien-tien-655998.html	ICPMAT–ICAMT 2026: Diễn đàn kết nối nghiên cứu và đổi mới sáng tạo trong lĩnh vực vật liệu tiên tiến
-q19	1	https://hust.edu.vn/vi/news/hoat-dong-chung/khoa-dau-tien-chuong-trinh-dao-tao-nhan-tai-xuat-sac-khang-dinh-hieu-qua-hop-tac-dhbk-ha-noi-dai-hoc-son-dong-goertek-655963.html	Khóa đầu tiên "Chương trình Đào tạo nhân tài xuất sắc" khẳng định hiệu quả hợp tác ĐHBK Hà Nội – Đại học Sơn Đông – Goertek
-q19	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/moi-cong-hien-cua-thay-co-giao-la-mot-buoc-tien-cua-bach-khoa-ha-noi-655670.html	Mỗi cống hiến của thầy, cô giáo là một bước tiến của Bách khoa Hà Nội
-q19	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/lan-dau-tien-bach-khoa-ha-noi-kiem-dinh-ctdt-theo-tieu-chuan-aqas-655355.html	Lần đầu tiên Bách khoa Hà Nội kiểm định CTĐT theo tiêu chuẩn AQAS
-q19	0	https://hust.edu.vn/vi/news/hoat-dong-chung/sinh-vien-dai-hoc-bach-khoa-ha-noi-buoc-ra-doanh-nghiep-tien-gan-hon-toi-tuong-lai-655952.html	Sinh viên Đại học Bách khoa Hà Nội: Bước ra doanh nghiệp, tiến gần hơn tới tương lai
-q19	0	https://hust.edu.vn/vi/news/cong-tac-dang-va-doan-the/bach-khoa-ha-noi-day-manh-tien-trinh-hoi-nhap-quoc-te-ve-chat-luong-dao-tao-630680.html	Bách khoa Hà Nội đẩy mạnh tiến trình hội nhập quốc tế về chất lượng đào tạo
-q19	0	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/nganh-tuyen-sinh-dai-hoc-nam-2022-651865.html	Các ngành/chương trình tuyển sinh Đại học năm 2026
-q19	1	https://hust.edu.vn/vi/dao-tao/dai-hoc-chinh-quy/mo-hinh-va-chuong-trinh-dao-tao-he-dai-hoc-chinh-quy-1.html	Mô hình và chương trình đào tạo hệ đại học chính quy
-q19	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/cac-chuong-trinh-tuyen-sinh-thac-si-nam-2022-651867.html	DANH MỤC CHƯƠNG TRÌNH TUYỂN SINH THẠC SĨ NĂM 2026
-q19	0	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/chuong-trinh-hoc-vien-cong-nghe-bkacad-thuoc-bk-holdings-653330.html	CHƯƠNG TRÌNH HỌC VIỆN CÔNG NGHỆ BKACAD - THUỘC BK-HOLDINGS
-q19	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/cap-bai-trung-dua-4-sinh-vien-bach-khoa-vao-top-6-san-choi-hoc-thuat-toan-cau-655973.html	“Cặp bài trùng” đưa 4 sinh viên Bách khoa vào Top 6 sân chơi học thuật toàn cầu
-q19	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/lop-hoc-con-nha-nguoi-ta-va-nhung-manh-ghep-thanh-xuan-tai-bach-khoa-655964.html	Lớp học “con nhà người ta” và những mảnh ghép thanh xuân tại Bách khoa
-q19	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/vi-sao-nhieu-csv-ke-toan-ghen-ti-voi-khoa-tuyen-sinh-cttt-ke-toan-bach-khoa-nam-2026-655971.html	Vì sao nhiều CSV Kế toán “ghen tị” với khóa tuyển sinh CTTT Kế toán Bách khoa năm 2026?
-q19	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/kiem-dinh-khong-phai-la-diem-ket-dat-chuan-khong-phai-la-diem-dung-655679.html	"Kiểm định không phải là điểm kết, đạt chuẩn không phải là điểm dừng"
-q19	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/tat-tan-tat-cho-nguyen-vong-1-so-tay-giai-ma-nganh-ky-thuat-thuc-pham-bach-khoa-ha-noi-655968.html	“Tất tần tật” cho nguyện vọng 1: Sổ tay “giải mã” ngành Kỹ thuật thực phẩm Bách khoa Hà Nội
-q19	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/them-3-ctdt-bach-khoa-ha-noi-kiem-dinh-theo-tieu-chuan-aqas-655357.html	Thêm 3 CTĐT Bách khoa Hà Nội kiểm định theo tiêu chuẩn AQAS
-q19	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/san-pham-moi-cua-nhung-nguoi-thay-chua-bao-gio-ngung-hoc-655951.html	Sản phẩm mới của những người thầy chưa bao giờ ngừng học
-q19	0	https://hust.edu.vn/vi/news/hoat-dong-chung/to-chuc-aun-qa-kiem-dinh-chat-luong-la-mot-hanh-trinh-khong-ngung-nghi-654824.html	Tổ chức AUN-QA: “Kiểm định chất lượng là một hành trình không ngừng nghỉ”
-q19	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-co-nganh-ke-toan-hoc-bang-tieng-anh-lam-chu-ai-va-cong-nghe-moi-trong-3-5-nam-655982.html	Bách khoa có ngành Kế toán học bằng tiếng Anh, làm chủ AI và công nghệ mới trong 3,5 năm
+q19	0	http://ctt-daotao.hust.edu.vn/DisplayWeb/DisplayKehoach?kehoach=25096	404 - File or directory not found.
+q19	0	https://research.hust.edu.vn/sme-advanced-manufacturing-systems-laboratory	
+q19	0	https://research.hust.edu.vn/seee-lab-advanced-networking-and-smart-applications-lab	
+q19	1	https://sep.hust.edu.vn/dao-tao/dao-tao-tien-sy	Hệ tiến sỹ | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q19	0	https://research.hust.edu.vn/scls-laboratory-of-advanced-materials-chemistry-and-application	404: This page could not be found
+q19	0	https://research.hust.edu.vn/scls-advanced-mineral-processing	
+q19	2	https://hust.edu.vn/vi/news/hoat-dong-chung/khoa-dau-tien-chuong-trinh-dao-tao-nhan-tai-xuat-sac-khang-dinh-hieu-qua-hop-tac-dhbk-ha-noi-dai-hoc-son-dong-goertek-655963.html	Khóa đầu tiên "Chương trình Đào tạo nhân tài xuất sắc" khẳng định hiệu quả hợp tác ĐHBK Hà Nội – Đại học Sơn Đông – Goertek
+q19	1	https://soict.hust.edu.vn/dao-tao/dao-tao-tien-sy	Hệ tiến sỹ - SoICT
+q19	1	https://sem.hust.edu.vn/tuyen-sinh-tien-sy	Tuyển sinh tiến sỹ - Trường Kinh tế
+q19	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/icpmat-icamt-2026-dien-dan-ket-noi-nghien-cuu-va-doi-moi-sang-tao-trong-linh-vuc-vat-lieu-tien-tien-655998.html	ICPMAT–ICAMT 2026: Diễn đàn kết nối nghiên cứu và đổi mới sáng tạo trong lĩnh vực vật liệu tiên tiến
+q19	1	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/lan-dau-tien-bach-khoa-ha-noi-kiem-dinh-ctdt-theo-tieu-chuan-aqas-655355.html	Lần đầu tiên Bách khoa Hà Nội kiểm định CTĐT theo tiêu chuẩn AQAS
+q19	0	https://seee.hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh 2026 | Trường Điện - Điện tử
+q19	0	https://seee.hust.edu.vn/vi/tin-tuc/2026-08-09_diem-chuan-2026-chao-tan-sinh-vien-k71/	Điểm chuẩn tuyển sinh đại học chính quy năm 2026 và lời chào tân sinh viên K71 | Tin tức SEEE
+q19	0	https://sem.hust.edu.vn/dao-tao-dai-hoc	Đào tạo đại học - Trường Kinh tế
+q19	1	https://seee.hust.edu.vn/vi/dao-tao/chuong-trinh/	Chương trình đào tạo | Trường Điện - Điện tử
 
 # >>> q20: học bổng du học
-q20	2	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-bong-hoc-phi-645445.html	HỌC BỔNG/ SCHOLARSHIPS
-q20	2	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-bong-645445.html	HỌC BỔNG/ SCHOLARSHIPS
-q20	1	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/	Tin tức - học bổng
+q20	0	https://sofl.hust.edu.vn/project-b-learning	Khoa Ngoại ngữ
+q20	1	https://seee.hust.edu.vn/vi/tin-tuc/2026-09-29_hoc-bong-tai-nang-samsung-2026-lan-2/	Học bổng Tài năng Samsung (STP Master) 2026 - Lần 2 dành cho học viên Thạc sĩ | Tin tức SEEE
+q20	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=111&nid=3554	Ban đào tạo - Bộ phận sau đại học
+q20	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=111&nid=3561	Ban đào tạo - Bộ phận sau đại học
+q20	0	http://dtlt.hust.edu.vn/education/coming-soon	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q20	1	https://act.hust.edu.vn/vi/news/hoc-bong/hoc-bong-177.html	Học bổng
+q20	1	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-bong-hoc-phi-645445.html	Hãy đợi...
+q20	1	https://sep.hust.edu.vn/sinh-vien/hoc-bong	Học bổng | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q20	1	https://sme.hust.edu.vn/vi/sinh-vien/hoc-bong	Hãy đợi...
+q20	1	https://fed.hust.edu.vn/vi/sinh-vien/hoc-bong/	Hãy đợi...
+q20	1	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-bong-645445.html	HỌC BỔNG/ SCHOLARSHIPS
+q20	2	http://scls.hust.edu.vn/vi/news/tuyen-dung-hoc-bong/	Tuyển dụng-Học bổng
+q20	2	https://sme.hust.edu.vn/vi/tuyen-dung-hoc-bong/	Tuyển dụng – Học bổng
 q20	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/	Cao học
-q20	0	https://hust.edu.vn/vi/tuyen-sinh/vua-hoc-vua-lam/	Vừa làm vừa học
-q20	0	https://hust.edu.vn/vi/doi-tac-hoc-thuat/	Đối tác học thuật
-q20	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chang-trai-phan-tich-kinh-doanh-bach-khoa-gianh-hoc-bong-tien-si-ai-tai-my-656029.html	Chàng trai Phân tích Kinh doanh Bách khoa giành học bổng tiến sĩ AI tại Mỹ
-q20	2	https://hust.edu.vn/vi/news/hoat-dong-chung/chang-trai-phan-tich-kinh-doanh-bach-khoa-gianh-hoc-bong-tien-si-ai-tai-my-656029.html	Chàng trai Phân tích Kinh doanh Bách khoa giành học bổng tiến sĩ AI tại Mỹ
-q20	0	https://hust.edu.vn/vi/dao-tao/vua-lam-vua-hoc/van-ban-quy-che-vua-lam-vua-hoc-208399.html	Văn bản - Quy chế Vừa làm vừa học
-q20	0	https://hust.edu.vn/vi/sinh-vien/ho-tro-sinh-vien/bieu-do-ke-hoach-hoc-tap-654590.html	Biểu đồ kế hoạch học tập
-q20	0	https://hust.edu.vn/vi/su-kien-noi-bat/hop-tac-doi-ngoai-truyen-thong/	Hợp tác đối ngoại - Truyền thông
-q20	0	https://hust.edu.vn/vi/news/hoat-dong-chung/trai-he-tuoi-tre-bach-khoa-ha-noi-2026-hanh-trinh-giao-duc-truyen-thong-boi-duong-ban-linh-va-khat-vong-cong-hien-cua-can-bo-doan-hoi-656015.html	Trại hè tuổi trẻ Bách khoa Hà Nội 2026: Hành trình giáo dục truyền thống, bồi dưỡng bản lĩnh và khát vọng cống hiến của cán bộ Đoàn - Hội
-q20	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/co-gai-truong-huyen-tu-tin-buoc-ra-the-gioi-tu-phong-thi-nghiem-hien-dai-bach-khoa-655946.html	Cô gái trường huyện tự tin ra thế giới từ phòng thí nghiệm hiện đại Bách khoa
-q20	0	https://hust.edu.vn/vi/feeds/	RSS-feeds
-q20	0	https://hust.edu.vn/vi/news/hoat-dong-chung/can-bo-quan-ly-bach-khoa-ha-noi-tiep-can-du-thao-danh-gia-thuc-hien-chien-luoc-phat-trien-2017-2025-654829.html	Cán bộ quản lý Bách khoa Hà Nội tiếp cận Dự thảo Đánh giá thực hiện chiến lược phát triển 2017-2025
-q20	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/tat-tan-tat-cho-nguyen-vong-1-so-tay-giai-ma-nganh-ky-thuat-thuc-pham-bach-khoa-ha-noi-655968.html	“Tất tần tật” cho nguyện vọng 1: Sổ tay “giải mã” ngành Kỹ thuật thực phẩm Bách khoa Hà Nội
-q20	1	https://hust.edu.vn/vi/trao-doi-sinh-vien/	Trao đổi sinh viên
-q20	0	https://hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-va-samsung-electronics-vietnam-day-manh-dao-tao-nhan-tai-655936.html	Đại học Bách khoa Hà Nội và Samsung Electronics Vietnam đẩy mạnh đào tạo nhân tài
-q20	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/loi-dong-vien-em-cu-thu-di-va-buoc-ngoat-cua-chang-trai-bach-khoa-tung-nghi-ngo-chinh-minh-655949.html	Lời động viên “Em cứ thử đi” và bước ngoặt của chàng trai Bách khoa từng nghi ngờ chính mình
+q20	1	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/	Hãy đợi...
+q20	0	https://soict.hust.edu.vn/hoi-dap-ve-tuyen-sinh.html	Hỏi đáp về tuyển sinh - SoICT
+q20	1	https://sofl.hust.edu.vn/hoc-bong-co-hoi-nghe-nghiep	Khoa Ngoại ngữ
+q20	0	https://sem.hust.edu.vn/chuong-trinh-chuyen-tiep	Trang chủ - Sem Hust
+q20	0	https://sme.hust.edu.vn/vi/sinh-vien/thong-bao/	Thông báo
+q20	0	https://sme.hust.edu.vn/vi/sinh-vien/	Sinh viên
 
 # >>> q21: tuyển dụng giảng viên
 q21	2	https://hust.edu.vn/vi/su-kien-noi-bat/thong-bao-chung/thong-bao-tuyen-dung-theo-de-an-tao-nguon-giang-vien-dai-hoc-bach-khoa-ha-noi-giai-doan-2023-2030-dot-2-nam-2026-654834.html	Thông báo tuyển dụng theo đề án “Tạo nguồn giảng viên Đại học Bách khoa Hà Nội giai đoạn 2023-2030” đợt 2 năm 2026
-q21	2	https://hust.edu.vn/vi/su-kien-noi-bat/to-chuc-nhan-su-tuyen-dung/	Tổ chức - Nhân sự - Tuyển dụng
-q21	2	https://hust.edu.vn/vi/news/to-chuc-nhan-su-tuyen-dung/	Tổ chức - Nhân sự - Tuyển dụng
-q21	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/giang-vien-nguon-bach-khoa-va-nganh-hoc-dung-phia-sau-nhung-ca-dieu-tri-655961.html	Giảng viên nguồn Bách khoa và ngành học đứng phía sau những ca điều trị
-q21	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/gap-go-giang-vien-nguon-dung-sau-hai-giai-nhat-hoi-nghi-sinh-vien-nckh-nam-2026-655918.html	Gặp gỡ giảng viên nguồn đứng sau hai Giải Nhất Hội nghị Sinh viên NCKH năm 2026
-q21	1	https://hust.edu.vn/vi/news/hop-tac-doi-ngoai-truyen-thong/khat-vong-noi-nghien-cuu-noi-con-nguoi-noi-tuong-lai-cua-giang-vien-xuat-sac-bach-khoa-ha-noi-655947.html	Khát vọng nối nghiên cứu, nối con người, nối tương lai của giảng viên xuất sắc Bách khoa Hà Nội
-q21	1	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/BGD-PGD-V-V-Yem-chu-tri-hop-Hoi-dong-xet-tuyen-giang-vien-xuat-sac-t2/	BGĐ (PGĐ V.V. Yêm) chủ trì họp Hội đồng xét tuyển giảng viên xuất sắc.
-q21	0	https://hust.edu.vn/vi/trao-doi-can-bo/	Trao đổi cán bộ
+q21	1	https://fed.hust.edu.vn/vi/news/tin-tuc/khoa-khoa-hoc-va-cong-nghe-giao-duc-tuyen-dung-giang-vien-xuat-sac-truong-nhom-nghien-cuu-va-chuyen-gia-theo-de-an-hust-talent-302831.html	Hãy đợi...
+q21	1	https://sem.hust.edu.vn/giang-vien	Giảng viên - Trường Kinh tế
+q21	0	https://fed.hust.edu.vn/vi/about/can-bo-va-giang-vien.html	Hãy đợi...
+q21	0	https://fpt.hust.edu.vn/vi/about/can-bo-giang-vien-224481.html	Hãy đợi...
+q21	1	https://soict.hust.edu.vn/tuyen-dung	Tuyển dụng - SoICT
+q21	1	https://tuyendung.hust.edu.vn/	Hệ thống Quản trị Đại học Trực tuyến
+q21	1	https://sme.hust.edu.vn/vi/tuyen-dung-hoc-bong/	Tuyển dụng – Học bổng
+q21	1	https://sep.hust.edu.vn/thuc-tap-tuyen-dung	Thực tập - Tuyển dụng | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q21	0	https://research.hust.edu.vn/sme-advanced-manufacturing-systems-laboratory/tin-tuc/tuyen-dung	
+q21	1	http://scls.hust.edu.vn/vi/news/tuyen-dung-hoc-bong/	Tuyển dụng-Học bổng
+q21	0	https://research.hust.edu.vn/sme-clean-energy-and-fuel-research-laboratory/tin-tuc/tuyen-dung	
+q21	0	https://research.hust.edu.vn/sme/tin-tuc/tuyen-dung	
+q21	0	https://research.hust.edu.vn/sme-aerodynamics-laboratory/tin-tuc/tuyen-dung	
+q21	0	https://research.hust.edu.vn/sme-welding-processes-laboratory/tin-tuc/tuyen-dung	
+q21	1	https://hust.edu.vn/vi/su-kien-noi-bat/to-chuc-nhan-su-tuyen-dung/	Tổ chức - Nhân sự - Tuyển dụng
+q21	1	https://hust.edu.vn/vi/su-kien-noi-bat/thong-bao-chung/thong-bao-tuyen-dung-dot-3-nam-2026-654843.html	THÔNG BÁO TUYỂN DỤNG ĐỢT 3 NĂM 2026
 q21	0	https://hust.edu.vn/vi/su-kien-noi-bat/	Sự kiện nổi bật
-q21	0	https://hust.edu.vn/vi/ba-cong-khai/ba-cong-khai-313404.html	Năm học 2023-2024 về trước
-q21	0	https://hust.edu.vn/vi/ba-cong-khai/	Năm học 2023-2024 về trước
-q21	0	https://hust.edu.vn/vi/ba-cong-khai/thong-tin-cong-khai-313404.html	Năm học 2023-2024 về trước
-q21	0	https://hust.edu.vn/vi/sinh-vien/sinh-vien-hien-tai/	Sinh viên hiện tại
-q21	0	https://hust.edu.vn/vi/sinh-vien/ho-tro-sinh-vien/	Hỗ trợ sinh viên
 
 # >>> q22: hội nghị khoa học
+q22	2	https://sme.hust.edu.vn/vi/nghien-cuu/hoi-nghi-khoa-hoc/	HỘI NGHỊ KHOA HỌC
+q22	1	https://hust.edu.vn/vi/sinh-vien/nghien-cuu-sang-tao-khoi-nghiep/hoi-nghi-sinh-vien-nckh-thuong-nien-654582.html	Hội nghị sinh viên NCKH thường niên
+q22	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/hoi-nghi-bch-doan-truong-mo-rong-280953.html	HỘI NGHỊ BCH ĐOÀN TRƯỜNG MỞ RỘNG
+q22	1	https://sofl.hust.edu.vn/bai-viet/-/asset_publisher/ATrC9k30TC0S/content/khoa-ngoai-ngu-to-chuc-buoi-hop-tong-ket-nam-hoc-2025-2026-va-le-gap-mat-chia-tay-can-bo-ve-nghi-che-o	Khoa Ngoại ngữ
+q22	0	https://svbk.hust.edu.vn/vi/news/thong-bao/hoi-nghi-bch-doan-thanh-nien-truong-dhbk-ha-noi-trien-khai-cong-tac-nam-hoc-2021-2022-252963.html	Hãy đợi...
+q22	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/hoi-nghi-tuyen-truyen-pho-bien-giao-duc-phap-luat-ve-trat-tu-an-toan-giao-thong-va-van-hoa-giao-thong-277721.html	HỘI NGHỊ TUYÊN TRUYỀN PHỔ BIẾN, GIÁO DỤC PHÁP LUẬT VỀ TRẬT TỰ AN TOÀN GIAO THÔNG VÀ VĂN HÓA GIAO THÔNG
+q22	2	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/hoi-nghi-bch-doan-thanh-nien-truong-dhbk-ha-noi-khoa-xxxvi-tong-ket-cong-tac-nam-hoc-2021-2022-280904.html	HỘI NGHỊ BCH ĐOÀN THANH NIÊN TRƯỜNG ĐHBK HÀ NỘI KHOÁ XXXVI – TỔNG KẾT CÔNG TÁC NĂM HỌC 2021 - 2022
+q22	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/hoi-nghi-dong-gop-y-kien-vao-du-thao-van-kien-dai-hoi-doan-cac-cap-va-van-kien-dai-hoi-doan-toan-quoc-lan-thu-xii-285091.html	HỘI NGHỊ ĐÓNG GÓP Ý KIẾN VÀO DỰ THẢO VĂN KIỆN ĐẠI HỘI ĐOÀN CÁC CẤP VÀ VĂN KIỆN ĐẠI HỘI ĐOÀN TOÀN QUỐC LẦN THỨ XII
+q22	1	https://sem.hust.edu.vn/events/hoi-nghi-can-bo-vien-chuc-nam-2025-truong-kinh-te-hoa-chung-voi-ky-nguyen-vuon-minh-cua-dan-toc	HỘI NGHỊ CÁN BỘ VIÊN CHỨC NĂM 2025 TRƯỜNG KINH TẾ: HOÀ CHUNG VỚI KỶ NGUYÊN VƯƠN MÌNH CỦA DÂN TỘC - Trường Kinh tế
+q22	1	https://sofl.hust.edu.vn/bai-viet/-/asset_publisher/ATrC9k30TC0S/content/hoi-nghi-tap-huan-tong-ket-nam-hoc-2025-2026-va-trien-khai-cong-tac-nam-hoc-2026-2027-cua-khoa-ngoai-ngu	Khoa Ngoại ngữ
 q22	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ky-nguyen-6g-va-tri-tue-nhan-tao-tren-khong-trung-diem-nhan-khoa-hoc-tai-hoi-nghi-ieee-icce-2026-lan-thu-11-656011.html	Kỷ nguyên 6G và trí tuệ nhân tạo trên không trung, điểm nhấn khoa học tại Hội nghị IEEE ICCE 2026 lần thứ 11
-q22	2	https://hust.edu.vn/vi/sinh-vien/nghien-cuu-sang-tao-khoi-nghiep/hoi-nghi-sinh-vien-nckh-thuong-nien-654582.html	Hội nghị sinh viên NCKH thường niên
+q22	1	https://soict.hust.edu.vn/bo-phan/khoa-hoc-may-tinh	Khoa học Máy tính - SoICT
 q22	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/	Khoa học - Công nghệ - ĐMST
 q22	1	https://hust.edu.vn/vi/su-kien-noi-bat/khoa-hoc-cong-nghe-dmst/	Khoa học - Công nghệ - ĐMST
 q22	1	https://hust.edu.vn/vi/nghien-cuu/cong-bo-khoa-hoc/	Công bố khoa học
-q22	1	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/hoi-dong-khoa-hoc-va-dao-tao.html	Hội đồng khoa học và đào tạo
-q22	0	https://hust.edu.vn/vi/san-pham-khoa-hoc-cong-nghe/	Sản phẩm Khoa học Công nghệ
-q22	1	https://hust.edu.vn/vi/nghien-cuu/de-tai-nghien-cuu-khoa-hoc/	Đề tài nghiên cứu khoa học
-q22	0	https://hust.edu.vn/vi/nghien-cuu/tap-chi-khoa-hoc-cong-nghe/jst-650113.html	Tạp chí Khoa học và Công nghệ
 q22	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/gap-go-giang-vien-nguon-dung-sau-hai-giai-nhat-hoi-nghi-sinh-vien-nckh-nam-2026-655918.html	Gặp gỡ giảng viên nguồn đứng sau hai Giải Nhất Hội nghị Sinh viên NCKH năm 2026
-q22	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/dai-hoc-bach-khoa-ha-noi-thong-nhat-gioi-thieu-3-ung-vien-dai-bieu-quoc-hoi-khoa-xvi-655768.html	Đại học Bách khoa Hà Nội thống nhất giới thiệu 3 ứng viên Đại biểu Quốc hội khóa XVI
-q22	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hon-100-can-bo-cong-doan-bach-khoa-ha-noi-tham-gia-tap-huan-cong-tac-to-chuc-dai-hoi-cong-doan-cac-cap-655621.html	Hơn 100 cán bộ công đoàn Bách khoa Hà Nội tham gia tập huấn công tác tổ chức Đại hội Công đoàn các cấp
-q22	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoi-nghi-dai-bieu-can-bo-vien-chuc-2025-nen-tang-cho-chu-ky-phat-trien-moi-655782.html	Hội nghị Đại biểu cán bộ, viên chức 2025: Chuẩn bị nền tảng cho chu kỳ phát triển mới
-q22	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/icce-2026-tai-nha-trang-diem-hen-cho-nhung-giai-phap-cong-nghe-phuc-vu-con-nguoi-656002.html	ICCE 2026 tại Nha Trang: Điểm hẹn cho những giải pháp công nghệ phục vụ con người
-q22	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/dai-hoc-bach-khoa-ha-noi-trien-khai-cong-tac-phat-trien-dang-vien-nam-2026-655811.html	Đại học Bách khoa Hà Nội triển khai công tác phát triển Đảng viên năm 2026
-q22	0	https://hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-ra-mat-ban-bien-tap-moi-tap-chi-khoa-hoc-va-cong-nghe-nhiem-ky-2026-2032-655905.html	Đại học Bách khoa Hà Nội ra mắt Ban Biên tập mới Tạp chí Khoa học và Công nghệ nhiệm kỳ 2026–2032
-q22	0	https://hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-dong-hanh-cung-thu-do-thuc-day-ung-dung-ai-va-phat-trien-kinh-te-so-656026.html	Đại học Bách khoa Hà Nội đồng hành cùng Thủ đô thúc đẩy ứng dụng AI và phát triển kinh tế số
-q22	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoi-nghi-bch-dang-bo-mo-rong-dinh-huong-nhiem-vu-va-giai-phap-phat-trien-dai-hoc-bach-khoa-ha-noi-trong-tinh-hinh-moi-655717.html	Hội nghị BCH Đảng bộ mở rộng: Định hướng nhiệm vụ và giải pháp phát triển Đại học Bách khoa Hà Nội trong tình hình mới
-q22	0	https://hust.edu.vn/vi/news/hoat-dong-chung/tap-huan-can-bo-nam-2026-thong-nhat-tam-nhin-cho-giai-doan-phat-trien-moi-655884.html	Tập huấn cán bộ năm 2026: Thống nhất tầm nhìn cho giai đoạn phát triển mới
+q22	0	https://fed.hust.edu.vn/	Khoa Khoa học & Công nghệ giáo dục
+q22	1	https://sep.hust.edu.vn/tin-tuc/tin-khoa-hoc-cong-nghe	Tin Khoa học & Công nghệ | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q22	1	https://soict.hust.edu.vn/nghien-cuu/cong-bo-khoa-hoc	Công bố khoa học - SoICT
 
 # >>> q23: cơ sở vật chất phòng thí nghiệm
-q23	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/dai-hoc-bach-khoa-ha-noi-kiem-dinh-chat-luong-co-so-giao-duc-theo-tieu-chuan-qaa-vuong-quoc-anh-655758.html	Đại học Bách khoa Hà Nội kiểm định chất lượng cơ sở giáo dục theo tiêu chuẩn QAA (Vương quốc Anh)
-q23	2	https://hust.edu.vn/vi/nghien-cuu/cac-don-vi-nghien-cuu/thong-tin-phong-thi-nghiem-nghien-cuu-650372.html	Thông tin Phòng thí nghiệm nghiên cứu
-q23	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/khai-mac-kiem-dinh-chat-luong-co-so-giao-duc-theo-tieu-chuan-qaa-vuong-quoc-anh-tai-dai-hoc-bach-khoa-ha-noi-655764.html	Khai mạc kiểm định chất lượng cơ sở giáo dục theo tiêu chuẩn QAA (Vương quốc Anh) tại Đại học Bách khoa Hà Nội
-q23	0	https://hust.edu.vn/vi/news/hop-tac-doi-ngoai-truyen-thong/hun-duc-pham-chat-nguoi-bach-khoa-tu-van-hoa-doc-655865.html	Hun đúc phẩm chất người Bách khoa từ văn hoá đọc
-q23	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ky-uc-gui-lai-tu-chien-truong-nhung-ky-vat-cua-nguoi-linh-sinh-vien-bach-khoa-655628.html	Ký ức gửi lại từ chiến trường: Những kỷ vật của người lính sinh viên Bách khoa
-q23	0	https://hust.edu.vn/vi/nghien-cuu/so-huu-tri-tue/	Sở hữu trí tuệ
-q23	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/co-gai-truong-huyen-tu-tin-buoc-ra-the-gioi-tu-phong-thi-nghiem-hien-dai-bach-khoa-655946.html	Cô gái trường huyện tự tin ra thế giới từ phòng thí nghiệm hiện đại Bách khoa
-q23	0	https://hust.edu.vn/vi/news/hoat-dong-chung/co-hoi-hoc-tap-tai-duc-cho-sinh-vien-bach-khoa-ha-noi-655868.html	Cơ hội học tập tại Đức cho sinh viên Bách khoa Hà Nội
-q23	0	https://hust.edu.vn/vi/van-bang-so-huu-tri-tue/	Văn bằng sở hữu trí tuệ
-q23	0	https://hust.edu.vn/vi/news/hoat-dong-chung/co-hoi-thuc-tap-co-luong-tai-nhat-cho-sinh-vien-chuong-trinh-hust-kioxia-656035.html	Cơ hội thực tập có lương tại Nhật cho sinh viên chương trình HUST - KIOXIA
-q23	1	https://hust.edu.vn/vi/ba-cong-khai/ba-cong-khai-313404.html	Năm học 2023-2024 về trước
-q23	0	https://hust.edu.vn/vi/ba-cong-khai/	Năm học 2023-2024 về trước
-q23	0	https://hust.edu.vn/vi/ba-cong-khai/thong-tin-cong-khai-313404.html	Năm học 2023-2024 về trước
-q23	0	https://hust.edu.vn/vi/san-pham-khoa-hoc-cong-nghe/	Sản phẩm Khoa học Công nghệ
-q23	0	https://hust.edu.vn/vi/news/hoat-dong-chung/bach-khoa-ha-noi-kiem-dinh-quoc-te-cap-dai-hoc-boi-to-chuc-uy-tin-chau-au-hceres-654930.html	Bách khoa Hà Nội kiểm định quốc tế cấp đại học bởi tổ chức uy tín châu Âu HCERES
-q23	0	https://iet.hust.edu.vn/	Viện Công nghệ Năng lượng
-q23	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/loi-dong-vien-em-cu-thu-di-va-buoc-ngoat-cua-chang-trai-bach-khoa-tung-nghi-ngo-chinh-minh-655949.html	Lời động viên “Em cứ thử đi” và bước ngoặt của chàng trai Bách khoa từng nghi ngờ chính mình
-q23	0	https://hust.edu.vn/vi/about/chien-luoc-phat-trien.html	Chiến lược phát triển
-q23	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/19-cong-trinh-du-an-nam-2025-cua-bach-khoa-ha-noi-chao-mung-dai-hoi-dang-lan-thu-xiv-655733.html	19 công trình, dự án năm 2025 của Bách khoa Hà Nội chào mừng Đại hội Đảng lần thứ XIV
+q23	1	https://sep.hust.edu.vn/nghien-cuu/co-so-vat-chat.html	Cơ sở vật chất | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q23	0	http://sme.hust.edu.vn/vi/khoa-trung-tam/trung-tam-nghien-cuu-cong-nghe-han-va-ghep-noi/co-so-vat-chat-jwri-hust-uosaka-94.html	Hãy đợi...
+q23	0	https://svbk.hust.edu.vn/co-so-vat-chat	Hãy đợi...
+q23	0	https://sme.hust.edu.vn/vi/khoa-trung-tam/trung-tam-ky-thuat-co-khi/co-so-vat-chat-85.html	Hãy đợi...
+q23	0	https://sme.hust.edu.vn/vi/khoa-trung-tam/trung-tam-nc-cac-nguon-dong-luc-va-phuong-tien-tu-hanh/co-so-vat-chat-87.html	Hãy đợi...
+q23	0	https://act.hust.edu.vn/vi/about/co-so-vat-chat.html	Hãy đợi...
+q23	0	https://fpt.hust.edu.vn/vi/about/co-so-vat-chat-224467.html	Hãy đợi...
+q23	0	https://sme.hust.edu.vn/vi/nghien-cuu/	Hãy đợi...
+q23	0	https://sofl.hust.edu.vn/nhom-chuyen-mon-tieng-anh-co-so-cho-sinh-vien-khoi-ky-thuat	Khoa Ngoại ngữ
+q23	1	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/khai-mac-kiem-dinh-chat-luong-co-so-giao-duc-theo-tieu-chuan-qaa-vuong-quoc-anh-tai-dai-hoc-bach-khoa-ha-noi-655764.html	Khai mạc kiểm định chất lượng cơ sở giáo dục theo tiêu chuẩn QAA (Vương quốc Anh) tại Đại học Bách khoa Hà Nội
+q23	1	https://hust.edu.vn/vi/nghien-cuu/cac-don-vi-nghien-cuu/thong-tin-phong-thi-nghiem-nghien-cuu-650372.html	Thông tin Phòng thí nghiệm nghiên cứu
+q23	1	https://sep.hust.edu.vn/nghien-cuu/cac-phong-thi-nghiem	Các phòng thí nghiệm | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q23	1	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/dai-hoc-bach-khoa-ha-noi-kiem-dinh-chat-luong-co-so-giao-duc-theo-tieu-chuan-qaa-vuong-quoc-anh-655758.html	Đại học Bách khoa Hà Nội kiểm định chất lượng cơ sở giáo dục theo tiêu chuẩn QAA (Vương quốc Anh)
+q23	0	https://sme.hust.edu.vn/vi/khoa-trung-tam/trung-tam-nghien-cuu-cong-nghe-han-va-ghep-noi/dich-vu-ky-thuat-jwri-hust-uosaka-93.html	DỊCH VỤ KỸ THUẬT (JWRI HUST-UOsaka)
+q23	0	https://sme.hust.edu.vn/vi/khoa-trung-tam/khoa-nang-luong-nhiet/ban-lanh-dao-khoa-64.html	Ban lãnh đạo khoa
+q23	0	https://sme.hust.edu.vn/vi/khoa-trung-tam/khoa-co-khi-che-tao-may/ban-lanh-dao-khoa-62.html	Ban lãnh đạo khoa
 
 # >>> q24: đoàn thanh niên hoạt động
-q24	2	https://svbk.hust.edu.vn/	Đoàn thanh niên Đại học Bách khoa Hà Nội
-q24	1	https://hust.edu.vn/vi/news/hoat-dong-chung/	Hoạt động chung
-q24	0	https://hust.edu.vn/hop-tac-doi-ngoai/hoat-dong-hop-tac/hop-tac-hoat-dong-638626.html	Hợp tác hoạt động
-q24	0	https://hust.edu.vn/vi/hop-tac-doi-ngoai/hoat-dong-hop-tac/hop-tac-hoat-dong-638626.html	Hợp tác hoạt động
+q24	1	https://svbk.hust.edu.vn/vi/news/author/dtn/	Đoàn Thanh Niên
+q24	1	https://svbk.hust.edu.vn/	Đoàn thanh niên Đại học Bách khoa Hà Nội
+q24	0	https://scls.hust.edu.vn/vi/about/cong-doan-doan-thanh-nien.html	Hãy đợi...
+q24	1	https://svbk.hust.edu.vn/vi/news/thong-bao/tong-ket-chuong-trinh-shcd-gioi-thieu-ve-doan-thanh-nien-hoi-sinh-vien-252355.html	TỔNG KẾT CHƯƠNG TRÌNH SHCD GIỚI THIỆU VỀ ĐOÀN THANH NIÊN, HỘI SINH VIÊN
+q24	1	https://svbk.hust.edu.vn/vi/news/thong-bao/tuyen-nhan-su-doan-thanh-nien-truong-nam-hoc-2021-2022-254653.html	TUYỂN NHÂN SỰ ĐOÀN THANH NIÊN TRƯỜNG NĂM HỌC 2021-2022
+q24	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/ra-mat-ban-cha-p-hanh-doan-thanh-nien-dai-hoc-bach-khoa-ha-noi-nhiem-ky-2024-2027-302970.html	RA MẮT BAN CHẤP HÀNH ĐOÀN THANH NIÊN ĐẠI HỌC BÁCH KHOA HÀ NỘI NHIỆM KỲ 2024 - 2027
+q24	1	https://sme.hust.edu.vn/vi/news/cac-hoat-dong/	Các hoạt động
+q24	0	https://svbk.hust.edu.vn/vi/news/thong-bao/hoi-nghi-bch-doan-thanh-nien-truong-dhbk-ha-noi-trien-khai-cong-tac-nam-hoc-2021-2022-252963.html	Hãy đợi...
+q24	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/hoi-nghi-bch-doan-thanh-nien-truong-dhbk-ha-noi-khoa-xxxvi-tong-ket-cong-tac-nam-hoc-2021-2022-280904.html	HỘI NGHỊ BCH ĐOÀN THANH NIÊN TRƯỜNG ĐHBK HÀ NỘI KHOÁ XXXVI – TỔNG KẾT CÔNG TÁC NĂM HỌC 2021 - 2022
+q24	0	https://sv-ctt.hust.edu.vn/	Trang chủ - HUST
+q24	1	https://svbk.hust.edu.vn/vi/	Đoàn thanh niên Đại học Bách khoa Hà Nội
+q24	1	https://act.hust.edu.vn/vi/dao-tao/gioi-thieu/hoat-dong-dao-tao-21.html	Hoạt động đào tạo
+q24	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/	Tin hoạt động
+q24	1	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/ban-chuyen-mon/ban-thanh-nien-tinh-nguyen-284683.html	BAN THANH NIÊN TÌNH NGUYỆN
+q24	1	https://fed.hust.edu.vn/vi/sinh-vien/hoat-dong-noi-bat/	Hoạt động nổi bật
+q24	0	https://svbk.hust.edu.vn/thanh-nien-tinh-nguyen	Ban chuyên môn
+q24	0	https://hust.edu.vn/vi/news/hoat-dong-chung/	Hãy đợi...
+q24	0	https://hust.edu.vn/hop-tac-doi-ngoai/hoat-dong-hop-tac/hop-tac-hoat-dong-638626.html	Hãy đợi...
+q24	0	https://library.hust.edu.vn/vi/node/42	Ảnh hoạt động thư viện | Thư viện
 q24	0	https://hust.edu.vn/vi/nghien-cuu/hd-nghien-cuu-khoa-hoc-va-sang-tao/	Hoạt động nghiên cứu khoa học và sáng tạo
-q24	0	https://hust.edu.vn/vi/news/hoat-dong-chung/page-2/	Hoạt động chung - Trang 2
-q24	0	https://hust.edu.vn/vi/news/hoat-dong-chung/page-263/	Hoạt động chung - Trang 263
-q24	0	https://hust.edu.vn/vi/news/hoat-dong-chung/bach-khoa-ha-noi-chu-dong-trien-khai-cac-hoat-dong-hop-tac-tai-trung-quoc-655871.html	Bách khoa Hà Nội chủ động triển khai các hoạt động hợp tác tại Trung Quốc
-q24	0	https://hust.edu.vn/vi/news/hoat-dong-chung/cung-nhat-ban-ung-dung-va-sang-tao-cong-nghe-trong-cac-hoat-dong-truyen-thong-van-hoa-655854.html	Cùng Nhật Bản ứng dụng và sáng tạo công nghệ trong các hoạt động truyền thống, văn hoá
-q24	0	https://hust.edu.vn/vi/about/bao-cao-thuong-nien.html	Báo cáo thường niên
-q24	2	https://hust.edu.vn/vi/news/hoat-dong-chung/tuoi-tre-bach-khoa-ha-noi-ra-quan-chien-dich-mua-he-xanh-nam-2026-655993.html	Tuổi trẻ Bách khoa Hà Nội ra quân chiến dịch Mùa hè xanh năm 2026
-q24	2	https://hust.edu.vn/vi/news/hoat-dong-chung/trai-he-tuoi-tre-bach-khoa-ha-noi-2026-hanh-trinh-giao-duc-truyen-thong-boi-duong-ban-linh-va-khat-vong-cong-hien-cua-can-bo-doan-hoi-656015.html	Trại hè tuổi trẻ Bách khoa Hà Nội 2026: Hành trình giáo dục truyền thống, bồi dưỡng bản lĩnh và khát vọng cống hiến của cán bộ Đoàn - Hội
-q24	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chao-mung-95-nam-ngay-thanh-lap-doan-tncs-ho-chi-minh-tuoi-tre-bach-khoa-vung-buoc-tien-phong-655851.html	Chào mừng 95 năm ngày thành lập Đoàn TNCS Hồ Chí Minh: Tuổi trẻ Bách khoa vững bước tiên phong
-q24	0	https://hust.edu.vn/vi/news/hoat-dong-chung/cong-doan-dai-hoc-bach-khoa-ha-noi-giu-lua-tu-nhung-dieu-gian-di-655847.html	Công đoàn Đại học Bách khoa Hà Nội giữ lửa từ những điều giản dị
-q24	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/dai-hoi-cong-doan-dhbk-ha-noi-doi-moi-de-dan-dat-doan-ket-de-but-pha-655683.html	Đại hội Công đoàn ĐHBK Hà Nội: Đổi mới để dẫn dắt, đoàn kết để bứt phá
-q24	1	https://hust.edu.vn/vi/news/hoat-dong-chung/sinh-vien-bach-khoa-tu-tin-toa-sang-truoc-11-quoc-gia-thanh-vien-asean-trung-quoc-656008.html	Sinh viên Bách khoa tự tin tỏa sáng trước 11 quốc gia thành viên ASEAN – Trung Quốc
-q24	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/dai-hoc-bach-khoa-ha-noi-trien-khai-cong-tac-phat-trien-dang-vien-nam-2026-655811.html	Đại học Bách khoa Hà Nội triển khai công tác phát triển Đảng viên năm 2026
-q24	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hon-100-can-bo-cong-doan-bach-khoa-ha-noi-tham-gia-tap-huan-cong-tac-to-chuc-dai-hoi-cong-doan-cac-cap-655621.html	Hơn 100 cán bộ công đoàn Bách khoa Hà Nội tham gia tập huấn công tác tổ chức Đại hội Công đoàn các cấp
-q24	0	https://hust.edu.vn/vi/news/hoat-dong-chung/uy-ban-khoa-hoc-cong-nghe-va-moi-truong-ky-ket-chuong-trinh-phoi-hop-cong-tac-voi-dai-hoc-bach-khoa-ha-noi-655979.html	Ủy ban Khoa học, Công nghệ và Môi trường ký kết Chương trình phối hợp công tác với Đại học Bách khoa Hà Nội
 
 # >>> q25: câu lạc bộ sinh viên
+q25	2	https://soict.hust.edu.vn/sinh-vien/clbsv	Câu lạc bộ Sinh viên - SoICT
 q25	2	https://hust.edu.vn/vi/sinh-vien/hoat-dong-cua-sinh-vien/cau-lac-bo-sinh-vien-654597.html	Câu lạc bộ sinh viên
-q25	2	https://hust.edu.vn/vi/sinh-vien/cau-lac-bo-nghien-cuu-sang-tao/cau-lac-bo-nghien-cuu-sang-tao-220385.html	Câu lạc bộ - Lab Nghiên cứu & Sáng tạo
-q25	0	https://hust.edu.vn/vi/su-kien-noi-bat/cau-chuyen-bach-khoa/	Câu chuyện Bách Khoa
-q25	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/bch-dang-bo-dai-hoc.html	BCH Đảng bộ đại học
-q25	0	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/He-thong-NDTH/bo-logo-cac-don-vi.html	BỘ LOGO CÁC ĐƠN VỊ
-q25	0	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/He-thong-NDTH/BO-FONT-CHU-DHBK-HA-NOI.html	BỘ FONT CHỮ ĐHBK HÀ NỘI
-q25	0	https://hust.edu.vn/vi/news/hoat-dong-chung/bo-truong-bo-gd-dt-chuc-mung-dai-hoc-bach-khoa-ha-noi-lot-xac-de-phat-trien-654699.html	Bộ trưởng Bộ GD&ĐT chúc mừng Đại học Bách khoa Hà Nội: “Lột xác để phát triển”
-q25	0	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/He-thong-NDTH/BO-LOGO-DHBK-HA-NOI-FILE-THIET-KE.html	BỘ LOGO ĐHBK HÀ NỘI - FILE THIẾT KẾ
-q25	0	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/He-thong-NDTH/Bo-Logo-DHBK-Ha-Noi-file-trinh-chieu.html	Bộ Logo ĐHBK Hà Nội - file trình chiếu
-q25	1	https://hust.edu.vn/vi/sinh-vien/	Sinh viên
-q25	0	https://csv.hust.edu.vn/	Mạng lưới cựu sinh viên Bách Khoa Hà Nội - Kết nối các thế hệ cựu sinh viên Bách Khoa Hà Nội
-q25	0	https://hust.edu.vn/vi/news/hoat-dong-chung/lanh-dao-nganh-giao-duc-dao-tao-trong-vai-nguoi-dai-bieu-nhan-dan-655838.html	Lãnh đạo ngành giáo dục đào tạo trong vai người đại biểu nhân dân
-q25	1	https://hust.edu.vn/vi/sinh-vien/nghien-cuu-sang-tao-khoi-nghiep/	Nghiên cứu - sáng tạo - khởi nghiệp
-q25	1	https://hust.edu.vn/vi/sinh-vien/nghien-cuu-sang-tao-khoi-nghiep/hoi-nghi-sinh-vien-nckh-thuong-nien-654582.html	Hội nghị sinh viên NCKH thường niên
-q25	1	https://hust.edu.vn/vi/sinh-vien/nghien-cuu-sang-tao-khoi-nghiep/sv-startup-2022-654581.html	SV Startup 2022
-q25	1	https://hust.edu.vn/vi/sinh-vien	Sinh viên
-q25	0	https://hust.edu.vn/vi/sinh-vien/cuu-sinh-vien/cuu-sinh-vien-654599.html	Cựu sinh viên
+q25	1	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/cau-lac-bo/	Câu lạc bộ
+q25	0	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/cau-lac-bo/danh-sach-clb-284669.html	Hãy đợi...
+q25	1	https://csv.hust.edu.vn/cau-lac-bo/tat-ca-cau-lac-bo	Kết nối Cựu SV - Mạng lưới cựu sinh viên Bách Khoa Hà Nội
+q25	0	https://ctt.hust.edu.vn/DisplayWeb/DisplayBaiViet?baiviet=35760	CTT ĐHBKHN
+q25	1	https://hust.edu.vn/vi/sinh-vien/cau-lac-bo-nghien-cuu-sang-tao/cau-lac-bo-nghien-cuu-sang-tao-220385.html	Câu lạc bộ - Lab Nghiên cứu & Sáng tạo
+q25	0	https://sofl.hust.edu.vn/ban-lien-lac-cuu-sinh-vien	Khoa Ngoại ngữ
+q25	1	https://sep.hust.edu.vn/sinh-vien/cac-don-vi-cau-lac-bo-sinh-vien.html	Các đơn vị & CLB sinh viên | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q25	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/dai-hoi-chi-bo-sinh-vien-truc-thuoc-dang-uy-truong-nhiem-ky-2022-2025-278009.html	ĐẠI HỘI CHI BỘ SINH VIÊN TRỰC THUỘC ĐẢNG ỦY TRƯỜNG NHIỆM KỲ 2022 – 2025
+q25	1	https://csv.hust.edu.vn/cau-lac-bo/tat-ca-cau-lac-bo/	Kết nối Cựu SV - Mạng lưới cựu sinh viên Bách Khoa Hà Nội
+q25	1	http://smse.hust.edu.vn/vi/sinh-vien/cuu-sinh-vien/cuu-sinh-vien-8.html	BAN LIÊN LẠC CỰU SINH VIÊN
+q25	1	https://hust.edu.vn/vi/su-kien-noi-bat/cau-chuyen-bach-khoa/	Câu chuyện Bách Khoa
+q25	0	https://library.hust.edu.vn/vi/node/50	Các câu hỏi thường gặp | Thư viện
+q25	0	https://svbk.hust.edu.vn/vi/don-vi-truc-thuoc/cau-lac-bo/clb-mua-bach-khoa-beu-281813.html	CLB Múa Bách Khoa, BeU
 
 # >>> q26: lịch nghỉ tết
-q26	1	https://hust.edu.vn/vi/lich-lam-viec/	Lịch làm việc
-q26	1	https://hust.edu.vn/vi/events/	Lịch sự kiện
-q26	0	https://hust.edu.vn/vi/about/cac-giai-doan-lich-su-191736.html	Các giai đoạn lịch sử
-q26	0	https://hust.edu.vn/vi/about/lich-su-hinh-thanh-phat-trien-21686.html	Lịch sử hình thành, phát triển
-q26	0	https://hust.edu.vn/vi/news/hoat-dong-chung/to-chuc-aun-qa-kiem-dinh-chat-luong-la-mot-hanh-trinh-khong-ngung-nghi-654824.html	Tổ chức AUN-QA: “Kiểm định chất lượng là một hành trình không ngừng nghỉ”
-q26	0	https://hust.edu.vn/vi/news/cong-tac-dang-va-doan-the/dau-an-lich-su-ba-lan-chu-tich-ho-chi-minh-den-bach-khoa-656028.html	Dấu ấn lịch sử ba lần Chủ tịch Hồ Chí Minh đến Bách khoa
-q26	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/co-gai-truong-huyen-tu-tin-buoc-ra-the-gioi-tu-phong-thi-nghiem-hien-dai-bach-khoa-655946.html	Cô gái trường huyện tự tin ra thế giới từ phòng thí nghiệm hiện đại Bách khoa
-q26	0	https://hust.edu.vn/vi/news/hoat-dong-chung/cong-doan-dai-hoc-bach-khoa-ha-noi-giu-lua-tu-nhung-dieu-gian-di-655847.html	Công đoàn Đại học Bách khoa Hà Nội giữ lửa từ những điều giản dị
-q26	0	https://library.hust.edu.vn	Trang chủ | Thư viện
-q26	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/csv-ky-thuat-hoa-hoc-bach-khoa-thiet-lap-chuan-muc-vat-lieu-moi-cho-chuyen-dich-nang-luong-ben-vung-655965.html	CSV Kỹ thuật Hóa học Bách khoa thiết lập chuẩn mực vật liệu mới cho chuyển dịch năng lượng bền vững
-q26	1	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/Xem-theo-tuan/Tuan-36/	Đại học Bách khoa Hà Nội 36
-q26	0	https://svbk.hust.edu.vn/	Đoàn thanh niên Đại học Bách khoa Hà Nội
-q26	0	https://hust.edu.vn/vi/news/hoat-dong-chung/bach-khoa-ha-noi-xep-thu-99-the-gioi-ve-muc-tieu-sdg8-cong-viec-tot-va-tang-truong-kinh-te-626550.html	Bách khoa Hà Nội xếp thứ 99 thế giới về mục tiêu SDG8: công việc tốt và tăng trưởng kinh tế
+q26	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/trai-nghiem-tet-co-truyen-viet-nam-2026-cung-sinh-vien-quoc-te-302984.html	TRẢI NGHIỆM TẾT CỔ TRUYỀN VIỆT NAM 2026 CÙNG SINH VIÊN QUỐC TẾ
+q26	0	https://library.hust.edu.vn/vi/node/1549	Thông báo nghỉ lễ 2-9 | Thư viện
+q26	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/tet-co-truyen-giao-luu-van-hoa-gan-ket-yeu-thuong-302985.html	TẾT CỔ TRUYỀN – GIAO LƯU VĂN HÓA – GẮN KẾT YÊU THƯƠNG
+q26	0	https://svbk.hust.edu.vn/vi/news/thong-bao/tet-co-truyen-giao-luu-van-hoa-gan-ket-yeu-thuong-302985.html	Hãy đợi...
+q26	0	https://sofl.hust.edu.vn/bai-viet/-/asset_publisher/ATrC9k30TC0S/content/khoa-ngoai-ngu-to-chuc-buoi-hop-tong-ket-nam-hoc-2025-2026-va-le-gap-mat-chia-tay-can-bo-ve-nghi-che-o	Khoa Ngoại ngữ
+q26	1	https://hust.edu.vn/vi/news/hoat-dong-chung/to-chuc-aun-qa-kiem-dinh-chat-luong-la-mot-hanh-trinh-khong-ngung-nghi-654824.html	Tổ chức AUN-QA: “Kiểm định chất lượng là một hành trình không ngừng nghỉ”
+q26	0	https://fed.hust.edu.vn/vi/workcalendar/Truong-Vat-lieu-Dai-hoc-BKHN/	Lịch làm việc
+q26	0	https://sme.hust.edu.vn/vi/workcalendar/Truong-Vat-lieu-Dai-hoc-BKHN/	Lịch làm việc
+q26	0	https://svbk.hust.edu.vn/vi/workcalendar/Sinh-vien-Dai-hoc-BKHN/	Sinh viên - Đại học BKHN
+q26	0	https://library.hust.edu.vn/vi/node/1549?page=2	Thông báo nghỉ lễ 2-9 | Thư viện
+q26	0	https://hust.edu.vn/vi/events/	Lịch sự kiện
+q26	0	https://library.hust.edu.vn/vi/node/1549?page=1	Thông báo nghỉ lễ 2-9 | Thư viện
+q26	0	https://library.hust.edu.vn/vi/node/1549?page=3	Thông báo nghỉ lễ 2-9 | Thư viện
+q26	0	https://svbk.hust.edu.vn/vi/workcalendar/	Hãy đợi...
+q26	0	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/ba-lan-bac-den-tham-dai-hoc-bach-khoa-ha-noi-302966.html	Ba lần Bác đến thăm Đại học Bách khoa Hà Nội
+q26	1	https://hust.edu.vn/vi/about/cac-giai-doan-lich-su-191736.html	Các giai đoạn lịch sử
+q26	0	https://svbk.hust.edu.vn/vi/news/	Tin Tức
+q26	0	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/	Đại học Bách khoa Hà Nội
 
 # >>> q27: đăng ký xét tuyển trực tuyến
-q27	0	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/BGD-PGD-V-V-Yem-chu-tri-hop-Hoi-dong-xet-tuyen-giang-vien-xuat-sac-t2/	BGĐ (PGĐ V.V. Yêm) chủ trì họp Hội đồng xét tuyển giảng viên xuất sắc.
-q27	0	http://dtlt.hust.edu.vn	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
-q27	0	https://hust.edu.vn/vi/su-kien-noi-bat/	Sự kiện nổi bật
-q27	1	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/thong-bao-tuyen-sinh-trinh-do-thac-si-nam-2023-651873.html	Thông báo tuyển sinh trình độ Thạc sĩ năm 2026
+q27	0	http://dtlt.hust.edu.vn/admission/%5Bthong-bao%5D-ve-viec-thong-tin-dia-diem-tu-van-xet-tuyen-va-tiep-nhan-ho-so-tuyen-sinh-2023-do-vien-dao-tao-lien-tuc-dai-hoc-bach-khoa-ha-noi-to-chuc	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q27	1	https://svbk.hust.edu.vn/vi/news/thong-bao/bach-khoa-ha-noi-cong-bo-muc-diem-nhan-ho-so-xet-tuyen-nam-2021-247737.html	BÁCH KHOA HÀ NỘI CÔNG BỐ MỨC ĐIỂM NHẬN HỒ SƠ XÉT TUYỂN NĂM 2021
+q27	1	https://seee.hust.edu.vn/vi/tin-tuc/2026-08-15_xet-tuyen-tai-nang-et-tn-ee-tn-k71/	Xét tuyển Chương trình tài năng K71: Điện tử - Viễn thông (ET-TN) và Điều khiển - Tự động hóa (EE-TN) | Tin tức SEEE
+q27	0	http://dtlt.hust.edu.vn/admission/thong-bao-nhan-ho-so-xet-tuyen-bang-hoc-ba-thpt-chuong-trinh-dai-hoc-tang-cuong-ky-nang-thuc-hanh-truong-dai-hoc-bach-khoa-ha-noi-nam-2022-dot-1	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
 q27	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-cong-bo-chi-tiet-do-lech-diem-to-hop-xet-tuyen-quy-doi-diem-va-du-bao-diem-chuan-nam-2026-655962.html	Bách khoa Hà Nội công bố chi tiết độ lệch điểm tổ hợp xét tuyển, quy đổi điểm và dự báo điểm chuẩn năm 2026
-q27	0	https://hust.edu.vn/vi/su-kien-noi-bat/khoa-hoc-cong-nghe-dmst/phat-dong-giai-thuong-khoa-hoc-cong-nghe-qua-cau-vang-nam-2026-654826.html	Phát động Giải thưởng Khoa học Công nghệ Quả cầu vàng năm 2026
-q27	2	https://e.hust.edu.vn/	Hệ thống Quản trị Đại học Trực tuyến - Đại học Bách Khoa Hà Nội
-q27	0	https://hust.edu.vn/vi/su-kien-noi-bat/khoa-hoc-cong-nghe-dmst/giai-thuong-nu-sinh-khoa-hoc-cong-nghe-viet-nam-nam-2026-toa-sang-tri-tue-nu-gioi-ky-nguyen-so-654820.html	Giải thưởng Nữ sinh Khoa học Công nghệ Việt Nam năm 2026: Tỏa sáng trí tuệ nữ giới kỷ nguyên số
-q27	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ket-qua-xttn-bach-khoa-ha-noi-nam-2026-chat-luong-thi-sinh-vuot-troi-655969.html	Kết quả XTTN Bách khoa Hà Nội năm 2026: Chất lượng thí sinh vượt trội
-q27	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chi-tiet-55-chuong-trinh-dao-tao-tai-bach-khoa-ha-noi-nhan-hoc-bong-chinh-phu-theo-nghi-dinh-179-655959.html	Chi tiết 55 Chương trình đào tạo tại Bách khoa Hà Nội nhận Học bổng Chính phủ theo Nghị định 179
-q27	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026-656013.html	Điểm chuẩn Đại học Bách khoa Hà Nội năm 2026
-q27	1	https://hust.edu.vn/vi/tuyen-sinh/thong-bao-tuyen-sinh/quy-che-tuyen-sinh-567343.html	Quy chế tuyển sinh đại học năm 2026
+q27	0	https://tsdtlt.hust.edu.vn/	Tuyển sinh - Trung tâm Đào tạo liên tục - Bách khoa Hà Nội
+q27	1	https://svbk.hust.edu.vn/vi/news/thong-bao/cuoc-thi-truc-tuyen-tim-hieu-bien-cuong-to-quoc-toi-254174.html	CUỘC THI TRỰC TUYẾN TÌM HIỂU “BIÊN CƯƠNG TỔ QUỐC TÔI”
+q27	1	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/BGD-PGD-V-V-Yem-chu-tri-hop-Hoi-dong-xet-tuyen-giang-vien-xuat-sac-t2/	BGĐ (PGĐ V.V. Yêm) chủ trì họp Hội đồng xét tuyển giảng viên xuất sắc.
+q27	0	http://sdh.hust.edu.vn/home/default.aspx?scid=77	Ban đào tạo - Bộ phận sau đại học
+q27	1	https://svbk.hust.edu.vn/vi/news/thong-bao/tuyen-nhan-su-doan-thanh-nien-truong-nam-hoc-2021-2022-254653.html	TUYỂN NHÂN SỰ ĐOÀN THANH NIÊN TRƯỜNG NĂM HỌC 2021-2022
+q27	1	https://tuyendung.hust.edu.vn/	Hệ thống Quản trị Đại học Trực tuyến
+q27	1	http://qldt.hust.edu.vn	Hệ thống Quản trị Đại học Trực tuyến - Đại học Bách Khoa Hà Nội
+q27	1	https://svbk.hust.edu.vn/vi/news/thong-bao/huong-dan-chuyen-sinh-hoat-doan-sinh-hoat-dang-va-dang-ky-tam-hoan-nghia-vu-quan-su-cho-k66-252589.html	HƯỚNG DẪN CHUYỂN SINH HOẠT ĐOÀN, SINH HOẠT ĐẢNG VÀ ĐĂNG KÝ TẠM HOÃN NGHĨA VỤ QUÂN SỰ CHO K66
+q27	1	https://svbk.hust.edu.vn/vi/news/thong-bao/truong-dai-hoc-bach-khoa-ha-noi-dieu-chinh-de-an-tuyen-sinh-nam-2021-247459.html	TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI ĐIỀU CHỈNH ĐỀ ÁN TUYỂN SINH NĂM 2021
+q27	0	https://hust.edu.vn/vi/su-kien-noi-bat/	Sự kiện nổi bật
+q27	1	http://sep.hust.edu.vn/tuyen-sinh/tuyen-sinh-2020.html	Tuyển sinh 2021 | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q27	0	http://dtlt.hust.edu.vn/news/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026-2	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
 
 # >>> q28: ngành khoa học máy tính
-q28	1	https://hust.edu.vn/tuyen-sinh/nganh-tuyen-sinh-14/nganh-tuyen-sinh-58417.html	Các ngành tuyển sinh
-q28	1	https://hust.edu.vn/tuyen-sinh/nganh-tuyen-sinh-10/	Ngành tuyển sinh
-q28	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/	Ngành tuyển sinh
-q28	0	https://hust.edu.vn/vi/news/hoat-dong-chung/lanh-dao-doanh-nghiep-han-quoc-tai-viet-nam-bach-khoa-mo-nganh-tieng-han-khoa-hoc-va-cong-nghe-dung-mong-muon-cua-doanh-nghiep-655956.html	Lãnh đạo doanh nghiệp Hàn Quốc tại Việt Nam: “Bách khoa mở ngành Tiếng Hàn Khoa học và Công nghệ đúng mong muốn của doanh nghiệp”
-q28	1	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/truong-khoa-vien-dao-tao.html	Trường - Khoa quản ngành
-q28	1	https://hust.edu.vn/cac-vien-khoa-dao-tao	Trường - Khoa quản ngành
-q28	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/	Khoa học - Công nghệ - ĐMST
-q28	0	https://hust.edu.vn/vi/su-kien-noi-bat/khoa-hoc-cong-nghe-dmst/	Khoa học - Công nghệ - ĐMST
-q28	0	https://hust.edu.vn/vi/nghien-cuu/cong-bo-khoa-hoc/	Công bố khoa học
-q28	0	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/hoi-dong-khoa-hoc-va-dao-tao.html	Hội đồng khoa học và đào tạo
+q28	1	https://soict.hust.edu.vn/bo-phan/khoa-hoc-may-tinh	Khoa học Máy tính - SoICT
+q28	1	https://soict.hust.edu.vn/bo-phan/ky-thuat-may-tinh	Kỹ thuật Máy tính - SoICT
+q28	1	https://soict.hust.edu.vn/bo-phan/trung-tam-may-tinh-va-thuc-hanh	Trung tâm Máy tính và Thực hành - SoICT
+q28	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/bked-phan-mem-mo-duong-cho-tieng-viet-tren-may-tinh-656053.html	BKED: Phần mềm mở đường cho tiếng Việt trên máy tính
+q28	0	https://fed.hust.edu.vn/vi/news/tong-hop/hon-3-300-sinh-vien-tham-gia-ky-thi-tren-may-tinh-hoc-phan-ky-nang-mem-buoc-tien-trong-chuyen-doi-so-danh-gia-hoc-tap-tai-dai-hoc-bach-khoa-ha-noi-302829.html	Hãy đợi...
 q28	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/cac-chuong-trinh-tuyen-sinh-thac-si-nam-2022-651867.html	DANH MỤC CHƯƠNG TRÌNH TUYỂN SINH THẠC SĨ NĂM 2026
-q28	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/viet-nam-phat-trien-5-dai-hoc-trong-diem-ve-ky-thuat-cong-nghe-655368.html	Việt Nam phát triển 5 đại học trọng điểm về kỹ thuật, công nghệ
-q28	1	https://hust.edu.vn/vi/dao-tao/dai-hoc-chinh-quy/mo-hinh-va-chuong-trinh-dao-tao-he-dai-hoc-chinh-quy-1.html	Mô hình và chương trình đào tạo hệ đại học chính quy
-q28	0	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh-10/nganh-tuyen-sinh-tien-si-58618.html	DANH MỤC NGÀNH TUYỂN SINH TRÌNH ĐỘ TIẾN SĨ NĂM 2026
-q28	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-xep-thu-360-the-gioi-va-so-1-viet-nam-ve-linh-vuc-ky-thuat-va-cong-nghe-623145.html	Bách khoa Hà Nội xếp thứ 360 thế giới và số 1 Việt Nam về lĩnh vực Kỹ thuật và Công nghệ
-q28	0	https://hust.edu.vn/vi/news/cong-tac-dang-va-doan-the/bach-khoa-ha-noi-xep-thu-360-the-gioi-va-so-1-viet-nam-ve-linh-vuc-ky-thuat-va-cong-nghe-623014.html	Bách khoa Hà Nội xếp thứ 360 thế giới và số 1 Việt Nam về lĩnh vực Kỹ thuật và Công nghệ
-q28	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/bach-khoa-ha-noi-nam-trong-nhom-450-dai-hoc-tot-nhat-the-gioi-ve-ky-thuat-va-cong-nghe-654709.html	Bách khoa Hà Nội nằm trong nhóm 450 đại học tốt nhất thế giới về Kỹ thuật và Công nghệ
-q28	0	https://hust.edu.vn/vi/dao-tao/ky-su/chuong-trinh-dao-tao-ky-su-chuyen-sau-dac-thu-cua-truong-dai-hoc-bach-khoa-ha-noi-2.html	Chương trình đào tạo kỹ sư chuyên sâu đặc thù của Đại học Bách Khoa Hà Nội
-q28	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/gap-go-giang-vien-nguon-dung-sau-hai-giai-nhat-hoi-nghi-sinh-vien-nckh-nam-2026-655918.html	Gặp gỡ giảng viên nguồn đứng sau hai Giải Nhất Hội nghị Sinh viên NCKH năm 2026
-q28	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chi-tiet-55-chuong-trinh-dao-tao-tai-bach-khoa-ha-noi-nhan-hoc-bong-chinh-phu-theo-nghi-dinh-179-655959.html	Chi tiết 55 Chương trình đào tạo tại Bách khoa Hà Nội nhận Học bổng Chính phủ theo Nghị định 179
+q28	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/nganh-tuyen-sinh-dai-hoc-nam-2022-651865.html	Các ngành/chương trình tuyển sinh Đại học năm 2026
+q28	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh-10/nganh-tuyen-sinh-tien-si-58618.html	DANH MỤC NGÀNH TUYỂN SINH TRÌNH ĐỘ TIẾN SĨ NĂM 2026
+q28	1	https://hust.edu.vn/tuyen-sinh/nganh-tuyen-sinh-14/nganh-tuyen-sinh-58417.html	Các ngành tuyển sinh
+q28	1	https://sofl.hust.edu.vn/nganh-fl3	Khoa Ngoại ngữ
+q28	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/	Ngành tuyển sinh
+q28	1	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/truong-khoa-vien-dao-tao.html	Trường - Khoa quản ngành
+q28	1	https://sme.hust.edu.vn/vi/nghien-cuu/hoi-nghi-khoa-hoc/	HỘI NGHỊ KHOA HỌC
+q28	0	https://library.hust.edu.vn/vi/node/1309	Thư mục chuyên ngành | Thư viện
+q28	0	https://soict.hust.edu.vn/hoi-dap-ve-tuyen-sinh.html	Hỏi đáp về tuyển sinh - SoICT
+q28	1	https://hust.edu.vn/vi/nghien-cuu/cong-bo-khoa-hoc/	Công bố khoa học
 
 # >>> q29: chương trình đào tạo chất lượng cao
-q29	2	https://hust.edu.vn/vi/news/hoat-dong-chung/16-chuong-trinh-dao-tao-cua-bach-khoa-ha-noi-duoc-chung-nhan-chat-luong-tieu-chuan-chau-au-654756.html	16 chương trình đào tạo của Bách khoa Hà Nội được chứng nhận chất lượng tiêu chuẩn châu Âu
+q29	1	https://hust.edu.vn/vi/news/hoat-dong-chung/16-chuong-trinh-dao-tao-cua-bach-khoa-ha-noi-duoc-chung-nhan-chat-luong-tieu-chuan-chau-au-654756.html	16 chương trình đào tạo của Bách khoa Hà Nội được chứng nhận chất lượng tiêu chuẩn châu Âu
+q29	1	https://svbk.hust.edu.vn/vi/news/thong-bao/tong-ket-chuong-trinh-tap-huan-nang-cao-ky-nang-truyen-thong-261888.html	TỔNG KẾT CHƯƠNG TRÌNH TẬP HUẤN: “NÂNG CAO KỸ NĂNG TRUYỀN THÔNG”
+q29	1	https://sep.hust.edu.vn/dao-tao/khung-ctdt	Chương trình đào tạo | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q29	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=135	Ban đào tạo - Bộ phận sau đại học
+q29	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/nang-cao-nang-luc-so-chuong-trinh-tap-huan-truyen-thong-phong-trao-doan-hoi-nam-hoc-moi-302992.html	NÂNG CAO NĂNG LỰC SỐ: CHƯƠNG TRÌNH TẬP HUẤN TRUYỀN THÔNG PHONG TRÀO ĐOÀN - HỘI NĂM HỌC MỚI
+q29	1	https://seee.hust.edu.vn/vi/dao-tao/chuong-trinh/	Chương trình đào tạo | Trường Điện - Điện tử
+q29	1	http://scls.hust.edu.vn/vi/download/Chuong-trinh-dao-tao/	Chương trình đào tạo
 q29	1	https://hust.edu.vn/vi/news/hoat-dong-chung/sahep-cung-bach-khoa-nang-cao-chat-luong-nghien-cuu-giang-day-654601.html	SAHEP cùng Bách khoa nâng cao chất lượng nghiên cứu, giảng dạy
-q29	1	https://hust.edu.vn/vi/dao-tao/dai-hoc-chinh-quy/mo-hinh-va-chuong-trinh-dao-tao-he-dai-hoc-chinh-quy-1.html	Mô hình và chương trình đào tạo hệ đại học chính quy
-q29	0	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/	Cao học
-q29	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-khang-dinh-chat-luong-dao-tao-tieu-chuan-chau-au-622099.html	Bách khoa Hà Nội khẳng định chất lượng đào tạo tiêu chuẩn châu Âu
-q29	1	https://hust.edu.vn/vi/dao-tao/ky-su/chuong-trinh-dao-tao-ky-su-chuyen-sau-dac-thu-cua-truong-dai-hoc-bach-khoa-ha-noi-2.html	Chương trình đào tạo kỹ sư chuyên sâu đặc thù của Đại học Bách Khoa Hà Nội
-q29	1	https://hust.edu.vn/vi/news/cong-tac-dang-va-doan-the/bach-khoa-ha-noi-day-manh-tien-trinh-hoi-nhap-quoc-te-ve-chat-luong-dao-tao-630680.html	Bách khoa Hà Nội đẩy mạnh tiến trình hội nhập quốc tế về chất lượng đào tạo
-q29	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chi-tiet-55-chuong-trinh-dao-tao-tai-bach-khoa-ha-noi-nhan-hoc-bong-chinh-phu-theo-nghi-dinh-179-655959.html	Chi tiết 55 Chương trình đào tạo tại Bách khoa Hà Nội nhận Học bổng Chính phủ theo Nghị định 179
-q29	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/tuyen-bo-cua-dai-hoc-bach-khoa-ha-noi-ve-doi-moi-chuong-trinh-dao-tao-va-ung-dung-tri-tue-nhan-tao-vi-su-thanh-cong-cua-nguoi-hoc-655859.html	Công bố của Đại học Bách khoa Hà Nội về đổi mới chương trình đào tạo và ứng dụng trí tuệ nhân tạo vì sự thành công của người học
+q29	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-dai-hoc/chuong-trinh-dao-tao-cong-nghe-det-may-2.html	Hãy đợi...
+q29	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-dai-hoc/chuong-trinh-dao-tao-cong-nghe-vat-lieu-polyme-va-compozit-3.html	Hãy đợi...
+q29	1	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/	Cao học
 q29	1	https://hust.edu.vn/phong-quan-ly-chat-luong	Ban Quản lý chất lượng
-q29	0	https://hust.edu.vn/vi/news/hoat-dong-chung/to-chuc-aun-qa-kiem-dinh-chat-luong-la-mot-hanh-trinh-khong-ngung-nghi-654824.html	Tổ chức AUN-QA: “Kiểm định chất lượng là một hành trình không ngừng nghỉ”
-q29	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/to-chuc-kiem-dinh-aun-qa-chat-luong-khong-phai-la-be-ngoai-an-tuong-642829.html	Tổ chức kiểm định AUN-QA: ‘Chất lượng không phải là bề ngoài ấn tượng'
-q29	0	https://hust.edu.vn/vi/news/hoat-dong-chung/bach-khoa-huong-toi-quoc-te-hoa-qua-kiem-dinh-chat-luong-asiin-654587.html	Bách khoa hướng tới quốc tế hóa qua kiểm định chất lượng tiêu chuẩn ASIIN
-q29	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/kiem-dinh-khong-phai-la-diem-ket-dat-chuan-khong-phai-la-diem-dung-655679.html	"Kiểm định không phải là điểm kết, đạt chuẩn không phải là điểm dừng"
-q29	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/them-3-ctdt-bach-khoa-ha-noi-kiem-dinh-theo-tieu-chuan-aqas-655357.html	Thêm 3 CTĐT Bách khoa Hà Nội kiểm định theo tiêu chuẩn AQAS
-q29	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/kiem-dinh-aun-qa-va-dinh-huong-chon-truong-dai-hoc-650287.html	Kiểm định AUN-QA và định hướng chọn trường đại học
+q29	0	https://fed.hust.edu.vn/vi/about/kiem-dinh-chat-luong.html	Hãy đợi...
+q29	0	https://sme.hust.edu.vn/vi/about/to-dam-bao-chat-luong.html	Hãy đợi...
+q29	1	https://hust.edu.vn/vi/about/su-mang-tam-nhin-gia-tri-cot-loi-va-chinh-sach-chat-luong.html	Sứ mạng, Tầm nhìn, Giá trị cốt lõi và Chính sách chất lượng
+q29	1	https://sep.hust.edu.vn/tuyensinh/cao-hoc	Cao học | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q29	1	https://hust.edu.vn/vi/news/hoat-dong-chung/to-chuc-aun-qa-kiem-dinh-chat-luong-la-mot-hanh-trinh-khong-ngung-nghi-654824.html	Tổ chức AUN-QA: “Kiểm định chất lượng là một hành trình không ngừng nghỉ”
+q29	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=132	Ban đào tạo - Bộ phận sau đại học
 
 # >>> q30: hướng dẫn nhập học tân sinh viên
+q30	0	https://sofl.hust.edu.vn/bai-viet/-/asset_publisher/ATrC9k30TC0S/content/mot-so-thong-tin-quan-trong-ve-viec-nhap-hoc-cua-tan-sinh-vien-k71	Khoa Ngoại ngữ
+q30	1	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/huong-dan-lam-thu-tuc-chuyen-sinh-hoat-doan-cho-tan-sinh-vien-303001.html	Hướng dẫn làm thủ tục chuyển sinh hoạt đoàn cho tân sinh viên
+q30	0	https://svbk.hust.edu.vn/vi/news/thong-bao/huong-dan-lam-thu-tuc-chuyen-sinh-hoat-doan-cho-tan-sinh-vien-303001.html	Hãy đợi...
+q30	1	https://act.hust.edu.vn/vi/news/tin-bai/to-chuc-khoa-dao-tao-huong-dan-su-dung-phong-hoc-da-phuong-tien-cho-hoc-vien-chinh-tri-khu-vuc-1-174.html	Tổ chức khóa đào tạo "Hướng dẫn sử dụng phòng học đa phương tiện" cho Học viện Chính trị khu vực 1
 q30	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/co-gai-toa-sang-tai-cuoc-thi-hoa-hau-sinh-vien-chinh-thuc-nhap-hoc-truong-kinh-te-bach-khoa-ha-noi-656025.html	Cô gái tỏa sáng tại cuộc thi Hoa hậu Sinh viên chính thức nhập học Trường Kinh tế Bách khoa Hà Nội
+q30	1	https://svbk.hust.edu.vn/vi/news/savefile/tin-hoat-dong/huong-dan-lam-thu-tuc-chuyen-sinh-hoat-doan-cho-tan-sinh-vien-303001.html	Hướng dẫn làm thủ tục chuyển sinh hoạt đoàn cho tân sinh viên
+q30	0	https://sme.hust.edu.vn/vi/tuyen-sinh/tuyen-sinh-dai-hoc/tan-sinh-vien-nen-biet-31.html	Hãy đợi...
+q30	1	https://library.hust.edu.vn/vi/node/183	Hướng dẫn gia hạn tài liệu | Thư viện
 q30	1	https://library.hust.edu.vn/vi/node/49	Hướng dẫn quản lý tài khoản bạn đọc | Thư viện
-q30	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/sinh-vien-bach-khoa-hoc-tap-gan-voi-nghien-cuu-sang-tao-huong-toi-thuc-tien-655929.html	Sinh viên Bách khoa học tập gắn với nghiên cứu, sáng tạo hướng tới thực tiễn
+q30	1	https://library.hust.edu.vn/vi/node/53	Lớp hướng dẫn sử dụng Thư viện | Thư viện
+q30	0	https://svbk.hust.edu.vn/vi/download/Bieu-mau/huong-dan-bkoffice.html	Hãy đợi...
+q30	1	https://library.hust.edu.vn/vi/node/254	Video hướng dẫn sử dụng Thư viện | Thư viện
+q30	1	https://library.hust.edu.vn/vi/node/51	Hướng dẫn tìm kiếm tài liệu qua OPAC | Thư viện
+q30	1	https://library.hust.edu.vn/vi/node/54	Tài liệu hướng dẫn sử dụng thư viện | Thư viện
 q30	1	https://library.hust.edu.vn/vi/node/52	Hướng dẫn sử dụng trang Tài nguyên số | Thư viện
-q30	0	https://hust.edu.vn/vi/he-thong-nhan-dien-thuong-hieu/He-thong-NDTH/so-tay-huong-dan-nhan-dien-thuong-hieu-dhbk-ha-noi-pdf.html	Sổ tay hướng dẫn nhận diện thương hiệu ĐHBK Hà Nội.pdf
-q30	2	https://hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-chao-don-gan-10-000-tan-sinh-vien-k71-khai-giang-nam-hoc-2026-2027-656031.html	Đại học Bách khoa Hà Nội chào đón gần 10.000 tân sinh viên K71, khai giảng năm học 2026–2027
-q30	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/tan-sinh-vien-k71-bach-khoa-vuot-gan-2-000-km-theo-duoi-cong-nghe-giao-duc-nguyen-vong-1-trong-tim-655972.html	Tân sinh viên K71 Bách khoa vượt gần 2.000 km theo đuổi “Công nghệ giáo dục - nguyện vọng 1 trong tim”
-q30	0	https://hust.edu.vn/vi/news/hoat-dong-chung/co-hoi-hoc-tap-tai-duc-cho-sinh-vien-bach-khoa-ha-noi-655868.html	Cơ hội học tập tại Đức cho sinh viên Bách khoa Hà Nội
-q30	0	https://hust.edu.vn/vi/news/hoat-dong-chung/sinh-vien-bach-khoa-ha-noi-nhan-chung-chi-hoc-tap-tu-argentina-655845.html	Sinh viên Bách khoa Hà Nội nhận chứng chỉ học tập từ Argentina
-q30	2	https://hust.edu.vn/vi/lich-lam-viec/Truong-dai-hoc-BKHN/To-chuc-Tuan-dinh-huong-cho-sinh-vien-dau-khoa-K71/	Tổ chức Tuần định hướng cho sinh viên đầu khóa K71.
-q30	0	https://hust.edu.vn/vi/news/	Tin Tức
-q30	0	https://hust.edu.vn/news/campus-life/	Tin Tức
-q30	0	https://library.hust.edu.vn	Trang chủ | Thư viện
-q30	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/tsa-2026-nang-canh-uoc-mo-bang-cong-nghe-va-he-sinh-thai-hoc-bong-but-pha-656023.html	TSA 2026 nâng cánh ước mơ bằng công nghệ và hệ sinh thái học bổng bứt phá
-q30	0	https://hust.edu.vn/vi/news/hoat-dong-chung/sinh-vien-bach-khoa-dung-tieng-anh-lam-tam-ve-thong-hanh-buoc-ra-the-gioi-656027.html	Sinh viên Bách khoa dùng tiếng Anh làm “tấm vé thông hành” bước ra thế giới
 
 # >>> q31: miễn giảm học phí đối tượng chính sách
-q31	2	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-phi-654580.html	HỌC PHÍ
-q31	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/trien-khai-chinh-sach-chat-luong-gan-voi-kiem-dinh-theo-tieu-chuan-qaa-655492.html	Triển khai chính sách chất lượng gắn với kiểm định theo tiêu chuẩn QAA
-q31	0	https://hust.edu.vn/vi/about/su-mang-tam-nhin-gia-tri-cot-loi-va-chinh-sach-chat-luong.html	Sứ mạng, Tầm nhìn, Giá trị cốt lõi và Chính sách chất lượng
-q31	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/nu-nghien-cuu-sinh-bach-khoa-ha-noi-va-hai-cong-trinh-nghien-cuu-vat-lieu-y-sinh-dot-pha-656032.html	Nữ nghiên cứu sinh Bách khoa Hà Nội và hai công trình nghiên cứu Vật liệu y sinh đột phá
+q31	0	https://sep.hust.edu.vn/thuc-tap-tuyen-dung/dang-tin.html	Đăng tin (miễn phí) | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q31	0	http://congdoan.hust.edu.vn/tin-tuc/chinh-sach/	Tin tức - Công đoàn ĐH BKHN
+q31	0	https://library.hust.edu.vn/vi/node/529	Chính sách phục vụ bạn đọc tại trang Tài nguyên số | Thư viện
+q31	1	https://hust.edu.vn/vi/about/su-mang-tam-nhin-gia-tri-cot-loi-va-chinh-sach-chat-luong.html	Sứ mạng, Tầm nhìn, Giá trị cốt lõi và Chính sách chất lượng
+q31	1	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-phi-654580.html	Hãy đợi...
+q31	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=143	Ban đào tạo - Bộ phận sau đại học
+q31	0	http://dtlt.hust.edu.vn/tuition-announcement/thong-bao-ve-viec-thu-hoc-phi-hoc-ky-20252-cua-sinh-vien-cac-lop-vlvh	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q31	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/khai-giang-lop-boi-duong-ly-luan-chinh-tri-cho-dang-vien-moi-va-doi-tuong-ket-nap-dang-nam-2025-655656.html	Khai giảng lớp bồi dưỡng lý luận chính trị cho Đảng viên mới và đối tượng kết nạp Đảng năm 2025
+q31	0	http://ctt-daotao.hust.edu.vn/DisplayWeb/DisplayMenu?menu=53	404 - File or directory not found.
+q31	0	https://hust.edu.vn/vi/sinh-vien/hoc-bong-hoc-phi/hoc-bong-645445.html	HỌC BỔNG/ SCHOLARSHIPS
+q31	1	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/trien-khai-chinh-sach-chat-luong-gan-voi-kiem-dinh-theo-tieu-chuan-qaa-655492.html	Triển khai chính sách chất lượng gắn với kiểm định theo tiêu chuẩn QAA
+q31	0	https://sep.hust.edu.vn/tin-tuc/thong-bao-chon-doi-tuyen-olympic-vat-ly-sinh-vien-2026-dai-hoc-bach-khoa-ha-noi.html	THÔNG BÁO CHỌN ĐỘI TUYỂN OLYMPIC VẬT LÝ SINH VIÊN 2026 ĐẠI HỌC BÁCH KHOA HÀ NỘI. | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
 q31	0	https://hust.edu.vn/vi/san-pham-khoa-hoc-cong-nghe/	Sản phẩm Khoa học Công nghệ
-q31	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/dai-hoc-bach-khoa-ha-noi-va-so-khoa-hoc-va-cong-nghe-tp-ha-noi-tang-toc-tu-chinh-sach-den-san-pham-656036.html	Đại học Bách khoa Hà Nội và Sở Khoa học và Công nghệ TP. Hà Nội tăng tốc từ chính sách đến sản phẩm
-q31	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/khai-giang-lop-boi-duong-ly-luan-chinh-tri-cho-dang-vien-moi-va-doi-tuong-ket-nap-dang-nam-2025-655656.html	Khai giảng lớp bồi dưỡng lý luận chính trị cho Đảng viên mới và đối tượng kết nạp Đảng năm 2025
-q31	0	https://clc.hust.edu.vn/	CLC - BKHN - Luyện thi TOEIC, VSTEP. Đào tạo tiếng Anh, Đức, Nhật, Hàn
-q31	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-co-nganh-ke-toan-hoc-bang-tieng-anh-lam-chu-ai-va-cong-nghe-moi-trong-3-5-nam-655982.html	Bách khoa có ngành Kế toán học bằng tiếng Anh, làm chủ AI và công nghệ mới trong 3,5 năm
-q31	0	https://hust.edu.vn/vi/su-kien-noi-bat/hop-tac-doi-ngoai-truyen-thong/	Hợp tác đối ngoại - Truyền thông
-q31	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ban-linh-dot-pha-de-chinh-phuc-cac-muc-tieu-655443.html	Bản lĩnh, đột phá để chinh phục các mục tiêu
-q31	0	https://hust.edu.vn/vi/sinh-vien/nghien-cuu-sang-tao-khoi-nghiep/sv-startup-2022-654581.html	SV Startup 2022
-q31	0	https://hust.edu.vn/vi/news/hoat-dong-chung/tap-huan-can-bo-nam-2026-thong-nhat-tam-nhin-cho-giai-doan-phat-trien-moi-655884.html	Tập huấn cán bộ năm 2026: Thống nhất tầm nhìn cho giai đoạn phát triển mới
-q31	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/chi-tiet-55-chuong-trinh-dao-tao-tai-bach-khoa-ha-noi-nhan-hoc-bong-chinh-phu-theo-nghi-dinh-179-655959.html	Chi tiết 55 Chương trình đào tạo tại Bách khoa Hà Nội nhận Học bổng Chính phủ theo Nghị định 179
-q31	0	https://hust.edu.vn/vi/sinh-vien/cuoc-thi-sang-tao-tre/sang-tao-tre-2023-654594.html	SÁNG TẠO TRẺ 2023
-q31	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/ai-day-2026-dai-hoc-bach-khoa-ha-noi-dong-hanh-cung-dat-nuoc-vuon-minh-trong-ky-nguyen-ai-655860.html	AI DAY 2026: Đại học Bách khoa Hà Nội đồng hành cùng đất nước vươn mình trong kỷ nguyên AI
+q31	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/nu-nghien-cuu-sinh-bach-khoa-ha-noi-va-hai-cong-trinh-nghien-cuu-vat-lieu-y-sinh-dot-pha-656032.html	Nữ nghiên cứu sinh Bách khoa Hà Nội và hai công trình nghiên cứu Vật liệu y sinh đột phá
+q31	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ban-linh-dot-pha-de-chinh-phuc-cac-muc-tieu-655443.html	Bản lĩnh, đột phá để chinh phục các mục tiêu
 
 # >>> q32: bảng điểm sinh viên
 q32	1	https://hust.edu.vn/vi/su-kien-noi-bat/thong-bao-chung/cong-bo-bang-phan-vi-tuong-duong-giua-diem-thi-tsa-va-diem-thi-tot-nghiep-thpt-nam-2026-654816.html	CÔNG BỐ BẢNG PHÂN VỊ TƯƠNG ĐƯƠNG GIỮA ĐIỂM THI TSA VÀ ĐIỂM THI TỐT NGHIỆP THPT NĂM 2026
+q32	0	https://svbk.hust.edu.vn/vi/download/Bieu-mau/bang-diem-danh-gia-cong-tac-doan-2025-2026.html	Hãy đợi...
+q32	1	https://svbk.hust.edu.vn/vi/download/Bieu-mau/bang-diem-danh-gia-cong-tac-doan-2024-2025-du-kien-apr-8.html	Bảng-điểm-đánh-giá-công-tác-Đoàn-2024-2025 Dự kiến Apr 8
+q32	1	https://seee.hust.edu.vn/vi/tin-tuc/2026-08-09_diem-chuan-2026-chao-tan-sinh-vien-k71/	Điểm chuẩn tuyển sinh đại học chính quy năm 2026 và lời chào tân sinh viên K71 | Tin tức SEEE
+q32	0	http://dtlt.hust.edu.vn/education/coming-soon	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q32	0	http://dtlt.hust.edu.vn/research	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q32	1	https://sep.hust.edu.vn/sinh-vien/vldc	Thí nghiệm - Điểm thi VLĐC | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q32	0	https://soict.hust.edu.vn/diem-chuan-tham-khao.html	Điểm chuẩn tham khảo - SoICT
+q32	0	http://scls.hust.edu.vn/vi/news/diem-tin/	Hãy đợi...
+q32	1	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/bach-khoa-tang-hang-trong-bang-xep-hang-dai-hoc-tot-nhat-chau-a-2023-654583.html	Bách khoa tăng hạng trong bảng xếp hạng đại học tốt nhất châu Á 2023
+q32	1	https://library.hust.edu.vn/vi/node/224	Điểm sách | Thư viện
 q32	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/kiem-dinh-khong-phai-la-diem-ket-dat-chuan-khong-phai-la-diem-dung-655679.html	"Kiểm định không phải là điểm kết, đạt chuẩn không phải là điểm dừng"
-q32	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-cong-bo-chi-tiet-do-lech-diem-to-hop-xet-tuyen-quy-doi-diem-va-du-bao-diem-chuan-nam-2026-655962.html	Bách khoa Hà Nội công bố chi tiết độ lệch điểm tổ hợp xét tuyển, quy đổi điểm và dự báo điểm chuẩn năm 2026
-q32	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/bach-khoa-tang-hang-trong-bang-xep-hang-dai-hoc-tot-nhat-chau-a-2023-654583.html	Bách khoa tăng hạng trong bảng xếp hạng đại học tốt nhất châu Á 2023
-q32	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/diem-chuan-dai-hoc-bach-khoa-ha-noi-nam-2026-656013.html	Điểm chuẩn Đại học Bách khoa Hà Nội năm 2026
-q32	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/dai-hoc-bach-khoa-ha-noi-xep-thu-315-trong-bang-xep-hang-qs-chau-a-2026-655658.html	Đại học Bách khoa Hà Nội xếp thứ 315 trong bảng xếp hạng QS châu Á 2026
-q32	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/viet-nam-phat-trien-5-dai-hoc-trong-diem-ve-ky-thuat-cong-nghe-655368.html	Việt Nam phát triển 5 đại học trọng điểm về kỹ thuật, công nghệ
-q32	0	https://hust.edu.vn/vi/sinh-vien/	Sinh viên
-q32	0	https://hust.edu.vn/vi/sinh-vien	Sinh viên
-q32	0	https://hust.edu.vn/vi/sinh-vien/cuu-sinh-vien/cuu-sinh-vien-654599.html	Cựu sinh viên
-q32	0	https://hust.edu.vn/vi/trao-doi-sinh-vien/	Trao đổi sinh viên
-q32	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/dai-hoc-bach-khoa-ha-noi-thang-hang-tren-qs-world-university-rankings-2027-655940.html	Đại học Bách khoa Hà Nội thăng hạng trên QS World University Rankings 2027
-q32	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/bach-khoa-ha-noi-nam-trong-nhom-450-dai-hoc-tot-nhat-the-gioi-ve-ky-thuat-va-cong-nghe-654709.html	Bách khoa Hà Nội nằm trong nhóm 450 đại học tốt nhất thế giới về Kỹ thuật và Công nghệ
-q32	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-xep-thu-360-the-gioi-va-so-1-viet-nam-ve-linh-vuc-ky-thuat-va-cong-nghe-623145.html	Bách khoa Hà Nội xếp thứ 360 thế giới và số 1 Việt Nam về lĩnh vực Kỹ thuật và Công nghệ
-q32	0	https://hust.edu.vn/vi/news/cong-tac-dang-va-doan-the/bach-khoa-ha-noi-xep-thu-360-the-gioi-va-so-1-viet-nam-ve-linh-vuc-ky-thuat-va-cong-nghe-623014.html	Bách khoa Hà Nội xếp thứ 360 thế giới và số 1 Việt Nam về lĩnh vực Kỹ thuật và Công nghệ
-q32	0	https://hust.edu.vn/vi/news/hoat-dong-chung/bach-khoa-ha-noi-xep-thu-99-the-gioi-ve-muc-tieu-sdg8-cong-viec-tot-va-tang-truong-kinh-te-626550.html	Bách khoa Hà Nội xếp thứ 99 thế giới về mục tiêu SDG8: công việc tốt và tăng trưởng kinh tế
+q32	1	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/dai-hoc-bach-khoa-ha-noi-xep-thu-315-trong-bang-xep-hang-qs-chau-a-2026-655658.html	Đại học Bách khoa Hà Nội xếp thứ 315 trong bảng xếp hạng QS châu Á 2026
+q32	1	https://fpt.hust.edu.vn/vi/sinh-vien/	Sinh viên
+q32	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-cong-bo-chi-tiet-do-lech-diem-to-hop-xet-tuyen-quy-doi-diem-va-du-bao-diem-chuan-nam-2026-655962.html	Bách khoa Hà Nội công bố chi tiết độ lệch điểm tổ hợp xét tuyển, quy đổi điểm và dự báo điểm chuẩn năm 2026
+q32	0	https://svbk.hust.edu.vn/vi/news/tin-hoat-dong/cuoc-thi-svbk-2026-bach-khoa-70-nam-vuon-xa-302986.html	CUỘC THI SVBK 2026: “Bách khoa – 70 năm vươn xa”
+q32	1	https://svbk.hust.edu.vn/vi/news/thong-bao/truong-dai-hoc-bach-khoa-ha-noi-dieu-chinh-de-an-tuyen-sinh-nam-2021-247459.html	TRƯỜNG ĐẠI HỌC BÁCH KHOA HÀ NỘI ĐIỀU CHỈNH ĐỀ ÁN TUYỂN SINH NĂM 2021
+q32	0	http://congdoan.hust.edu.vn/thong-bao-ve-viec-to-chuc-hoi-thi-tieng-hat-karaoke-cong-doan-nam-2026/	Thông báo về việc tổ chức Hội thi Tiếng hát Karaoke Công đoàn năm 2026
 
 # >>> q33: thông báo tuyển sinh sau đại học
-q33	2	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/thong-bao-tuyen-sinh-trinh-do-thac-si-nam-2023-651873.html	Thông báo tuyển sinh trình độ Thạc sĩ năm 2026
-q33	1	https://hust.edu.vn/vi/su-kien-noi-bat/thong-bao-chung/	Thông báo chung
+q33	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=111&nid=3574	Ban đào tạo - Bộ phận sau đại học
+q33	0	https://sme.hust.edu.vn/vi/tuyen-sinh/tuyen-sinh-sau-dai-hoc/	Hãy đợi...
+q33	0	https://sdh.hust.edu.vn/default.aspx?scid=23&CategoryID=143&nid=2977	Ban đào tạo - Bộ phận sau đại học
+q33	0	https://sdh.hust.edu.vn/Default.aspx?scid=23&CategoryID=111&nid=3554	Ban đào tạo - Bộ phận sau đại học
+q33	1	http://dtlt.hust.edu.vn/admission/thong-bao-tuyen-sinh-dai-hoc-nam-2026	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q33	1	https://fed.hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh
+q33	1	http://dtlt.hust.edu.vn/education/thong-bao-tuyen-sinh-dai-hoc-nam-2026	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q33	1	http://dtlt.hust.edu.vn/admission/%5Bthong-bao%5D-ve-viec-thong-tin-dia-diem-tu-van-xet-tuyen-va-tiep-nhan-ho-so-tuyen-sinh-2023-do-vien-dao-tao-lien-tuc-dai-hoc-bach-khoa-ha-noi-to-chuc	Trung tâm Đào tạo liên tục - Đại học Bách khoa Hà Nội
+q33	0	https://sdh.hust.edu.vn/default.aspx?scid=23&CategoryID=143&nid=3400	Ban đào tạo - Bộ phận sau đại học
+q33	1	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/thong-bao-tuyen-sinh-trinh-do-thac-si-nam-2023-651873.html	Thông báo tuyển sinh trình độ Thạc sĩ năm 2026
 q33	1	https://hust.edu.vn/vi/tuyen-sinh/	Tuyển sinh
-q33	1	https://hust.edu.vn/tuyen-sinh/nganh-tuyen-sinh-14/nganh-tuyen-sinh-58417.html	Các ngành tuyển sinh
-q33	1	https://hust.edu.vn/tuyen-sinh/nganh-tuyen-sinh-10/	Ngành tuyển sinh
-q33	1	https://hust.edu.vn/vi/tuyen-sinh/nganh-tuyen-sinh/	Ngành tuyển sinh
-q33	1	https://hust.edu.vn/tuyen-sinh/de-an-tuyen-sinh/de-an-tuyen-sinh-567354.html	Thông tin tuyển sinh năm 2026
-q33	1	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
-q33	1	https://hust.edu.vn/vi/su-kien-noi-bat/tuyen-sinh-dao-tao-cong-tac-sinh-vien/	Tuyển sinh - Đào tạo - Công tác sinh viên
-q33	0	https://hust.edu.vn/vi/tuyen-sinh/thong-bao-tuyen-sinh/quy-che-tuyen-sinh-567343.html	Quy chế tuyển sinh đại học năm 2026
-q33	1	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/hoan-thien-chuan-dao-tao-sau-dai-hoc-nganh-duong-sat-dap-ung-yeu-cau-phat-trien-cac-du-an-trong-diem-quoc-gia-655966.html	Hoàn thiện chuẩn đào tạo sau đại học ngành đường sắt, đáp ứng yêu cầu phát triển các dự án trọng điểm quốc gia
+q33	0	http://ctt-daotao.hust.edu.vn/DisplayWeb/DisplayListBaiViet?tag=ĐTSĐH	404 - File or directory not found.
+q33	0	https://ctt.hust.edu.vn/DisplayWeb/DisplayListBaiViet?tag=ĐTSĐH	CTT ĐHBKHN
+q33	0	https://ctt.hust.edu.vn/DisplayWeb/DisplayQuyChe?tag=ĐTSĐH	CTT ĐHBKHN
+q33	0	https://ctt.hust.edu.vn/DisplayWeb/DisplayListKeHoach?tag=ĐTSĐH	CTT ĐHBKHN
+q33	1	https://fpt.hust.edu.vn/vi/hoi-thao/thong-bao/	Thông báo
+q33	1	https://svbk.hust.edu.vn/vi/news/thong-bao/	Thông báo
+q33	1	https://sme.hust.edu.vn/vi/news/thong-bao/	Thông báo
+q33	0	https://sdh.hust.edu.vn/Default.aspx?scid=29&CategoryID=144	Ban đào tạo - Bộ phận sau đại học
+q33	1	https://sme.hust.edu.vn/vi/dao-tao/dao-tao-sau-dai-hoc/dao-tao-sau-dai-hoc-27.html	ĐÀO TẠO SAU ĐẠI HỌC
+q33	0	https://fed.hust.edu.vn/vi/dao-tao/cao-hoc/cao-hoc-214986.html	Hãy đợi...
+q33	1	https://hust.edu.vn/vi/su-kien-noi-bat/thong-bao-chung/	Thông báo chung
+q33	1	https://sep.hust.edu.vn/tin-tuc/thong-bao	Thông báo | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
+q33	0	http://smse.hust.edu.vn/vi/dao-tao/dao-tao-sau-dai-hoc/	Hãy đợi...
+q33	1	https://soict.hust.edu.vn/tin-tuc/thong-bao	Thông báo - SoICT
 q33	0	https://hust.edu.vn/vi/su-kien-noi-bat/	Sự kiện nổi bật
-q33	0	https://hust.edu.vn/vi/su-kien-noi-bat/hop-tac-doi-ngoai-truyen-thong/	Hợp tác đối ngoại - Truyền thông
-q33	2	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/	Cao học
-q33	2	https://hust.edu.vn/vi/tuyen-sinh/nghien-cuu-sinh/	Nghiên cứu sinh
-q33	0	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/	Tin tức - học bổng
-q33	2	https://hust.edu.vn/vi/tuyen-sinh/cao-hoc/cac-chuong-trinh-tuyen-sinh-thac-si-nam-2022-651867.html	DANH MỤC CHƯƠNG TRÌNH TUYỂN SINH THẠC SĨ NĂM 2026
-q33	0	https://hust.edu.vn/vi/su-kien-noi-bat/khoa-hoc-cong-nghe-dmst/	Khoa học - Công nghệ - ĐMST
-q33	0	https://ctt-sis.hust.edu.vn/pub/SearchGraduation.aspx	
 
 # >>> q34: hợp tác quốc tế trường đại học
+q34	1	https://sep.hust.edu.vn/hop-tac-doi-ngoai/hop-tac-quoc-te.html	Hợp tác Quốc tế | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
 q34	1	https://hust.edu.vn/vi/news/hoat-dong-chung/nhom-7-truong-ky-thuat-hang-dau-hop-tac-trong-kiem-dinh-quoc-te-654640.html	Nhóm 7 trường kỹ thuật hàng đầu hợp tác trong kiểm định quốc tế
+q34	1	https://sme.hust.edu.vn/vi/hop-tac/hop-tac/hop-tac-quoc-te-17.html	HỢP TÁC QUỐC TẾ
+q34	1	https://act.hust.edu.vn/vi/hop-tac/hop-tac-quoc-te/quoc-te-19.html	Quốc tế
+q34	1	https://fed.hust.edu.vn/vi/hop-tac/gioi-thieu/hop-tac-quoc-te-178201.html	Hợp tác quốc tế
+q34	1	https://qldt.hust.edu.vn/students/hop-tac-doi-ngoai/4517549111771137	Chương trình Đào tạo AI năm 2026 tại ĐH CNĐT Quế Lâm - Cổng thông tin sinh viên - ĐẠI HỌC BÁCH KHOA HÀ NỘI HUST
+q34	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/tang-cuong-hop-tac-nghien-cuu-giua-cac-truong-dai-hoc-ky-thuat-hang-dau-viet-nam-va-dai-hoc-agh-krakow-ba-lan-655995.html	Tăng cường hợp tác nghiên cứu giữa các trường đại học kỹ thuật hàng đầu Việt Nam và Đại học AGH Krakow (Ba Lan)
 q34	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/7-truong-dai-hoc-ky-thuat-hang-dau-thong-nhat-dinh-huong-hop-tac-chien-luoc-655989.html	7 trường đại học kỹ thuật hàng đầu thống nhất định hướng hợp tác chiến lược
-q34	2	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/tang-cuong-hop-tac-nghien-cuu-giua-cac-truong-dai-hoc-ky-thuat-hang-dau-viet-nam-va-dai-hoc-agh-krakow-ba-lan-655995.html	Tăng cường hợp tác nghiên cứu giữa các trường đại học kỹ thuật hàng đầu Việt Nam và Đại học AGH Krakow (Ba Lan)
-q34	2	https://hust.edu.vn/vi/mangluoi/	Mạng lưới quốc tế
-q34	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/ky-niem-moc-son-65-nam-truong-dai-hoc-bach-khoa-ha-noi-thanh-lap-3-truong-597954.html	Kỷ niệm mốc son 65 năm, Trường Đại học Bách khoa Hà Nội thành lập 3 trường
-q34	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/vai-tro-va-su-menh-dan-dat-cua-cac-truong-dai-hoc-656038.html	Vai trò và sứ mệnh dẫn dắt của các trường Đại học
-q34	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/kiem-dinh-aun-qa-va-dinh-huong-chon-truong-dai-hoc-650287.html	Kiểm định AUN-QA và định hướng chọn trường đại học
-q34	2	https://hust.edu.vn/vi/news/hoat-dong-chung/vai-tro-va-su-menh-dan-dat-cua-cac-truong-dai-hoc-656038.html	Vai trò và sứ mệnh dẫn dắt của các trường Đại học
-q34	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/ket-noi-he-sinh-thai-nghien-cuu-mo-thuc-day-hop-tac-quoc-te-dinh-hinh-tuong-lai-5g-advanced-va-6g-656001.html	Kết nối hệ sinh thái nghiên cứu mở, thúc đẩy hợp tác quốc tế định hình tương lai 5G-Advanced và 6G
-q34	0	https://hust.edu.vn/vi/news/hoat-dong-chung/dai-hoc-bach-khoa-ha-noi-ra-mat-truong-kinh-te-va-4-vien-nghien-cuu-655177.html	Đại học Bách khoa Hà Nội ra mắt Trường Kinh tế và 4 Viện nghiên cứu
-q34	0	https://hust.edu.vn/vi/hop-tac-doi-ngoai/tin-tuc-hoc-bong/	Tin tức - học bổng
-q34	0	https://hust.edu.vn/vi/news/hoat-dong-chung/16-chuong-trinh-dao-tao-cua-bach-khoa-ha-noi-duoc-chung-nhan-chat-luong-tieu-chuan-chau-au-654756.html	16 chương trình đào tạo của Bách khoa Hà Nội được chứng nhận chất lượng tiêu chuẩn châu Âu
-q34	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/icpmat-icamt-2026-dien-dan-ket-noi-nghien-cuu-va-doi-moi-sang-tao-trong-linh-vuc-vat-lieu-tien-tien-655998.html	ICPMAT–ICAMT 2026: Diễn đàn kết nối nghiên cứu và đổi mới sáng tạo trong lĩnh vực vật liệu tiên tiến
-q34	2	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/dai-hoc-bach-khoa-ha-noi-thang-hang-tren-qs-world-university-rankings-2027-655940.html	Đại học Bách khoa Hà Nội thăng hạng trên QS World University Rankings 2027
-q34	2	https://hust.edu.vn/vi/news/hoat-dong-chung/bach-khoa-ha-noi-mo-rong-hop-tac-chien-luoc-voi-cac-dai-hoc-nga-655913.html	Bách khoa Hà Nội mở rộng hợp tác chiến lược với các đại học Nga
-q34	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/dai-hoc-bach-khoa-ha-noi-tham-du-ky-niem-30-nam-to-chuc-soi-asia-mo-rong-hop-tac-nghien-cuu-trong-khu-vuc-656039.html	Đại học Bách khoa Hà Nội tham dự Kỷ niệm 30 năm tổ chức SOI Asia: Mở rộng hợp tác nghiên cứu trong khu vực
+q34	1	https://fpt.hust.edu.vn/vi/news/hop-tac/cooperation-299967.html	HOẠT ĐỘNG HỢP TÁC TRONG NƯỚC VÀ QUỐC TẾ
+q34	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/ket-noi-he-sinh-thai-nghien-cuu-mo-thuc-day-hop-tac-quoc-te-dinh-hinh-tuong-lai-5g-advanced-va-6g-656001.html	Kết nối hệ sinh thái nghiên cứu mở, thúc đẩy hợp tác quốc tế định hình tương lai 5G-Advanced và 6G
+q34	1	https://fed.hust.edu.vn/vi/hop-tac/	Hợp tác
+q34	1	https://fed.hust.edu.vn/vi/hop-tac/gioi-thieu/cac-hop-tac-178171.html	Các hợp tác
+q34	1	https://sme.hust.edu.vn/vi/dao-tao/chuong-trinh-quoc-te/	Chương trình quốc tế
+q34	1	https://fed.hust.edu.vn/vi/hop-tac/gioi-thieu/hop-tac-trong-nuoc-178181.html	Hợp tác trong nước
+q34	0	https://sme.hust.edu.vn	Hãy đợi...
+q34	0	https://hust.edu.vn/vi/mangluoi/	Hãy đợi...
+q34	1	https://soict.hust.edu.vn/bo-phan/trung-tam-nghien-cuu-quoc-te-ve-tri-tue-nhan-tao	Trung tâm Nghiên cứu Quốc tế về Trí tuệ nhân tạo - SoICT
+q34	0	https://hust.edu.vn/vi/tuyen-sinh/dai-hoc/	Đại học
+q34	1	https://hust.edu.vn/vi/co-cau-to-chuc-bai-viet/truong-khoa-vien-dao-tao.html	Trường - Khoa quản ngành
 
 # >>> q35: chuyển đổi số trong giáo dục
+q35	2	https://soict.hust.edu.vn/bo-phan/trung-tam-cong-nghe-va-giai-phap-chuyen-doi-so-trong-giao-duc	Trung tâm Công nghệ và Giải pháp Chuyển đổi số trong Giáo dục (EdTech) - SoICT
+q35	0	https://research.hust.edu.vn/soict-centre-for-r-d-on-edtech	
 q35	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/gan-200-chuyen-gia-ban-ve-tac-dong-cua-ai-quan-tri-chuyen-doi-so-den-kinh-doanh-656020.html	Gần 200 chuyên gia bàn về tác động của AI, quản trị chuyển đổi số đến kinh doanh
-q35	1	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/ra-mat-trung-tam-giao-duc-apple-tai-dai-hoc-bach-khoa-ha-noi-656024.html	Ra mắt Trung tâm Giáo dục Apple tại Đại học Bách khoa Hà Nội
-q35	0	https://hust.edu.vn/vi/news/hoat-dong-chung/lanh-dao-nganh-giao-duc-dao-tao-trong-vai-nguoi-dai-bieu-nhan-dan-655838.html	Lãnh đạo ngành giáo dục đào tạo trong vai người đại biểu nhân dân
-q35	2	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-so-ket-6-thang-dau-nam-2026-tang-toc-chuyen-doi-so-huong-toi-ai-first-university-655981.html	Bách khoa Hà Nội sơ kết 6 tháng đầu năm 2026, tăng tốc chuyển đổi số, hướng tới AI-First University
-q35	2	https://hust.edu.vn/vi/news/cong-tac-dang-va-doan-the/bach-khoa-ha-noi-so-ket-6-thang-dau-nam-2026-tang-toc-chuyen-doi-so-huong-toi-ai-first-university-655981.html	Bách khoa Hà Nội sơ kết 6 tháng đầu năm 2026, tăng tốc chuyển đổi số, hướng tới AI-First University
-q35	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-va-so-gd-dt-ha-noi-hop-tac-ve-giao-duc-stem-va-doi-moi-khao-thi-655994.html	Bách khoa Hà Nội và Sở GD&ĐT Hà Nội hợp tác về giáo dục STEM và đổi mới khảo thí
-q35	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/dai-hoc-bach-khoa-ha-noi-kiem-dinh-chat-luong-co-so-giao-duc-theo-tieu-chuan-qaa-vuong-quoc-anh-655758.html	Đại học Bách khoa Hà Nội kiểm định chất lượng cơ sở giáo dục theo tiêu chuẩn QAA (Vương quốc Anh)
-q35	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/khai-mac-kiem-dinh-chat-luong-co-so-giao-duc-theo-tieu-chuan-qaa-vuong-quoc-anh-tai-dai-hoc-bach-khoa-ha-noi-655764.html	Khai mạc kiểm định chất lượng cơ sở giáo dục theo tiêu chuẩn QAA (Vương quốc Anh) tại Đại học Bách khoa Hà Nội
-q35	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/hoi-dong-dai-hoc-hop-ky-thu-5-trong-boi-canh-thay-doi-mo-hinh-quan-tri-giao-duc-dai-hoc-655745.html	Hội đồng đại học họp kỳ thứ 5 trong bối cảnh thay đổi mô hình quản trị giáo dục đại học
-q35	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/tan-sinh-vien-k71-bach-khoa-vuot-gan-2-000-km-theo-duoi-cong-nghe-giao-duc-nguyen-vong-1-trong-tim-655972.html	Tân sinh viên K71 Bách khoa vượt gần 2.000 km theo đuổi “Công nghệ giáo dục - nguyện vọng 1 trong tim”
-q35	0	https://hust.edu.vn/vi/news/kiem-dinh-xep-hang/kiem-dinh-khong-phai-la-diem-ket-dat-chuan-khong-phai-la-diem-dung-655679.html	"Kiểm định không phải là điểm kết, đạt chuẩn không phải là điểm dừng"
-q35	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/7-truong-dai-hoc-ky-thuat-hang-dau-thong-nhat-dinh-huong-hop-tac-chien-luoc-655989.html	7 trường đại học kỹ thuật hàng đầu thống nhất định hướng hợp tác chiến lược
-q35	0	https://hust.edu.vn/vi/news/hoat-dong-chung/nhom-7-truong-ky-thuat-hang-dau-hop-tac-trong-kiem-dinh-quoc-te-654640.html	Nhóm 7 trường kỹ thuật hàng đầu hợp tác trong kiểm định quốc tế
-q35	0	https://hust.edu.vn/vi/news/tin-tuc-su-kien/khat-vong-phat-trien-theo-tinh-than-nghi-quyet-so-71-nq-tw-cua-bo-chinh-tri-655677.html	Khát vọng phát triển theo tinh thần Nghị quyết số 71-NQ/TW của Bộ Chính trị
-q35	0	https://hust.edu.vn/vi/news/hoat-dong-chung/uy-ban-khoa-hoc-cong-nghe-va-moi-truong-ky-ket-chuong-trinh-phoi-hop-cong-tac-voi-dai-hoc-bach-khoa-ha-noi-655979.html	Ủy ban Khoa học, Công nghệ và Môi trường ký kết Chương trình phối hợp công tác với Đại học Bách khoa Hà Nội
-q35	0	https://hust.edu.vn/vi/news/tuyen-sinh-dao-tao-cong-tac-sinh-vien/dai-hoc-bach-khoa-ha-noi-trao-bang-tot-nghiep-cho-56-can-bo-chien-si-cong-an-nhan-dan-655912.html	Đại học Bách khoa Hà Nội trao bằng tốt nghiệp cho 56 cán bộ, chiến sĩ Công an nhân dân
-q35	0	https://hust.edu.vn/vi/news/	Tin Tức
-q35	0	https://hust.edu.vn/news/campus-life/	Tin Tức
-q35	0	https://hust.edu.vn/vi/news/khoa-hoc-cong-nghe-dmst/vai-tro-va-su-menh-dan-dat-cua-cac-truong-dai-hoc-656038.html	Vai trò và sứ mệnh dẫn dắt của các trường Đại học
+q35	1	https://hust.edu.vn/vi/news/tin-tuc-su-kien/bach-khoa-ha-noi-so-ket-6-thang-dau-nam-2026-tang-toc-chuyen-doi-so-huong-toi-ai-first-university-655981.html	Bách khoa Hà Nội sơ kết 6 tháng đầu năm 2026, tăng tốc chuyển đổi số, hướng tới AI-First University
+q35	1	https://soict.hust.edu.vn/triet-ly-giao-duc	Triết lý giáo dục - SoICT
+q35	0	https://sofl.hust.edu.vn/triet-ly-giao-duc	Khoa Ngoại ngữ
+q35	1	https://svbk.hust.edu.vn/khoa-giao-duc-the-chat	Hãy đợi...
+q35	0	https://sme.hust.edu.vn/vi/about/tam-nhin-chien-luoc-va-triet-ly-gd.html	Hãy đợi...
+q35	1	https://fed.hust.edu.vn/vi/bo-mon/bo-mon-khoa-hoc-cong-nghe-giao-duc/gioi-thieu-chung-178327.html	Hãy đợi...
+q35	0	https://fed.hust.edu.vn/	Khoa Khoa học & Công nghệ giáo dục
+q35	1	https://fed.hust.edu.vn/vi/news/tin-tuc/quan-ly-giao-duc-trong-thoi-dai-ai-nganh-hoc-cua-nhung-nguoi-kien-tao-tuong-lai-giao-duc-302825.html	Quản lý giáo dục trong thời đại AI: Ngành học của những người kiến tạo tương lai giáo dục
+q35	1	https://sep.hust.edu.vn/gioi-thieu/triet-ly-giao-duc-su-mang-tam-nhin.html	Triết lý giáo dục, sứ mạng & tầm nhìn | Khoa Vật lý kỹ thuật - Đại học Bách khoa Hà Nội
