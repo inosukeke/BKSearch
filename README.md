@@ -4,6 +4,10 @@ Hệ thống thu thập và tìm kiếm bài viết, tài liệu từ **hust.edu
 (`*.hust.edu.vn`). Thu thập cả trang HTML lẫn tài liệu (PDF/DOC/XLS...), lập chỉ mục toàn
 văn và cho phép tìm kiếm tiếng Việt với xếp hạng theo độ liên quan.
 
+> 🧭 **Thành viên mới bắt đầu ở đây:** [`docs/TONG_QUAN_HE_THONG.md`](docs/TONG_QUAN_HE_THONG.md) —
+> bản đồ thành phần (có gì, làm gì, nằm ở đâu). (Phần mô tả bên dưới là bản Phase 1 cũ; hệ thống
+> hiện tại đã mở rộng — xem `docs/BAO_CAO.md`.)
+
 ## Tính năng
 
 - 🕷️ **Thu thập** trang HTML và link tài liệu từ `*.hust.edu.vn`, tuân thủ `robots.txt`.
