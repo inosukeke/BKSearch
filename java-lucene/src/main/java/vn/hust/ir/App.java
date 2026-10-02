@@ -78,13 +78,17 @@ public class App {
         int maxDepth = arg(a, 2, 3);
         int threads = parseEnvInt("CRAWL_THREADS", 4);
         long delay = parseEnvInt("CRAWL_DELAY_MS", 1000);
-        System.out.printf("Crawl Mercator (maxPages=%d, maxDepth=%d, threads=%d, delay=%dms)...%n",
-                maxPages, maxDepth, threads, delay);
+        String fetcherMode = vn.hust.ir.crawler.Fetchers.modeFromEnv();
+        System.out.printf("Crawl Mercator (maxPages=%d, maxDepth=%d, threads=%d, delay=%dms, fetcher=%s)...%n",
+                maxPages, maxDepth, threads, delay, fetcherMode);
+        vn.hust.ir.crawler.PageFetcher fetcher = vn.hust.ir.crawler.Fetchers.fromEnv();
         try (Db db = new Db(DB_PATH)) {
-            MercatorCrawler.withDefaults(db, delay, threads)
+            MercatorCrawler.withFetcher(db, fetcher, delay, threads)
                     .crawl(List.of("https://hust.edu.vn/"), maxPages, maxDepth);
             System.out.println("Tổng trong DB: " + db.countDocuments()
                     + " bài, " + db.countFiles() + " URL tài liệu, " + db.countLinks() + " cạnh link.");
+        } finally {
+            if (fetcher instanceof AutoCloseable c) { try { c.close(); } catch (Exception ignore) {} }
         }
     }
 
@@ -293,7 +297,8 @@ public class App {
             Cách dùng: java -jar hust-search.jar <lệnh>
               initdb                       tạo SQLite + bảng documents/files
               crawl  [maxPages] [maxDepth] thu thập dữ liệu BFS 1 luồng (mặc định 200, 2)
-              crawl-mt [maxPages] [maxDepth] crawl đa luồng Mercator (S4.1; env CRAWL_THREADS/CRAWL_DELAY_MS)
+              crawl-mt [maxPages] [maxDepth] crawl đa luồng Mercator (S4.1; env CRAWL_THREADS/CRAWL_DELAY_MS;
+                                           CRAWL_FETCHER=jsoup|selenium|auto cho trang JS)
               index  [maxFiles]            đánh chỉ mục Lucene (0=chỉ HTML)
               search <từ khóa...>          tìm kiếm ở dòng lệnh
               serve  [port]                mở web UI Lucene cũ (mặc định 8080)

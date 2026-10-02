@@ -65,6 +65,14 @@
             <version>1.4</version>
         </dependency>
 
+        <!-- Selenium: trình duyệt headless cho trang JavaScript (S4.1 - fetcher động).
+             Selenium 4 có Selenium Manager tự phân giải ChromeDriver (cần Chrome cài sẵn). -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.27.0</version>
+        </dependency>
+
         <!-- SQLite JDBC: lưu metadata (documents, files) -->
         <dependency>
             <groupId>org.xerial</groupId>

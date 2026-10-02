@@ -163,9 +163,12 @@ không đổi tới khi bật. Cần phiên LOCAL: re-crawl (sinh `links`) → m
 - **Frontier 2 lớp** `vn.hust.ir.crawler.Frontier`: khử trùng URL + hàng đợi FIFO/host + min-heap host
   theo `nextAllowedTime`. **Lịch sự (G4):** ≤ 1 request đồng thời/host; giãn cách giữa 2 request bắt
   đầu tới cùng host **≥ delay**. Thread-safe (wait/notify). Unit test đầy đủ.
-- **`PageFetcher`** (interface) tách I/O: `JsoupFetcher` (HTML tĩnh); điểm mở rộng cho fetcher
-  Selenium/headless (trang JS) — chưa hiện thực trên cloud (không test được). Nhờ tách I/O, crawler
-  **unit-test được không cần mạng** (fetcher giả).
+- **`PageFetcher`** (interface) tách I/O: `JsoupFetcher` (HTML tĩnh), `SeleniumFetcher`
+  (headless Chrome, render JS — **ĐÃ hiện thực + verify local**), `HybridFetcher` (auto: Jsoup
+  trước, fallback Selenium khi trang mỏng). Chọn qua env `CRAWL_FETCHER=jsoup|selenium|auto`
+  (`Fetchers.fromEnv`). Selenium 4 tự phân giải ChromeDriver (Selenium Manager) — cần Chrome cài
+  sẵn; `SeleniumFetcher` dùng `ThreadLocal<WebDriver>` vì ChromeDriver không thread-safe. Nhờ tách
+  I/O, crawler **unit-test được không cần mạng** (fetcher giả; `HybridFetcherTest` 6 test).
 - **`MercatorCrawler`**: N worker song song, robots qua `Predicate<String>` (mặc định `RobotsCache`),
   lưu `documents`/`files` + CẠNH `links` (PageRank), ghi SQLite đồng bộ. Lệnh `crawl-mt [maxPages]
   [maxDepth]` (env `CRAWL_THREADS` mặc định 4, `CRAWL_DELAY_MS` mặc định 1000).
@@ -200,4 +203,5 @@ không đổi tới khi bật. Cần phiên LOCAL: re-crawl (sinh `links`) → m
 ---
 **Trạng thái Phase 4 (cloud):** S4.1–S4.4 CODE XONG, `mvn test` xanh (toàn bộ), `pytest` xanh.
 Crawler đa luồng/politeness + Monitoring có unit test; eval/p95/demo cần phiên LOCAL (Docker +
-OpenSearch + model + k6). Fetcher Selenium là điểm mở rộng (chưa hiện thực). Nhánh `feature/phase4`.
+OpenSearch + model + k6). Fetcher Selenium/headless (trang JS) **ĐÃ hiện thực** (`SeleniumFetcher` +
+`HybridFetcher`, env `CRAWL_FETCHER`) + smoke-test local (render hust.edu.vn → 187 cạnh link). Nhánh `feature/phase4`.

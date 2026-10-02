@@ -66,8 +66,10 @@ Hai chế độ cùng tôn trọng robots.txt + lịch sự theo host:
   - **Lịch sự (G4):** mỗi host chỉ do **1 worker** giữ tại một thời điểm (≤ 1 request đồng thời/host);
     sau khi lấy URL của host tại `t`, host bị khoá tới `t + delay` → khoảng cách giữa hai request bắt
     đầu tới cùng host luôn **≥ delay**. robots.txt kiểm qua `RobotsCache`.
-  - **Tách I/O:** interface `PageFetcher` (`JsoupFetcher` cho HTML tĩnh; điểm mở rộng cho fetcher
-    Selenium/headless xử lý trang JS) — nhờ đó crawler **unit-test được không cần mạng** (fetcher giả).
+  - **Tách I/O + trang JS:** interface `PageFetcher` với 3 cài đặt — `JsoupFetcher` (HTML tĩnh),
+    `SeleniumFetcher` (headless Chrome render JavaScript), `HybridFetcher` (auto: Jsoup trước,
+    fallback Selenium khi trang mỏng). Chọn qua `CRAWL_FETCHER=jsoup|selenium|auto`. Nhờ tách I/O,
+    crawler **unit-test được không cần mạng** (fetcher giả); Selenium smoke-test ở phiên local.
   - **Đồ thị liên kết:** ghi cạnh trang→trang + anchor vào bảng `links` (phục vụ PageRank S3.1).
   - Ghi SQLite đồng bộ (một kết nối), mạng chạy song song.
 
@@ -199,5 +201,5 @@ QUERY_EXPAND_SYN=1 java -jar target/hust-search.jar serve-api 7070`.
 - Code + unit test: Phase 0→4 **xanh** (`mvn test`, `pytest`).
 - Cần phiên LOCAL: re-crawl (`crawl-mt`, sinh `links`) → migrate → tạo index → `pagerank`/`dedupe`/
   `classify` → bật cờ, đo eval, chạy k6 (điền số p95 thực), xem Grafana.
-- Nợ: soát qrels thật; mở rộng tập train phân loại từ corpus thật; (tuỳ chọn) fetcher Selenium thật
+- Nợ: soát qrels thật; mở rộng tập train phân loại từ corpus thật; chạy crawl quy mô (`crawl-mt`) để có corpus lớn
   cho trang JS.

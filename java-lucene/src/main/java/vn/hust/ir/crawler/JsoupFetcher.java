@@ -38,6 +38,15 @@ public class JsoupFetcher implements PageFetcher {
             return null; // lỗi tải/không phải HTML -> bỏ qua
         }
 
+        return parse(doc);
+    }
+
+    /**
+     * Trích {@link FetchedPage} từ một DOM Jsoup — DÙNG CHUNG cho mọi fetcher (Jsoup tĩnh và
+     * Selenium động) để nội dung/link/ngày đăng được rút giống hệt nhau. Fetcher Selenium
+     * render JS xong gọi {@code JsoupFetcher.parse(Jsoup.parse(pageSource, url))}.
+     */
+    public static FetchedPage parse(org.jsoup.nodes.Document doc) {
         String title = doc.title().trim();
         String content = doc.body() != null
                 ? doc.body().text().replaceAll("\\s+", " ").trim() : "";

@@ -65,6 +65,12 @@ public class MercatorCrawler {
                 rc::isAllowed, DEFAULT_DOMAIN_SUFFIX, delayMs, threads);
     }
 
+    /** Như {@link #withDefaults} nhưng tiêm fetcher tuỳ chọn (Jsoup/Selenium/hybrid). */
+    public static MercatorCrawler withFetcher(Db db, PageFetcher fetcher, long delayMs, int threads) {
+        RobotsCache rc = new RobotsCache();
+        return new MercatorCrawler(db, fetcher, rc::isAllowed, DEFAULT_DOMAIN_SUFFIX, delayMs, threads);
+    }
+
     /** Crawl từ seeds tới khi đạt {@code maxPages} hoặc frontier cạn. */
     public Stats crawl(List<String> seeds, int maxPages, int maxDepth) throws InterruptedException {
         Frontier frontier = new Frontier(delayMs);
