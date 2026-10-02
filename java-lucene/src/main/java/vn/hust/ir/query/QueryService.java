@@ -278,8 +278,9 @@ public class QueryService {
         </style></head><body>
         <header><h1>🔎 BKSearch — Tìm kiếm tài liệu HUST</h1></header>
         <div class="wrap">
-          <form id="f">
-            <input type="text" id="q" placeholder='Nhập từ khóa... (hỗ trợ "cụm", AND/OR/NOT)' autofocus>
+          <form id="f" autocomplete="off">
+            <input type="text" id="q" name="q_search" placeholder='Nhập từ khóa... (hỗ trợ "cụm", AND/OR/NOT)'
+                   autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" autofocus>
             <select id="ranker" title="Mô hình xếp hạng">
               <option value="bm25">BM25</option>
               <option value="vsm">VSM (tf-idf)</option>
