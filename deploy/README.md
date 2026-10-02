@@ -41,12 +41,30 @@ java -jar target/hust-search.jar migrate --no-pg    # chỉ OpenSearch
 > Chạy lại không nhân đôi (`_id = SHA-256(url)`). Kiểm chứng: `curl localhost:9200/documents/_count`
 > cho số không đổi giữa các lần chạy.
 
+## Monitoring (S4.2) — tuỳ chọn
+```bash
+docker compose --profile monitoring up -d   # thêm Prometheus + Grafana
+```
+- **Prometheus** `:9090` scrape `/metrics` của Query Service (chạy trên host `:7070`).
+- **Grafana** `:3000` (admin/admin) — tự nạp dashboard *"BKSearch — Query Service"* (QPS, p95, in-flight).
+- Đo tải: xem `deploy/loadtest/` (k6, mục tiêu G7 p95 < 200ms từ khóa / < 800ms hybrid+rerank).
+
+## Demo nhanh (S4.4)
+```bash
+docker compose up -d                 # hạ tầng
+bash demo-up.sh                      # build jar → migrate → 3 index → pagerank/dedupe/classify
+cd ../java-lucene && java -jar target/hust-search.jar serve-api 7070
+```
+
 | Dịch vụ | Cổng |
 |---|---|
 | OpenSearch | 9200 |
 | Dashboards | 5601 |
 | PostgreSQL | 5432 |
 | Redis | 6379 |
+| Query Service | 7070 |
+| Prometheus (profile monitoring) | 9090 |
+| Grafana (profile monitoring) | 3000 |
 
 ## Dừng
 ```bash

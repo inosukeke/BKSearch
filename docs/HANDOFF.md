@@ -156,3 +156,48 @@ mvn test   # (trong java-lucene) — 38 test
 mặc định TẮT (PAGERANK_WEIGHT=0, DEDUP_COLLAPSE off, QUERY_EXPAND_* off) nên hành vi Phase 1/2
 không đổi tới khi bật. Cần phiên LOCAL: re-crawl (sinh `links`) → migrate → create-ranker-indices →
 `pagerank` + `dedupe` + `classify` → bật từng cờ, đo eval, tinh chỉnh → merge `feature/phase3` → main.
+
+## PHASE 4 — Crawler quy mô + Monitoring + Load test + Báo cáo (code + unit test trên cloud)
+
+### S4.1 Crawler Mercator đa luồng — CODE XONG (chờ verify local)
+- **Frontier 2 lớp** `vn.hust.ir.crawler.Frontier`: khử trùng URL + hàng đợi FIFO/host + min-heap host
+  theo `nextAllowedTime`. **Lịch sự (G4):** ≤ 1 request đồng thời/host; giãn cách giữa 2 request bắt
+  đầu tới cùng host **≥ delay**. Thread-safe (wait/notify). Unit test đầy đủ.
+- **`PageFetcher`** (interface) tách I/O: `JsoupFetcher` (HTML tĩnh); điểm mở rộng cho fetcher
+  Selenium/headless (trang JS) — chưa hiện thực trên cloud (không test được). Nhờ tách I/O, crawler
+  **unit-test được không cần mạng** (fetcher giả).
+- **`MercatorCrawler`**: N worker song song, robots qua `Predicate<String>` (mặc định `RobotsCache`),
+  lưu `documents`/`files` + CẠNH `links` (PageRank), ghi SQLite đồng bộ. Lệnh `crawl-mt [maxPages]
+  [maxDepth]` (env `CRAWL_THREADS` mặc định 4, `CRAWL_DELAY_MS` mặc định 1000).
+- **Verify LOCAL:** `crawl-mt 1000 3` → kiểm `countLinks() > 0`, log giãn cách/host ≥ delay, không
+  trang ngoài `*.hust.edu.vn`.
+
+### S4.2 Monitoring (Prometheus + Grafana) — CODE XONG
+- **`vn.hust.ir.metrics.Metrics`** (KHÔNG phụ thuộc lib ngoài): counter `bksearch_http_requests_total
+  {path,status}`, histogram `bksearch_http_request_duration_seconds` (p50/p95/p99 bằng
+  `histogram_quantile`), gauge in-flight + uptime; xuất đúng Prometheus text (v0.0.4). Unit test
+  rendering + bucket tích luỹ.
+- **Query Service**: `app.before/after` đo mọi request; endpoint **`GET /metrics`** (không tự đếm
+  scrape). Test tích hợp `QueryServiceMetricsTest` (Javalin thật + OpenSearch giả).
+- **Hạ tầng** `deploy/monitoring/`: `prometheus.yml` (scrape host:7070), Grafana provisioning
+  (datasource + dashboard JSON "BKSearch — Query Service"). Compose profile `monitoring`
+  (Prometheus :9090, Grafana :3000). Bật: `docker compose --profile monitoring up -d`.
+- **Verify LOCAL:** bắn tải → Grafana hiển thị QPS & p95 realtime.
+
+### S4.3 Load test (k6) — CODE XONG
+- `deploy/loadtest/keyword.js` (BM25/VSM, ngưỡng **p95 < 200ms** @ 30–50 QPS) và `hybrid.js`
+  (hybrid+rerank, **p95 < 800ms** @ 20 QPS). Ngưỡng G7 nhúng trong script (k6 thoát ≠ 0 nếu vượt).
+  `deploy/loadtest/README.md` hướng dẫn chạy (+Docker k6).
+- **Verify LOCAL:** chạy k6, ghi số p95 thực (máy/corpus/QPS) vào `docs/BAO_CAO.md` mục 7.
+
+### S4.4 Báo cáo + demo — CODE XONG
+- **`docs/BAO_CAO.md`**: kiến trúc, crawler, chỉ mục/ranker, thuật toán Phase 3, bảng eval + so sánh
+  mô hình, monitoring, load test, demo, quyết định kỹ thuật, việc còn lại. Trung thực về phạm vi
+  verify (unit test cloud vs eval/p95 local).
+- **`deploy/demo-up.sh`**: build jar → apply-mapping + migrate → tạo 3 index → `pagerank`/`dedupe`/
+  `classify`. `deploy/README.md` cập nhật cổng + mục monitoring/demo.
+
+---
+**Trạng thái Phase 4 (cloud):** S4.1–S4.4 CODE XONG, `mvn test` xanh (toàn bộ), `pytest` xanh.
+Crawler đa luồng/politeness + Monitoring có unit test; eval/p95/demo cần phiên LOCAL (Docker +
+OpenSearch + model + k6). Fetcher Selenium là điểm mở rộng (chưa hiện thực). Nhánh `feature/phase4`.
