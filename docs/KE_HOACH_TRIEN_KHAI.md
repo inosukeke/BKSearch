@@ -168,10 +168,14 @@
 - **Ước lượng:** 0.5 p-w.
 
 ### S2.5 — Cross-encoder rerank
-- **Mô tả:** service `POST /rerank` (query + list doc → điểm); áp cho **top-50** sau hybrid.
-- **Ràng buộc (G7):** chỉ rerank top-K (≤50); có cache; đo p95.
+- **Mô tả:** service `POST /rerank` (query + list doc → điểm); áp cho **top-K** (mặc định 30) sau hybrid.
+- **Ràng buộc (G7):** chỉ rerank top-K (mặc định `RERANK_TOP_K=30`); cross-encoder truncate input ở
+  `RERANK_MAX_LENGTH=256` token; có cache LRU; đo p95.
 - **Phụ thuộc:** S2.4.
-- **PASS:** hybrid+rerank nDCG@10 & MAP **> BM25** (có số đo); p95 < 800ms khi rerank top-50.
+- **PASS:** hybrid+rerank nDCG@10 & MAP **> BM25** (có số đo); p95 < 800ms khi rerank top-K.
+  - *Ghi chú (F2):* đo local CPU cho thấy top_k=50 **không truncate** → p95 ~10.3s (VƯỢT); hạ
+    top_k=30 + `RERANK_MAX_LENGTH=256` → p95 ~540ms (ĐẠT). **p95 phụ thuộc phần cứng** (CPU/GPU) —
+    số trên đo trên CPU local, cần đo lại trên môi trường mục tiêu.
 - **Ước lượng:** 1 p-w.
 
 ### S2.6 — PASS tổng Phase 2

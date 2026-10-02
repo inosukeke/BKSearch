@@ -4,6 +4,9 @@ uvicorn[standard]==0.32.1
 pydantic==2.9.2
 # sentence-transformers kéo theo torch (CPU) + transformers; dùng cho model thật.
 sentence-transformers==3.3.1
+# Pin transformers (G1 — tái lập): tránh bản mới đổi hành vi tokenizer/model.
+# 4.46.3 tương thích sentence-transformers 3.3.1 (cùng thời điểm phát hành 11/2024).
+transformers==4.46.3
 # Test (TestClient của Starlette cần httpx).
 pytest==8.3.3
 httpx==0.27.2

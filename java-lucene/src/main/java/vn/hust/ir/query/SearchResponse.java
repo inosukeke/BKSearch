@@ -12,12 +12,26 @@ import java.util.List;
  *   "results": [ { url, title, snippet, score, doc_type, subdomain }, ... ]
  * }
  * </pre>
+ *
+ * <p><b>Ngữ nghĩa {@code total} (F4):</b>
+ * <ul>
+ *   <li>Nhánh TỪ KHÓA thuần (bm25/vsm/lm, không rerank): {@code total} = tổng tài liệu khớp
+ *       trong corpus (OpenSearch {@code hits.total.value}); phân trang đi hết corpus.</li>
+ *   <li>Nhánh ỨNG VIÊN (vector/hybrid, hoặc có rerank): kết quả rút từ một <i>pool ứng viên</i>
+ *       hữu hạn (≤ {@code CANDIDATE_POOL}). {@code total} = {@code total_candidates} = kích thước
+ *       pool (giới hạn phân trang). {@code total_matched} cho biết tổng khớp thực của nhánh từ
+ *       khóa nền (BM25) nếu biết, hoặc {@code -1} khi không áp dụng (vd vector k-NN thuần).</li>
+ * </ul>
  */
 public class SearchResponse {
     public String query;
     public String ranker;
     public String segmented_query;
     public long total;
+    /** Kích thước pool ứng viên mà phân trang duyệt (bằng {@code total} ở nhánh ứng viên; = tổng corpus ở nhánh từ khóa). */
+    public long total_candidates;
+    /** Tổng tài liệu khớp thực của nhánh BM25 nền (chỉ nhánh ứng viên); {@code -1} nếu không áp dụng. */
+    public long total_matched = -1;
     public int page;
     public int page_size;
     public int total_pages;

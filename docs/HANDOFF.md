@@ -42,10 +42,10 @@ mvn test   # (trong java-lucene) — 38 test
 - **qrels thật:** user tự gán nhãn. Đã sinh `eval/qrels/pool-to-label.tsv` (570 cặp). Quy trình: `eval/build_pool.py` → điền `rel` → `eval/pool_to_qrels.py` → `qrels.txt` → `eval/run-eval.sh` (hoàn tất bảng so sánh S1.8).
 - F9 (Phase 0): rà lại stopwords hơi mạnh (người/việc/số/phần/làm) khi tinh chỉnh chất lượng.
 
-## PHASE 2 (semantic hybrid + rerank), S2.1→S2.6 — ĐÃ VERIFY LOCAL
+## PHASE 2 (semantic hybrid + rerank), S2.1→S2.6 — ĐÃ VERIFY LOCAL + MERGE FIX REVIEW
 - S2.1 Embedding Service (Python FastAPI, bi-encoder TV, dims **768** khớp mapping) trong `embedding-service/`.
 - S2.2 sinh embedding khi ingest → ghi field `embedding` (k-NN). S2.3 vector search. S2.4 hybrid RRF. S2.5 cross-encoder rerank.
-- Query Service (`vn.hust.ir.query`) có đủ nhánh `ranker=bm25|vsm|lm|vector|hybrid` + `rerank=1`.
+- Query Service (`vn.hust.ir.query`) có đủ nhánh `ranker=bm25|vsm|lm|vector|hybrid` + `rerank=1`. `mvn test` xanh (58 test).
 - **Chạy thật LOCAL (2026-10-02):** stack `docker compose -p bksearch up -d` (kèm `embedding`, model thật `fake:false`);
   `migrate --embed` → 500/500 doc có vector; 3 index đủ. serve-api + eval-run --embed chạy được cả 4 pipeline.
 
@@ -60,9 +60,25 @@ mvn test   # (trong java-lucene) — 38 test
 
 - **Kết luận trung thực:** trên corpus 500 trang HUST + truy vấn điều hướng, **BM25/VSM mạnh nhất**; vector/hybrid KHÔNG cải thiện,
   cross-encoder rerank còn TỆ hơn hybrid và rất chậm (CPU). → tín hiệu từ khóa đã đủ mạnh; dense+rerank chưa đáng ở quy mô này.
-- **Nợ cần biết cho Phase 3:**
-  - **qrels `eval/qrels/pool-to-label.tsv` (570 nhãn) là bản AI tự gán first-pass** → user cần soát lại; sửa cột `rel` rồi
-    `python eval/pool_to_qrels.py` + eval-run là bảng tự cập nhật. Vài truy vấn gần như không có doc liên quan (q12=0, q04/q10/q11/q32 rất ít).
-  - **BM25 = VSM giống hệt mọi chỉ số** → dấu hiệu lạ từ Phase 1 (scripted tf-idf có thể chưa khác BM25 trên tập này) — nên soi riêng.
-  - Reranker hardcode `max_length=512` (`embedding-service/app/reranker.py:119`) → p95 rerank cao; muốn khớp mục tiêu 256 thì cho qua env.
+- ⚠️ **Lưu ý về bảng p95 trên:** đo KHI reranker còn hardcode `max_length=512` (trước fix F2). Sau khi merge F2
+  (`RERANK_MAX_LENGTH=256` + `RERANK_TOP_K=30`) p95 rerank kỳ vọng giảm mạnh → **cần đo lại** nếu còn quan tâm rerank.
+
+### Chỉnh sau review (Phase 2) — ĐÃ MERGE VÀO MAIN
+- **F1/F6:** `EmbeddingClient` & `OpenSearchClient` ép **HTTP/1.1** (uvicorn/h11 không h2c upgrade;
+  JDK HttpClient mặc định HTTP/2). Có test khẳng định không gửi header `Upgrade: h2c`.
+- **F2 (p95 rerank):** hạ `RERANK_TOP_K` mặc định **50→30**; cross-encoder truncate ở env
+  `RERANK_MAX_LENGTH` (mặc định **256**) — GIẢI QUYẾT nợ "reranker hardcode max_length=512". p95
+  **PHỤ THUỘC PHẦN CỨNG** (CPU/GPU) — đo lại trên môi trường mục tiêu.
+- **F3:** nạp model lazy (`embedder`/`reranker`) + cache LRU bọc `threading.Lock` (FastAPI threadpool).
+- **F4:** nhánh ứng viên (vector/hybrid/rerank) phân trang trong pool hữu hạn → `total`=`total_candidates`
+  (kích thước pool), thêm `total_matched` (tổng khớp thực nhánh BM25 nền; `-1` nếu không áp dụng).
+- **F5:** mỗi hit mang `score_type` (bm25/vsm/lm/cosine/rrf/cross-encoder) → biết thang điểm, tránh
+  so trực tiếp phần đã rerank với phần đuôi.
+- **F7:** pin `transformers==4.46.3` trong `requirements.txt` (G1 tái lập).
+- **F8:** `/healthz` chỉ báo tiến trình sống; thêm `model_loaded` để biết model đã nạp chưa.
+
+### Nợ còn lại cho Phase 3
+- **qrels `eval/qrels/pool-to-label.tsv` (570 nhãn) là bản AI tự gán first-pass** → user cần soát lại; sửa cột `rel` rồi
+  `python eval/pool_to_qrels.py` + eval-run là bảng tự cập nhật. Vài truy vấn gần như không có doc liên quan (q12=0, q04/q10/q11/q32 rất ít).
+- **BM25 = VSM giống hệt mọi chỉ số** → dấu hiệu lạ từ Phase 1 (scripted tf-idf có thể chưa khác BM25 trên tập này) — nên soi riêng.
 - **Hạ tầng Phase 2** (chạy LOCAL): thêm service `embedding` trong compose; key `EMBED_*`/`RERANK_MODEL`/`EMBED_FAKE`/`EMBED_URL` ở `deploy/.env.example`.

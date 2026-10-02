@@ -43,7 +43,7 @@ public class QueryService {
         EmbeddingClient embed = (embedUrl == null || embedUrl.isBlank()) ? null : new EmbeddingClient(embedUrl);
         int rrfK = envInt("RRF_K", RrfFusion.DEFAULT_K);
         int pool = envInt("CANDIDATE_POOL", 100);
-        int rerankTopK = envInt("RERANK_TOP_K", 50);
+        int rerankTopK = envInt("RERANK_TOP_K", SearchEngine.DEFAULT_RERANK_TOP_K);
         this.engine = new SearchEngine(osUrl, baseIndex, new SpellChecker(loadDefaultVocab()),
                 embed, rrfK, pool, rerankTopK);
     }

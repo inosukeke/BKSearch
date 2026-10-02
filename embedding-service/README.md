@@ -20,7 +20,21 @@ nghĩa — Python FastAPI (Phase 2, S2.1 + S2.5).
   Rerank dùng văn bản **thô** (title + content), KHÔNG cần tách từ.
 
 Cấu hình qua env: `EMBED_MODEL`, `EMBED_DIMS`, `EMBED_BATCH`, `EMBED_NORMALIZE`,
-`RERANK_MODEL`, `RERANK_BATCH`, `RERANK_CACHE_SIZE`, `EMBED_FAKE`, `MAX_INPUT_CHARS`.
+`RERANK_MODEL`, `RERANK_BATCH`, `RERANK_CACHE_SIZE`, `RERANK_MAX_LENGTH`, `EMBED_FAKE`,
+`MAX_INPUT_CHARS`.
+
+> **Độ trễ rerank (F2):** cross-encoder truncate cặp (query, doc) ở `RERANK_MAX_LENGTH`
+> (mặc định **256** token) — không truncate thì tài liệu rất dài kéo p95 vọt lên. Số ứng viên
+> rerank do phía Java giới hạn qua `RERANK_TOP_K` (mặc định **30**). Đo local trên CPU:
+> top_k=50 không truncate → p95 ~10.3s; top_k=30 + max_length=256 → p95 ~540ms.
+> **p95 phụ thuộc phần cứng** — cần đo lại trên môi trường mục tiêu.
+
+> **An toàn luồng (F3):** FastAPI chạy handler sync trong threadpool → nhiều luồng gọi song
+> song. Việc nạp model lazy và cache LRU rerank đều được bọc `threading.Lock`.
+
+> **Healthcheck (F8):** `/healthz` chỉ xác nhận tiến trình sống + đọc được cấu hình; model nạp
+> **lazy** nên `status: ok` KHÔNG đảm bảo model đã tải. Field `model_loaded` cho biết đã nạp chưa;
+> lần `/embed` hoặc `/rerank` đầu mới kích hoạt tải (có thể 503 nếu thiếu model/mạng/OOM).
 
 ## Chạy local
 ```bash

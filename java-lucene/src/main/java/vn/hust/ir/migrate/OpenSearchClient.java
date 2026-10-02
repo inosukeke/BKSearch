@@ -24,7 +24,9 @@ public class OpenSearchClient {
 
     public OpenSearchClient(String baseUrl) {
         this.base = baseUrl.replaceAll("/+$", "");
-        this.http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
+        this.http = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_1_1) // F6: nhất quán với EmbeddingClient; tránh h2c upgrade thừa
+                .connectTimeout(Duration.ofSeconds(10)).build();
     }
 
     public boolean indexExists(String index) throws Exception {

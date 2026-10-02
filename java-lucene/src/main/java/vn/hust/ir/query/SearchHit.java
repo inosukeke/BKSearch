@@ -6,6 +6,13 @@ public class SearchHit {
     public String title;
     public String snippet;     // đã highlight (<em>...</em>) nếu có
     public double score;
+    /**
+     * Thang điểm của {@link #score} (F5): "bm25"/"vsm"/"lm" (điểm OpenSearch nhánh từ khóa),
+     * "cosine" (k-NN vector), "rrf" (hợp nhất hybrid), hay "cross-encoder" (đã rerank).
+     * Khi rerank bật, phần đầu mang "cross-encoder" còn phần đuôi giữ thang nền → KHÔNG so
+     * sánh trực tiếp score giữa hai thang; dùng field này để biết nguồn điểm.
+     */
+    public String score_type;
     public String doc_type;
     public String subdomain;
 

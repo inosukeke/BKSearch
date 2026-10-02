@@ -76,4 +76,26 @@ class EmbeddingClientTest {
         EmbeddingClient c = new EmbeddingClient("http://127.0.0.1:1");  // không có server
         assertThrows(EmbeddingClient.EmbeddingException.class, () -> c.embed(List.of("a")));
     }
+
+    @Test
+    void usesHttp11_noH2cUpgradeHeader() throws Exception {
+        // JDK HttpClient mặc định HTTP/2 → với http:// cleartext sẽ thử nâng cấp h2c bằng các header
+        // "Upgrade: h2c" + "HTTP2-Settings". EmbeddingClient ép HTTP/1.1 (F1) → KHÔNG có header này.
+        final String[] upgrade = {null};
+        final String[] h2settings = {null};
+        server = HttpServer.create(new InetSocketAddress("127.0.0.1", 0), 0);
+        server.createContext("/embed", ex -> {
+            upgrade[0] = ex.getRequestHeaders().getFirst("Upgrade");
+            h2settings[0] = ex.getRequestHeaders().getFirst("HTTP2-Settings");
+            byte[] b = "{\"vectors\":[[0.1]],\"dims\":1,\"model\":\"fake\",\"count\":1}"
+                    .getBytes(StandardCharsets.UTF_8);
+            ex.sendResponseHeaders(200, b.length);
+            try (OutputStream os = ex.getResponseBody()) { os.write(b); }
+        });
+        server.start();
+        EmbeddingClient c = new EmbeddingClient("http://127.0.0.1:" + server.getAddress().getPort());
+        c.embed(List.of("a"));
+        assertNull(upgrade[0], "không được gửi Upgrade: h2c (đã ép HTTP/1.1)");
+        assertNull(h2settings[0], "không được gửi HTTP2-Settings (đã ép HTTP/1.1)");
+    }
 }
