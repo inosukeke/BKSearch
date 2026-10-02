@@ -15,6 +15,7 @@ public class SearchHit {
     public String score_type;
     public String doc_type;
     public String subdomain;
+    public String category;    // S3.4 danh mục (Naïve Bayes)
 
     public SearchHit() {}
 

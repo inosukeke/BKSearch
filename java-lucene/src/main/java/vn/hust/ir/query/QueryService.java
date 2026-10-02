@@ -105,13 +105,20 @@ public class QueryService {
 
         boolean rerank = parseBool(ctx.queryParam("rerank"));
 
+        // Bộ lọc facet (S3.4): category/doc_type/subdomain.
+        Map<String, String> filters = new LinkedHashMap<>();
+        for (String f : SearchEngine.FACET_FIELDS) {
+            String v = ctx.queryParam(f);
+            if (v != null && !v.isBlank()) filters.put(f, v.trim());
+        }
+
         if (q == null || q.isBlank()) {
             ctx.json(emptyResponse(q, ranker));
             return;
         }
 
         try {
-            SearchResponse res = engine.search(q, page, size, ranker, rerank);
+            SearchResponse res = engine.search(q, page, size, ranker, rerank, filters);
             ctx.json(res);
         } catch (QueryParseException e) {
             ctx.status(400).json(error("Cú pháp truy vấn sai: " + e.getMessage()));
@@ -215,6 +222,14 @@ public class QueryService {
                border-radius:10px;padding:12px 14px}
           .facets h3{margin:2px 0 8px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
           .facets .ph{color:var(--muted);font-size:13px}
+          .fg{margin-bottom:12px}
+          .fh{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);margin-bottom:4px}
+          .fx{display:flex;justify-content:space-between;gap:6px;align-items:center;cursor:pointer;
+               font-size:13px;color:var(--text);padding:3px 6px;border-radius:6px;text-decoration:none}
+          .fx:hover{background:var(--bg)}
+          .fx.on{background:var(--brand);color:#fff}
+          .fc{color:var(--muted);font-size:12px}
+          .fx.on .fc{color:#f3d6d8}
           .main{flex:1;min-width:0}
           .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
           .dym{background:#fff8e1;border:1px solid #f0e0a0;border-radius:8px;padding:9px 12px;margin-bottom:12px;font-size:14px}
@@ -256,7 +271,7 @@ public class QueryService {
           <div class="layout">
             <aside class="facets">
               <h3>Bộ lọc</h3>
-              <div class="ph">Facet (loại tài liệu, subdomain) — sẽ bổ sung ở Phase 3.</div>
+              <div id="facets"><div class="ph">Nhập truy vấn để xem facet.</div></div>
             </aside>
             <div class="main">
               <div class="dym" id="dym" style="display:none"></div>
@@ -271,21 +286,25 @@ public class QueryService {
               rk=document.getElementById('ranker'),rr=document.getElementById('rerank'),
               meta=document.getElementById('meta'),
               box=document.getElementById('results'),pager=document.getElementById('pager'),
-              dym=document.getElementById('dym');
+              dym=document.getElementById('dym'),facetBox=document.getElementById('facets');
         let curTerm='';
-        f.addEventListener('submit',e=>{e.preventDefault();const t=q.value.trim();if(t){curTerm=t;go(1);}});
+        const FACETS={category:'Danh mục',doc_type:'Loại tài liệu',subdomain:'Tên miền'};
+        let curFilters={};
+        f.addEventListener('submit',e=>{e.preventDefault();const t=q.value.trim();if(t){curTerm=t;curFilters={};go(1);}});
         rk.addEventListener('change',()=>{if(curTerm)go(1);});
         rr.addEventListener('change',()=>{if(curTerm)go(1);});
+        function filterQS(){return Object.entries(curFilters).map(([k,v])=>'&'+k+'='+encodeURIComponent(v)).join('');}
         async function go(page){
           meta.textContent='Đang tìm...';box.innerHTML='';pager.innerHTML='';dym.style.display='none';
           let r;
           try{ r=await fetch('/api/search?q='+encodeURIComponent(curTerm)+'&page='+page
-                 +'&ranker='+rk.value+'&rerank='+(rr.checked?'1':'0')); }
+                 +'&ranker='+rk.value+'&rerank='+(rr.checked?'1':'0')+filterQS()); }
           catch(err){ meta.textContent='Lỗi mạng: '+err; return; }
           const d=await r.json();
           if(d.error){meta.textContent='Lỗi: '+d.error;return;}
           meta.textContent='Tìm thấy '+d.total+' kết quả cho "'+d.query+'" — ranker '+d.ranker.toUpperCase()+
              ' — '+d.took_ms+' ms — trang '+d.page+'/'+(d.total_pages||1);
+          renderFacets(d);
           if(d.suggestion){
             dym.style.display='block';
             dym.innerHTML='Có phải bạn muốn tìm: <a id="dyml">'+esc(d.suggestion)+'</a>?';
@@ -297,12 +316,40 @@ public class QueryService {
               <a class="t" href="${x.url}" target="_blank" rel="noopener">${esc(x.title)||'(không tiêu đề)'}</a>
               <div class="url">${esc(x.url)}</div>
               <div class="snip">${hl(x.snippet)}</div>
-              <div class="tags"><span class="tag">${esc(x.doc_type||'')}</span>
+              <div class="tags">${x.category?'<span class="tag">'+esc(x.category)+'</span>':''}
+                <span class="tag">${esc(x.doc_type||'')}</span>
                 <span class="tag">${esc(x.subdomain||'')}</span>
                 <span class="tag">score ${(x.score||0).toFixed(3)}</span></div>
             </div>`).join('');
           renderPager(d.page,d.total_pages||1);
           window.scrollTo(0,0);
+        }
+        function renderFacets(d){
+          const facets=d.facets||{};let h='';
+          const applied=d.applied_filters||curFilters;
+          if(applied&&Object.keys(applied).length){
+            h+='<div style="margin-bottom:10px"><b style="font-size:12px">Đang lọc:</b><br>';
+            for(const [k,v] of Object.entries(applied)){
+              h+='<a class="fx on" data-clr="'+k+'">✕ '+esc((FACETS[k]||k)+': '+v)+'</a>';
+            }
+            h+='</div>';
+          }
+          for(const field of Object.keys(FACETS)){
+            const b=facets[field];if(!b||!b.length)continue;
+            h+='<div class="fg"><div class="fh">'+FACETS[field]+'</div>';
+            for(const it of b){
+              const sel=(curFilters[field]===it.key);
+              h+='<a class="fx'+(sel?' on':'')+'" data-f="'+field+'" data-v="'+esc(it.key)+'">'
+                +esc(it.key)+' <span class="fc">'+it.count+'</span></a>';
+            }
+            h+='</div>';
+          }
+          facetBox.innerHTML=h||'<div class="ph">Không có facet.</div>';
+          facetBox.querySelectorAll('a[data-f]').forEach(a=>a.onclick=()=>{
+            const fld=a.dataset.f,val=a.dataset.v;
+            if(curFilters[fld]===val)delete curFilters[fld];else curFilters[fld]=val;go(1);
+          });
+          facetBox.querySelectorAll('a[data-clr]').forEach(a=>a.onclick=()=>{delete curFilters[a.dataset.clr];go(1);});
         }
         function renderPager(page,total){
           if(total<=1){pager.innerHTML='';return;}

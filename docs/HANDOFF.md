@@ -133,3 +133,26 @@ mvn test   # (trong java-lucene) — 38 test
   (+`PRF_DOCS`,`PRF_TERMS`) ở `serve-api`/`eval-run`. **Mặc định TẮT** (không đổi hành vi Phase 1/2).
 - **Verify LOCAL:** chạy `eval-run` 2 lần (tắt vs bật) so Recall@10; PASS: recall tăng, precision không
   giảm nhiều. Chỉnh từ điển `vi-synonyms.txt` cho hợp truy vấn thực tế.
+
+### S3.4 Phân loại + facet — CODE XONG (chờ verify local)
+- **Naïve Bayes** đa thức (`vn.hust.ir.classify.NaiveBayes`, Laplace) + `ClassifierMetrics` (P/R/F1,
+  macro-F1, accuracy). `DocumentClassifier` nạp `resources/category-train.tsv` (tập seed 5 lớp:
+  tuyển sinh / đào tạo / thông báo / tin tức / nghiên cứu), tách từ (G3) rồi train.
+- **Lệnh** `classify [osUrl]`: in báo cáo **leave-one-out P/R/F1** trên tập train, rồi gán `category`
+  cho corpus và ghi vào 3 index (bulkUpdate). Migrate chưa ghi category → chạy `classify` sau migrate.
+- **Facet + lọc:** `SearchEngine` (nhánh từ khóa) thêm aggregation `terms` cho category/doc_type/subdomain
+  → `SearchResponse.facets`; tham số lọc `?category=&doc_type=&subdomain=` bọc `bool filter`. UI hiển thị
+  facet bên trái, click để lọc/bỏ lọc, kèm tag danh mục trên mỗi kết quả.
+- **Mapping:** thêm `category` (keyword) vào 3 index.
+
+#### Verify LOCAL S3.4
+1. `migrate` → `create-ranker-indices.sh` → `classify` (xem báo cáo P/R/F1; PASS mong đợi ≥ ~0.8 nếu
+   bổ sung mẫu train từ corpus thật — tập seed hiện nhỏ).
+2. `serve-api` → UI hiện facet Danh mục; click lọc đúng; kiểm phân bố hợp lý.
+3. Tăng chất lượng: thêm dòng vào `resources/category-train.tsv` từ tài liệu thật rồi chạy lại `classify`.
+
+---
+**Trạng thái Phase 3 (cloud):** S3.1–S3.4 CODE XONG, `mvn test` xanh (102 test). Mọi tính năng
+mặc định TẮT (PAGERANK_WEIGHT=0, DEDUP_COLLAPSE off, QUERY_EXPAND_* off) nên hành vi Phase 1/2
+không đổi tới khi bật. Cần phiên LOCAL: re-crawl (sinh `links`) → migrate → create-ranker-indices →
+`pagerank` + `dedupe` + `classify` → bật từng cờ, đo eval, tinh chỉnh → merge `feature/phase3` → main.

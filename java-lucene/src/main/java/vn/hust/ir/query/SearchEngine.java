@@ -58,7 +58,10 @@ public class SearchEngine {
     public static final int DEFAULT_RERANK_TOP_K = 30;
 
     private static final List<String> SOURCE_FIELDS =
-            List.of("url", "title", "content", "doc_type", "subdomain");
+            List.of("url", "title", "content", "doc_type", "subdomain", "category");
+
+    /** Field dùng làm facet (S3.4) — trả aggregation terms cho UI lọc. */
+    static final List<String> FACET_FIELDS = List.of("category", "doc_type", "subdomain");
 
     public SearchEngine(String osUrl, String baseIndex, SpellChecker spell) {
         this(osUrl, baseIndex, spell, null, RrfFusion.DEFAULT_K, 100, DEFAULT_RERANK_TOP_K, 0.0);
@@ -318,23 +321,32 @@ public class SearchEngine {
      */
     public SearchResponse search(String rawQuery, int page, int pageSize, Ranker ranker, boolean rerank)
             throws Exception {
+        return search(rawQuery, page, pageSize, ranker, rerank, Map.of());
+    }
+
+    /** Như trên + bộ lọc facet (S3.4): field → giá trị (category/doc_type/subdomain). */
+    public SearchResponse search(String rawQuery, int page, int pageSize, Ranker ranker, boolean rerank,
+                                 Map<String, String> filters) throws Exception {
         int p = Math.max(1, page);
         int size = Math.max(1, pageSize);
 
         if (!ranker.usesEmbedding() && !rerank) {
-            return keywordSearch(rawQuery, p, size, ranker);
+            return keywordSearch(rawQuery, p, size, ranker, filters);
         }
         return candidateSearch(rawQuery, p, size, ranker, rerank);
     }
 
-    /** Đường đi Phase 1: OpenSearch lo phân trang từ khóa (+ mở rộng truy vấn S3.3). */
-    private SearchResponse keywordSearch(String rawQuery, int p, int size, Ranker ranker) throws Exception {
+    /** Đường đi Phase 1: OpenSearch lo phân trang từ khóa (+ mở rộng S3.3 + facet/lọc S3.4). */
+    private SearchResponse keywordSearch(String rawQuery, int p, int size, Ranker ranker,
+                                         Map<String, String> filters) throws Exception {
         int from = (p - 1) * size;
         String index = ranker.indexName(baseIndex);
 
         long t0 = System.nanoTime();
         List<String> terms = expansionTerms(rawQuery, index);   // đồng nghĩa (+ Rocchio nếu bật)
         ObjectNode body = buildRequest(rawQuery, from, size, terms);
+        applyFilters(body, filters);                            // S3.4: bool filter theo facet
+        addFacetAggs(body);                                     // S3.4: aggregation terms cho facet
         JsonNode res = os.search(index, body);
         long tookMs = (System.nanoTime() - t0) / 1_000_000;
 
@@ -346,6 +358,49 @@ public class SearchEngine {
         out.results = mapHits(res.path("hits").path("hits"));
         label(out.results, ranker.param());  // F5: thang điểm nền (bm25/vsm/lm)
         out.suggestion = spell.suggestQuery(rawQuery).orElse(null);
+        out.facets = parseFacets(res.path("aggregations"));
+        if (filters != null && !filters.isEmpty()) out.applied_filters = new LinkedHashMap<>(filters);
+        return out;
+    }
+
+    /** Bọc query hiện tại trong {@code bool{must: query, filter:[term...]}} theo bộ lọc facet. */
+    private void applyFilters(ObjectNode body, Map<String, String> filters) {
+        if (filters == null || filters.isEmpty()) return;
+        JsonNode current = body.get("query");
+        ObjectNode wrap = mapper.createObjectNode();
+        ObjectNode bool = wrap.putObject("bool");
+        if (current != null) bool.set("must", current);
+        ArrayNode filterArr = bool.putArray("filter");
+        for (var e : filters.entrySet()) {
+            if (!FACET_FIELDS.contains(e.getKey()) || e.getValue() == null || e.getValue().isBlank()) continue;
+            ObjectNode term = mapper.createObjectNode();
+            term.putObject("term").put(e.getKey(), e.getValue());
+            filterArr.add(term);
+        }
+        body.set("query", wrap);
+    }
+
+    private void addFacetAggs(ObjectNode body) {
+        ObjectNode aggs = body.putObject("aggs");
+        for (String f : FACET_FIELDS) {
+            aggs.putObject(f).putObject("terms").put("field", f).put("size", 20);
+        }
+    }
+
+    private java.util.Map<String, List<SearchResponse.FacetBucket>> parseFacets(JsonNode aggregations) {
+        java.util.Map<String, List<SearchResponse.FacetBucket>> out = new LinkedHashMap<>();
+        if (aggregations == null || aggregations.isMissingNode()) return out;
+        for (String f : FACET_FIELDS) {
+            JsonNode buckets = aggregations.path(f).path("buckets");
+            if (!buckets.isArray()) continue;
+            List<SearchResponse.FacetBucket> list = new ArrayList<>();
+            for (JsonNode b : buckets) {
+                String key = b.path("key").asText("");
+                if (key.isBlank()) continue;
+                list.add(new SearchResponse.FacetBucket(key, b.path("doc_count").asLong(0)));
+            }
+            if (!list.isEmpty()) out.put(f, list);
+        }
         return out;
     }
 
@@ -519,6 +574,7 @@ public class SearchEngine {
             hit.title = src.path("title").asText("");
             hit.doc_type = src.path("doc_type").asText("");
             hit.subdomain = src.path("subdomain").asText("");
+            hit.category = src.path("category").asText("");
             hit.score = h.path("_score").asDouble(0);
             String content = src.path("content").asText("");
             hit.snippet = extractSnippet(h, content);

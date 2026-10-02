@@ -38,6 +38,18 @@ public class SearchResponse {
     public long took_ms;
     public String suggestion;          // null nếu không có did-you-mean
     public List<SearchHit> results;
+    /** Facet (S3.4): field → danh sách (giá trị, số lượng). null nếu nhánh không hỗ trợ facet. */
+    public java.util.Map<String, List<FacetBucket>> facets;
+    /** Bộ lọc facet đang áp dụng (field → giá trị), để UI hiển thị/bỏ lọc. */
+    public java.util.Map<String, String> applied_filters;
+
+    /** Một mục facet: giá trị + số tài liệu. */
+    public static class FacetBucket {
+        public String key;
+        public long count;
+        public FacetBucket() {}
+        public FacetBucket(String key, long count) { this.key = key; this.count = count; }
+    }
 
     public static int totalPages(long total, int pageSize) {
         if (pageSize <= 0) return 0;

@@ -41,6 +41,7 @@ public class App {
             case "migrate"  -> migrate(args);
             case "pagerank" -> pagerank(args);
             case "dedupe"   -> dedupe(args);
+            case "classify" -> classify(args);
             case "eval-run" -> evalRun(args);
             default         -> usage();
         }
@@ -220,6 +221,34 @@ public class App {
         catch (Exception e) { return def; }
     }
 
+    /**
+     * S3.4: huấn luyện Naïve Bayes → gán {@code category} cho corpus rồi ghi vào các index.
+     * In báo cáo P/R/F1 (leave-one-out trên tập train). Cú pháp: {@code classify [osUrl]}.
+     */
+    private static void classify(String[] a) throws Exception {
+        String osUrl = (a.length > 1 && !a[1].startsWith("--")) ? a[1]
+                : System.getenv().getOrDefault("OPENSEARCH_URL", "http://localhost:9200");
+        int batch = parseEnvInt("CLASSIFY_BATCH", 500);
+        String idxEnv = System.getenv().getOrDefault("PAGERANK_INDICES",
+                "documents,documents_vsm,documents_lm");
+        List<String> indices = new java.util.ArrayList<>();
+        for (String s : idxEnv.split(",")) if (!s.isBlank()) indices.add(s.trim());
+
+        var analyzer = vn.hust.ir.nlp.VietnameseAnalyzer.get();
+        var report = vn.hust.ir.classify.ClassifyRunner.crossValidate(analyzer);
+        System.out.print("Đánh giá phân lớp (leave-one-out trên tập train):\n" + report.pretty());
+
+        try (Db db = new Db(DB_PATH)) {
+            System.out.printf("Phân lớp %d tài liệu...%n", db.countDocuments());
+            var sum = new vn.hust.ir.classify.ClassifyRunner().run(db,
+                    new vn.hust.ir.migrate.OpenSearchClient(osUrl), analyzer, indices, batch);
+            System.out.printf("Phân lớp xong: %d doc. Phân bố danh mục: %s%n", sum.docs(), sum.distribution());
+            sum.perIndex().forEach((idx, r) ->
+                    System.out.printf("  %-18s ok=%d failed=%d%s%n", idx, r.ok(), r.failed(),
+                            r.firstError() != null ? " err=" + r.firstError() : ""));
+        }
+    }
+
     private static boolean parseEnvBool(String name, boolean def) {
         String v = System.getenv(name);
         if (v == null) return def;
@@ -250,6 +279,7 @@ public class App {
               migrate [osUrl] [batch]      di trú SQLite → OpenSearch (+Postgres); --no-pg bỏ Postgres; --embed sinh vector (EMBED_URL)
               pagerank [osUrl]             tính PageRank + anchor text → cập nhật pagerank/anchor vào index (S3.1)
               dedupe [osUrl]               phát hiện near-duplicate (MinHash/LSH) → ghi dup_group (S3.2)
+              classify [osUrl]             phân lớp Naïve Bayes → ghi category + báo cáo P/R/F1 (S3.4)
               eval-run [osUrl] [index] [k] chạy bộ đánh giá 3 ranker BM25/VSM/LM (S1.7)
             """);
     }

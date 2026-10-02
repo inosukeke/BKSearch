@@ -28,6 +28,7 @@
       "doc_type":     { "type": "keyword" },
       "subdomain":    { "type": "keyword" },
       "dup_group":    { "type": "keyword" },
+      "category":     { "type": "keyword" },
       "lang":         { "type": "keyword" },
       "content_hash": { "type": "keyword" },
       "pagerank":     { "type": "float" },

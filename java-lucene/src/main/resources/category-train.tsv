@@ -1,0 +1,28 @@
+# Tập huấn luyện nhỏ cho phân lớp Naïve Bayes (S3.4). Định dạng: nhãn<TAB>văn bản.
+# Nhãn: tuyển sinh | đào tạo | thông báo | tin tức | nghiên cứu. Dòng # là chú thích.
+# Phiên LOCAL nên bổ sung mẫu từ corpus thật để tăng độ chính xác.
+tuyển sinh	thông báo tuyển sinh đại học chính quy năm 2026 phương thức xét tuyển và chỉ tiêu
+tuyển sinh	hướng dẫn đăng ký xét tuyển điểm chuẩn trúng tuyển ngành kỹ thuật
+tuyển sinh	tuyển sinh sau đại học thạc sĩ tiến sĩ đợt một hồ sơ dự tuyển
+tuyển sinh	đề án tuyển sinh chỉ tiêu tổ hợp môn xét tuyển học bạ và thi đánh giá tư duy
+tuyển sinh	thông tin tuyển sinh chương trình tiên tiến chất lượng cao học phí
+đào tạo	chương trình đào tạo kỹ sư ngành công nghệ thông tin khung chương trình tín chỉ
+đào tạo	lịch học thời khóa biểu đăng ký học phần học kỳ các môn đại cương
+đào tạo	quy chế đào tạo tín chỉ xét tốt nghiệp điều kiện ra trường bằng kỹ sư
+đào tạo	kế hoạch giảng dạy đề cương học phần chuẩn đầu ra ngành đào tạo
+đào tạo	thông tin chương trình đào tạo thạc sĩ định hướng nghiên cứu và ứng dụng
+thông báo	thông báo lịch nghỉ tết nguyên đán toàn trường cán bộ và sinh viên
+thông báo	thông báo đóng học phí học kỳ thời hạn và hình thức nộp
+thông báo	thông báo về việc cấp phát bằng tốt nghiệp cho sinh viên
+thông báo	thông báo lịch thi cuối kỳ và danh sách phòng thi
+thông báo	thông báo tuyển dụng viên chức và lịch phỏng vấn
+tin tức	trường đại học bách khoa hà nội ký kết hợp tác với doanh nghiệp công nghệ
+tin tức	sinh viên đạt giải cao tại cuộc thi sáng tạo khoa học kỹ thuật quốc tế
+tin tức	lễ khai giảng năm học mới và chào đón tân sinh viên khóa mới
+tin tức	đoàn công tác nhà trường thăm và làm việc với đối tác nước ngoài
+tin tức	hội thảo quốc tế về trí tuệ nhân tạo thu hút nhiều nhà khoa học
+nghiên cứu	công bố kết quả nghiên cứu khoa học trên tạp chí quốc tế uy tín
+nghiên cứu	đề tài nghiên cứu cấp nhà nước về vật liệu mới và năng lượng
+nghiên cứu	nhóm nghiên cứu phát triển sản phẩm chuyển giao công nghệ cho doanh nghiệp
+nghiên cứu	phòng thí nghiệm trọng điểm và các hướng nghiên cứu mũi nhọn
+nghiên cứu	seminar khoa học báo cáo kết quả nghiên cứu của nghiên cứu sinh
