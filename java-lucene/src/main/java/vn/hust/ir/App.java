@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import vn.hust.ir.crawler.HustCrawler;
+import vn.hust.ir.crawler.MercatorCrawler;
 import vn.hust.ir.index.LuceneIndexer;
 import vn.hust.ir.schedule.PeriodicRunner;
 import vn.hust.ir.search.LuceneSearcher;
@@ -33,6 +34,7 @@ public class App {
         switch (args[0]) {
             case "initdb"   -> initDb();
             case "crawl"    -> crawl(args);
+            case "crawl-mt" -> crawlMt(args);
             case "index"    -> index(args);
             case "search"   -> search(args);
             case "serve"    -> serve(args);
@@ -63,6 +65,26 @@ public class App {
             new HustCrawler(db).crawl(List.of("https://hust.edu.vn/"), maxPages, maxDepth);
             System.out.println("Tổng trong DB: " + db.countDocuments()
                     + " bài, " + db.countFiles() + " URL tài liệu.");
+        }
+    }
+
+    /**
+     * S4.1: crawl đa luồng kiểu Mercator (frontier 2 lớp + lịch sự theo host).
+     * Cú pháp: {@code crawl-mt [maxPages] [maxDepth]}. Env: {@code CRAWL_THREADS}
+     * (mặc định 4), {@code CRAWL_DELAY_MS} (mặc định 1000 — giãn cách/host).
+     */
+    private static void crawlMt(String[] a) throws Exception {
+        int maxPages = arg(a, 1, 1000);
+        int maxDepth = arg(a, 2, 3);
+        int threads = parseEnvInt("CRAWL_THREADS", 4);
+        long delay = parseEnvInt("CRAWL_DELAY_MS", 1000);
+        System.out.printf("Crawl Mercator (maxPages=%d, maxDepth=%d, threads=%d, delay=%dms)...%n",
+                maxPages, maxDepth, threads, delay);
+        try (Db db = new Db(DB_PATH)) {
+            MercatorCrawler.withDefaults(db, delay, threads)
+                    .crawl(List.of("https://hust.edu.vn/"), maxPages, maxDepth);
+            System.out.println("Tổng trong DB: " + db.countDocuments()
+                    + " bài, " + db.countFiles() + " URL tài liệu, " + db.countLinks() + " cạnh link.");
         }
     }
 
@@ -270,7 +292,8 @@ public class App {
             HUST Search (Java + Lucene + Tika)
             Cách dùng: java -jar hust-search.jar <lệnh>
               initdb                       tạo SQLite + bảng documents/files
-              crawl  [maxPages] [maxDepth] thu thập dữ liệu (mặc định 200, 2)
+              crawl  [maxPages] [maxDepth] thu thập dữ liệu BFS 1 luồng (mặc định 200, 2)
+              crawl-mt [maxPages] [maxDepth] crawl đa luồng Mercator (S4.1; env CRAWL_THREADS/CRAWL_DELAY_MS)
               index  [maxFiles]            đánh chỉ mục Lucene (0=chỉ HTML)
               search <từ khóa...>          tìm kiếm ở dòng lệnh
               serve  [port]                mở web UI Lucene cũ (mặc định 8080)
