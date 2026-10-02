@@ -120,12 +120,36 @@ Bộ đánh giá `eval-run` tính **nDCG@k, MAP, Recall** trên bộ truy vấn 
 \* Đo khi reranker còn `max_length=512` (trước fix F2 `RERANK_MAX_LENGTH=256` + `RERANK_TOP_K=30`);
 cần đo lại sau fix.
 
-**Kết luận trung thực:** trên corpus 500 trang + truy vấn điều hướng, **BM25/VSM mạnh nhất**;
-vector/hybrid không cải thiện và cross-encoder rerank còn tệ hơn + rất chậm trên CPU → tín hiệu
-từ khóa đã đủ mạnh ở quy mô này. (Dense/rerank kỳ vọng có giá trị hơn ở corpus lớn + truy vấn ngữ nghĩa.)
+### Kết quả trên corpus LỚN (2337 trang, k=10, 35 truy vấn) — đo LOCAL 2026-10-02
 
-> qrels hiện là bản AI gán first-pass (570 nhãn, `eval/qrels/pool-to-label.tsv`) → cần người soát lại;
-> sửa cột `rel` rồi `pool_to_qrels.py` + `eval-run` để cập nhật bảng.
+| Cấu hình | nDCG@10 | MAP | p95 |
+|---|---|---|---|
+| **VSM (tf-idf)** | **0.325** | **0.152** | ~35 ms |
+| LM (Dirichlet) | 0.227 | 0.115 | ~37 ms |
+| BM25 | 0.221 | 0.087 | ~28 ms |
+| Vector (k-NN) | 0.083 | 0.033 | ~186 ms |
+| Hybrid (RRF) | 0.173 | 0.077 | ~323 ms |
+| Hybrid + rerank | 0.021 | 0.007 | ~6000 ms |
+
+- **nDCG tuyệt đối thấp hơn bảng 500 trang** vì corpus tăng 4.7× nhưng **qrels vẫn gắn corpus cũ** →
+  nhiều doc mới chưa gán nhãn làm nhiễu (relative comparison vẫn hợp lệ). Cần gán nhãn lại qrels cho
+  corpus 2337 để có số tuyệt đối đúng.
+- **VSM giờ tách biệt BM25 rõ** (0.325 vs 0.221) — dấu hiệu "BM25=VSM giống hệt" ở corpus 500 đã biến mất.
+- **Kết luận giữ nguyên + mạnh hơn:** tín hiệu từ khóa (VSM) thắng áp đảo; vector/hybrid/rerank đều kém,
+  rerank tệ nhất (0.021) + p95 ~6s (vượt G7). Keyword p95 **<40ms** (đạt G7 <200ms).
+- **PageRank (S3.1): KHÔNG cải thiện.** Quét `PAGERANK_WEIGHT` ∈ {0,100,1k,5k,20k,100k} → nDCG **giảm đơn
+  điệu** khi tăng trọng số (vsm 0.325→0.302). → giữ mặc định **`PAGERANK_WEIGHT=0` (tắt)**; trên corpus
+  điều hướng + qrels từ khóa, tín hiệu liên kết không thắng tín hiệu nội dung.
+
+> qrels hiện là bản AI gán first-pass gắn **corpus 500** → sau khi crawl 2337 cần sinh lại pool
+> (`build_pool.py`) + gán nhãn + `pool_to_qrels.py` để bảng tuyệt đối có nghĩa.
+
+### Phân loại (S3.4) trên corpus thật
+Seed mở rộng **25 → 125 mẫu** (thêm 100 doc thật, gán nhãn theo URL-heuristic `/tuyen-sinh`, `/dao-tao`,
+`/nghien-cuu`, `/thong-bao`, `/news`). Leave-one-out trên seed thật: **accuracy 0.584, macroF1 0.575**
+(thấp hơn con số 0.628 đo trên 25 câu mẫu "sạch" — KHÔNG so trực tiếp được; đây là số trên dữ liệu thật
+nên thực tế hơn, nhưng nhãn URL-heuristic có nhiễu). Gán `category` cho 2309/2337 doc. **Muốn cao hơn:
+người gán nhãn tay tập train.**
 
 ---
 
