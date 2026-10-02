@@ -41,7 +41,9 @@ public class EmbeddingClient {
 
     public EmbeddingClient(String baseUrl, Duration requestTimeout) {
         this.base = baseUrl.replaceAll("/+$", "");
-        this.http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
+        this.http = HttpClient.newBuilder()
+                .version(HttpClient.Version.HTTP_1_1) // uvicorn/h11 không hỗ trợ h2c upgrade (mặc định HTTP/2 của JDK)
+                .connectTimeout(Duration.ofSeconds(10)).build();
         this.requestTimeout = requestTimeout;
     }
 
