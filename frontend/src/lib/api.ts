@@ -42,9 +42,18 @@ export async function search(p: SearchParams): Promise<SearchResponse> {
     // Backend không chạy → rơi về mock để demo vẫn mượt.
     return delay(mockSearch(q, page, size));
   }
-  const data = await res.json().catch(() => ({}));
+  let data: unknown = null;
+  try {
+    data = await res.json();
+  } catch {
+    data = null;
+  }
   if (!res.ok) {
-    throw new ApiError((data as { error?: string }).error || `Lỗi máy chủ (${res.status})`, res.status);
+    const err = (data as { error?: string } | null)?.error;
+    // Lỗi THẬT từ Query Service (trả JSON {error}) → hiện trạng thái lỗi cho người dùng.
+    if (typeof err === "string") throw new ApiError(err, res.status);
+    // Không phải lỗi API (proxy báo backend chưa chạy, body không phải JSON) → fallback mock.
+    return delay(mockSearch(q, page, size));
   }
   return data as SearchResponse;
 }
